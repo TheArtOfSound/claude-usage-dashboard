@@ -18,8 +18,8 @@ DATA_DIR = Path(__file__).parent.parent / "data"
 CLAUDE_DIR = Path.home() / ".claude"
 
 # ── Machine labels ──
-MACHINE1_LABEL = "Bryan"
-MACHINE2_LABEL = "Brandyn"
+MACHINE1_LABEL = "Bryan (Mac)"
+MACHINE2_LABEL = "Bryan (Laptop)"
 
 # ── Keyword lists for content-based project detection ──
 EGC_KEYWORDS = ['egcstudy', 'egcrate', 'thegate', 'egc', 'expression-gated',
