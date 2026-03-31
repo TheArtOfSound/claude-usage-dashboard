@@ -271,9 +271,9 @@ footer a { color: var(--blue); text-decoration: none; }
     <tbody>
       <tr style="border-bottom:1px solid #1e2d40;background:rgba(37,99,235,0.08);">
         <td style="padding:12px 8px;color:#60a5fa;font-weight:600;">Bryan Leonard</td>
-        <td style="padding:12px 8px;color:#f5f0e8;">9.3B</td>
-        <td style="padding:12px 8px;color:#f5f0e8;">33 days</td>
-        <td style="padding:12px 8px;color:#f5f0e8;">$6,859 est. API equivalent</td>
+        <td style="padding:12px 8px;color:#f5f0e8;">10.5B</td>
+        <td style="padding:12px 8px;color:#f5f0e8;">44 days</td>
+        <td style="padding:12px 8px;color:#f5f0e8;">$7,590 est. API equivalent</td>
         <td style="padding:12px 8px;"><a href="https://github.com/ryoppippi/ccusage" target="_blank" style="color:#60a5fa;font-size:11px;">ccusage data</a></td>
       </tr>
       <tr style="border-bottom:1px solid #1e2d40;">
@@ -308,7 +308,7 @@ footer a { color: var(--blue); text-decoration: none; }
   </table>
 
   <div style="margin-top:20px;padding:16px;background:rgba(200,168,75,0.08);border:1px solid rgba(200,168,75,0.2);border-radius:8px;font-size:12px;color:#c8a84b;line-height:1.7;">
-    <strong>Key distinction:</strong> All dollar amounts are <em>estimated API-equivalent costs</em> calculated by applying Anthropic's published per-token pricing to locally logged token counts. Bryan uses the API directly (not a Max subscription). The ksred comparison — the closest publicly documented case — used a $200/month Max subscription. Bryan's estimated $6,859 represents what this volume of tokens costs at published API rates. Bryan's rate is approximately 8x faster token consumption.
+    <strong>Key distinction:</strong> All dollar amounts are <em>estimated API-equivalent costs</em> calculated by applying Anthropic's published per-token pricing to locally logged token counts. Bryan uses the API directly (not a Max subscription). The ksred comparison — the closest publicly documented case — used a $200/month Max subscription. Bryan's estimated $7,590 represents what this volume of tokens costs at published API rates. Bryan's rate is approximately 8x faster token consumption.
   </div>
 </div>
 
@@ -529,7 +529,7 @@ function renderStats() {
         { icon: '&#128176;', value: '$' + (t.peak_day_cost || 0).toLocaleString(), label: 'Peak Day Cost', color: 'var(--red)' },
         { icon: '&#129302;', value: Object.keys(t.model_totals || {}).length, label: 'Models Used', color: 'var(--purple)' },
         { icon: '&#128202;', value: (t.tokens_per_dollar || 0).toLocaleString(), label: 'Tokens per Dollar', color: 'var(--blue)' },
-        { icon: '&#127919;', value: '9.3B', label: 'Total Tokens', color: 'var(--blue)' },
+        { icon: '&#127919;', value: ((t.tokens || 0) / 1e9).toFixed(1) + 'B', label: 'Total Tokens', color: 'var(--blue)' },
     ];
     const container = document.getElementById('stats-cards');
     container.innerHTML = cards.map(c => `
