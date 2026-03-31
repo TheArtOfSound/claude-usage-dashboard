@@ -88,9 +88,25 @@ footer a { color: var(--blue); text-decoration: none; }
     .chart-row { grid-template-columns: 1fr; }
     .stats-row { grid-template-columns: repeat(2, 1fr); }
 }
+.top-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 16px 32px; background: rgba(10,10,10,0.8); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+.top-nav .nav-brand { font-size: 14px; font-weight: 700; color: var(--text2); letter-spacing: 0.05em; }
+.top-nav .nav-brand a { color: var(--text2); text-decoration: none; }
+.top-nav .nav-brand a:hover { color: var(--blue); }
+.top-nav .nav-links { display: flex; gap: 24px; }
+.top-nav .nav-links a { color: var(--text3); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+.top-nav .nav-links a:hover { color: var(--text); }
 </style>
 </head>
 <body>
+
+<nav class="top-nav">
+    <div class="nav-brand"><a href="https://theartofsound.github.io/portfolio/">Bryan Leonard</a></div>
+    <div class="nav-links">
+        <a href="https://theartofsound.github.io/portfolio/">Portfolio</a>
+        <a href="https://theartofsound.github.io/portfolio/#work">Work</a>
+        <a href="https://github.com/TheArtOfSound/claude-usage-dashboard">Source</a>
+    </div>
+</nav>
 
 <!-- Hero with 3D Globe -->
 <section class="hero">
@@ -220,8 +236,8 @@ footer a { color: var(--blue); text-decoration: none; }
 
 <footer>
     <div class="container">
-        <p>Claude Code Usage Dashboard — Bryan Leonard — <a href="https://github.com/TheArtOfSound">@TheArtOfSound</a></p>
-        <p style="margin-top:8px;">Generated with <a href="https://github.com/ryoppippi/ccusage">ccusage</a> — Last updated: <span id="last-updated">—</span></p>
+        <p>Claude Code Usage Dashboard — <a href="https://theartofsound.github.io/portfolio/">Bryan Leonard</a> — <a href="https://github.com/TheArtOfSound">@TheArtOfSound</a></p>
+        <p style="margin-top:8px;"><a href="https://theartofsound.github.io/portfolio/">Portfolio</a> · <a href="https://theartofsound.github.io/portfolio/#work">All Projects</a> · Generated with <a href="https://github.com/ryoppippi/ccusage">ccusage</a> — Last updated: <span id="last-updated">—</span></p>
     </div>
 </footer>
 
