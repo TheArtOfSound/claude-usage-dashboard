@@ -15,7 +15,9 @@ A 3D animated, immersive data visualization of my Claude Code token usage and co
 | Daily burn rate | $215/day |
 | Annual projection | $78,314/year |
 | vs Max plan ($200/mo) | **32x** |
-| Estimated percentile | **Top 0.1%** |
+| vs average dev ($6/day) | **19x** |
+| vs 90th percentile ($12/day) | **9.5x** |
+| Estimated percentile | **Top 0.01–0.1%** |
 
 ## Why I Built This
 

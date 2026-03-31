@@ -112,7 +112,7 @@ footer a { color: var(--blue); text-decoration: none; }
 <section class="hero">
     <canvas id="globe-canvas"></canvas>
     <div class="hero-content">
-        <div class="hero-label">Estimated Top 0.1% of Claude Users by Token Consumption</div>
+        <div class="hero-label">Estimated Top 0.01–0.1% of Claude Users by Token Consumption</div>
         <h1 class="hero-title" id="hero-title">9,302,790,171</h1>
         <p class="hero-subtitle">Total tokens processed by Bryan Leonard — <span id="hero-multiple" style="color:var(--red);font-weight:700;">32x</span> the Max plan</p>
         <div class="hero-stats">
@@ -229,8 +229,30 @@ footer a { color: var(--blue); text-decoration: none; }
 <div class="container">
     <div class="section">
         <h2 class="section-title">How This Compares</h2>
-        <p class="section-sub">Bryan's usage vs typical Claude Code users</p>
+        <p class="section-sub">Bryan's usage vs typical Claude Code users — sourced from public data</p>
         <div class="chart-container" id="comparison"></div>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:16px; margin-top:24px;">
+            <div class="stat-card">
+                <div class="value" style="color:var(--red); font-size:32px;">19x</div>
+                <div class="label">vs average Claude Code developer ($6/day)</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" style="color:var(--gold); font-size:32px;">9.5x</div>
+                <div class="label">vs 90th percentile user ($12/day)</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" style="color:var(--purple); font-size:32px;">5x</div>
+                <div class="label">intensity vs closest public comparable (10B tokens / 8 months)</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" style="color:var(--blue); font-size:32px;">~$41K/yr</div>
+                <div class="label">projected spend — equivalent to a small business API customer</div>
+            </div>
+        </div>
+        <p style="color:var(--text3); font-size:12px; margin-top:16px; line-height:1.6;">
+            Sources: Anthropic cost docs, Claude pricing pages, Backlinko (18.9M MAU), DemandSage, Towards AI, The Register (rate limit policy changes).
+            90% of Claude Code developers stay under $12/day. The average is $6/day. Bryan averages $215/day.
+        </p>
     </div>
 </div>
 
