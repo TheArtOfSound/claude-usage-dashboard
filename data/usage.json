@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-31T13:25:08.635976Z",
+  "generated_at": "2026-03-31T13:41:02.313291Z",
   "daily": [
     {
       "date": "2026-02-27",
@@ -901,7 +901,7 @@
         }
       ],
       "projectPath": "Unknown Project",
-      "project": "Unknown Project"
+      "project": "Codey / Nous"
     },
     {
       "sessionId": "-Users-bry-BRYAN",
@@ -926,7 +926,7 @@
         }
       ],
       "projectPath": "Unknown Project",
-      "project": "Unknown Project"
+      "project": "BRYAN (Personal)"
     },
     {
       "sessionId": "-Users-bry-Documents-Latent",
@@ -951,7 +951,7 @@
         }
       ],
       "projectPath": "Unknown Project",
-      "project": "Unknown Project"
+      "project": "Latent"
     },
     {
       "sessionId": "subagents",
@@ -976,7 +976,7 @@
         }
       ],
       "projectPath": "-Users-bry-BRYAN/86adbd17-4cb6-49dd-b00a-1e31f5a143d9",
-      "project": "86adbd17-4cb6-49dd-b00a-1e31f5a143d9"
+      "project": "BRYAN (Personal) (subagent)"
     },
     {
       "sessionId": "-Users-bry-Documents-Vol-bot--claude-worktrees-tender-dhawan",
@@ -1001,7 +1001,7 @@
         }
       ],
       "projectPath": "Unknown Project",
-      "project": "Unknown Project"
+      "project": "Vol-bot (worktree)"
     },
     {
       "sessionId": "subagents",
@@ -1035,7 +1035,7 @@
         }
       ],
       "projectPath": "-Users-bry-nous/bf62cb70-84fc-4a90-9f4b-1a3613803e5d",
-      "project": "Codey / Nous"
+      "project": "Codey / Nous (subagent)"
     },
     {
       "sessionId": "subagents",
@@ -1069,7 +1069,7 @@
         }
       ],
       "projectPath": "-Users-bry-nous/817b45fc-29a6-4e65-a2c4-703e231ee215",
-      "project": "Codey / Nous"
+      "project": "Codey / Nous (subagent)"
     },
     {
       "sessionId": "subagents",
@@ -1112,7 +1112,7 @@
         }
       ],
       "projectPath": "-Users-bry-Documents-Latent/5fa64d2b-4891-4c7f-82bf-6ba8295fee73",
-      "project": "5fa64d2b-4891-4c7f-82bf-6ba8295fee73"
+      "project": "Latent (subagent)"
     },
     {
       "sessionId": "subagents",
@@ -1146,7 +1146,7 @@
         }
       ],
       "projectPath": "-Users-bry-nous/0c280bb5-0557-41a0-914e-7890b9f0fc48",
-      "project": "Codey / Nous"
+      "project": "Codey / Nous (subagent)"
     },
     {
       "sessionId": "-Users-bry-roro",
@@ -1171,7 +1171,7 @@
         }
       ],
       "projectPath": "Unknown Project",
-      "project": "Unknown Project"
+      "project": "Roro"
     },
     {
       "sessionId": "subagents",
@@ -1205,7 +1205,7 @@
         }
       ],
       "projectPath": "-Users-bry-roro/95efa4ac-1b29-4a56-85fc-2c5f0fdc0760",
-      "project": "Roro"
+      "project": "Roro (subagent)"
     },
     {
       "sessionId": "-Users-bry-armo",
@@ -1230,7 +1230,7 @@
         }
       ],
       "projectPath": "Unknown Project",
-      "project": "Unknown Project"
+      "project": "Armo"
     },
     {
       "sessionId": "subagents",
@@ -1264,7 +1264,7 @@
         }
       ],
       "projectPath": "-Users-bry-armo/1b9477a7-364d-469a-ac4c-63cd485f1f73",
-      "project": "Armo"
+      "project": "Armo (subagent)"
     },
     {
       "sessionId": "-Users-bry-Documents-Latent--claude-worktrees-brave-rubin",
@@ -1289,7 +1289,7 @@
         }
       ],
       "projectPath": "Unknown Project",
-      "project": "Unknown Project"
+      "project": "Latent (worktree)"
     },
     {
       "sessionId": "subagents",
@@ -1314,7 +1314,7 @@
         }
       ],
       "projectPath": "-Users-bry-Documents-Latent--claude-worktrees-brave-rubin/52908ba1-8675-4eb9-9383-b9c3abb0a250",
-      "project": "52908ba1-8675-4eb9-9383-b9c3abb0a250"
+      "project": "Latent (subagent)"
     },
     {
       "sessionId": "subagents",
@@ -1348,7 +1348,7 @@
         }
       ],
       "projectPath": "-Users-bry-Documents-Vol-bot--claude-worktrees-tender-dhawan/6c996a15-0c34-4d33-a50c-7632d8511de0",
-      "project": "6c996a15-0c34-4d33-a50c-7632d8511de0"
+      "project": "Vol-bot (subagent)"
     },
     {
       "sessionId": "-Users-bry-Documents-New-project",
@@ -1373,7 +1373,7 @@
         }
       ],
       "projectPath": "Unknown Project",
-      "project": "Unknown Project"
+      "project": "New Project"
     },
     {
       "sessionId": "-Users-bry-Documents-New-project--claude-worktrees-exciting-cannon",
@@ -1398,7 +1398,7 @@
         }
       ],
       "projectPath": "Unknown Project",
-      "project": "Unknown Project"
+      "project": "New Project (worktree)"
     },
     {
       "sessionId": "subagents",
@@ -1423,7 +1423,7 @@
         }
       ],
       "projectPath": "-Users-bry-Documents-New-project--claude-worktrees-exciting-cannon/b00e2511-2952-4353-906d-cc6452f74e3f",
-      "project": "b00e2511-2952-4353-906d-cc6452f74e3f"
+      "project": "New Project (subagent)"
     },
     {
       "sessionId": "subagents",
@@ -1448,7 +1448,7 @@
         }
       ],
       "projectPath": "-Users-bry-Documents-Latent/57d08b07-d0fe-4d65-b9a2-650fefbbee83",
-      "project": "57d08b07-d0fe-4d65-b9a2-650fefbbee83"
+      "project": "Latent (subagent)"
     },
     {
       "sessionId": "-Users-bry-Documents-Vol-bot",
@@ -1473,7 +1473,7 @@
         }
       ],
       "projectPath": "Unknown Project",
-      "project": "Unknown Project"
+      "project": "Vol-bot"
     },
     {
       "sessionId": "subagents",
@@ -1507,7 +1507,7 @@
         }
       ],
       "projectPath": "-Users-bry-Documents-New-project/4680b46c-6726-43fc-9456-aa7831aecb43",
-      "project": "4680b46c-6726-43fc-9456-aa7831aecb43"
+      "project": "New Project (subagent)"
     },
     {
       "sessionId": "-Users-bry-Documents-Vol-bot--claude-worktrees-peaceful-pike",
@@ -1532,7 +1532,7 @@
         }
       ],
       "projectPath": "Unknown Project",
-      "project": "Unknown Project"
+      "project": "Vol-bot (worktree)"
     },
     {
       "sessionId": "subagents",
@@ -1566,7 +1566,7 @@
         }
       ],
       "projectPath": "-Users-bry-Documents-Vol-bot--claude-worktrees-peaceful-pike/4d5ec621-5ac2-4a23-b3e2-559e58967c93",
-      "project": "4d5ec621-5ac2-4a23-b3e2-559e58967c93"
+      "project": "Vol-bot (subagent)"
     },
     {
       "sessionId": "-Users-bry-capitalcore",
@@ -1591,7 +1591,7 @@
         }
       ],
       "projectPath": "Unknown Project",
-      "project": "Unknown Project"
+      "project": "CapitalCore"
     },
     {
       "sessionId": "subagents",
@@ -1616,7 +1616,7 @@
         }
       ],
       "projectPath": "-Users-bry-capitalcore/4cab43af-c0da-46f5-ab7d-4aec0215ba40",
-      "project": "4cab43af-c0da-46f5-ab7d-4aec0215ba40"
+      "project": "CapitalCore (subagent)"
     },
     {
       "sessionId": "-Users-bry-ani",
@@ -1641,7 +1641,7 @@
         }
       ],
       "projectPath": "Unknown Project",
-      "project": "Unknown Project"
+      "project": "Ani"
     },
     {
       "sessionId": "subagents",
@@ -1675,7 +1675,7 @@
         }
       ],
       "projectPath": "-Users-bry-Documents-Vol-bot/11fcdf56-e365-4497-8370-7e74c95dcee3",
-      "project": "11fcdf56-e365-4497-8370-7e74c95dcee3"
+      "project": "Vol-bot (subagent)"
     },
     {
       "sessionId": "-Users-bry-Documents-Vol-bot--claude-worktrees-elegant-solomon",
@@ -1700,7 +1700,7 @@
         }
       ],
       "projectPath": "Unknown Project",
-      "project": "Unknown Project"
+      "project": "Vol-bot (worktree)"
     },
     {
       "sessionId": "-Users-bry-Liecnesing-dahbaord-",
@@ -1725,7 +1725,7 @@
         }
       ],
       "projectPath": "Unknown Project",
-      "project": "Unknown Project"
+      "project": "Licensing Dashboard"
     },
     {
       "sessionId": "subagents",
@@ -1750,7 +1750,7 @@
         }
       ],
       "projectPath": "-Users-bry-Documents-Vol-bot--claude-worktrees-elegant-solomon/c2dab68a-6395-4462-a667-bec5fc57070e",
-      "project": "c2dab68a-6395-4462-a667-bec5fc57070e"
+      "project": "Vol-bot (subagent)"
     },
     {
       "sessionId": "subagents",
@@ -1775,7 +1775,7 @@
         }
       ],
       "projectPath": "-Users-bry-Documents-CLI/149c09f5-8642-44a2-a982-9cc487cc2f25",
-      "project": "149c09f5-8642-44a2-a982-9cc487cc2f25"
+      "project": "CLI Tool (subagent)"
     }
   ],
   "monthly": [
@@ -1852,82 +1852,112 @@
     }
   ],
   "projects": {
-    "Unknown Project": {
-      "tokens": 8333546961,
-      "cost": 6240.687997999992,
-      "sessions": 15
+    "Codey / Nous": {
+      "tokens": 1664743582,
+      "cost": 1389.664802750003,
+      "sessions": 1
     },
-    "86adbd17-4cb6-49dd-b00a-1e31f5a143d9": {
+    "BRYAN (Personal)": {
+      "tokens": 317671401,
+      "cost": 173.3083669999998,
+      "sessions": 1
+    },
+    "Latent": {
+      "tokens": 2418908465,
+      "cost": 1449.2193064999985,
+      "sessions": 1
+    },
+    "BRYAN (Personal) (subagent)": {
       "tokens": 5422109,
       "cost": 5.133882750000002,
       "sessions": 1
     },
-    "Codey / Nous": {
+    "Vol-bot (worktree)": {
+      "tokens": 2519732866,
+      "cost": 2393.679730499991,
+      "sessions": 3
+    },
+    "Codey / Nous (subagent)": {
       "tokens": 53755245,
       "cost": 50.67310635000002,
       "sessions": 3
     },
-    "5fa64d2b-4891-4c7f-82bf-6ba8295fee73": {
-      "tokens": 27500110,
-      "cost": 20.760734850000002,
-      "sessions": 1
+    "Latent (subagent)": {
+      "tokens": 27892580,
+      "cost": 21.954673600000003,
+      "sessions": 3
     },
     "Roro": {
+      "tokens": 113597988,
+      "cost": 61.769483999999984,
+      "sessions": 1
+    },
+    "Roro (subagent)": {
       "tokens": 854287,
       "cost": 0.6803013500000001,
       "sessions": 1
     },
     "Armo": {
+      "tokens": 56395577,
+      "cost": 34.17918774999998,
+      "sessions": 1
+    },
+    "Armo (subagent)": {
       "tokens": 831682,
       "cost": 0.73680275,
       "sessions": 1
     },
-    "52908ba1-8675-4eb9-9383-b9c3abb0a250": {
-      "tokens": 260105,
-      "cost": 0.6322877500000001,
+    "Latent (worktree)": {
+      "tokens": 40118509,
+      "cost": 23.69841874999998,
       "sessions": 1
     },
-    "6c996a15-0c34-4d33-a50c-7632d8511de0": {
-      "tokens": 197185312,
-      "cost": 133.35970729999997,
+    "Vol-bot (subagent)": {
+      "tokens": 876306192,
+      "cost": 541.08699475,
+      "sessions": 4
+    },
+    "New Project": {
+      "tokens": 140120647,
+      "cost": 85.75383825000014,
       "sessions": 1
     },
-    "b00e2511-2952-4353-906d-cc6452f74e3f": {
-      "tokens": 977985,
-      "cost": 0.20643334999999996,
+    "New Project (worktree)": {
+      "tokens": 14112174,
+      "cost": 11.544552250000002,
       "sessions": 1
     },
-    "57d08b07-d0fe-4d65-b9a2-650fefbbee83": {
-      "tokens": 132365,
-      "cost": 0.561651,
+    "New Project (subagent)": {
+      "tokens": 9674728,
+      "cost": 4.494771649999998,
+      "sessions": 2
+    },
+    "Vol-bot": {
+      "tokens": 1021077635,
+      "cost": 600.7851085000005,
       "sessions": 1
     },
-    "4680b46c-6726-43fc-9456-aa7831aecb43": {
-      "tokens": 8696743,
-      "cost": 4.288338299999998,
+    "CapitalCore": {
+      "tokens": 18016862,
+      "cost": 11.409158249999999,
       "sessions": 1
     },
-    "4d5ec621-5ac2-4a23-b3e2-559e58967c93": {
-      "tokens": 159447308,
-      "cost": 92.03190055000006,
-      "sessions": 1
-    },
-    "4cab43af-c0da-46f5-ab7d-4aec0215ba40": {
+    "CapitalCore (subagent)": {
       "tokens": 74980,
       "cost": 0.20105350000000002,
       "sessions": 1
     },
-    "11fcdf56-e365-4497-8370-7e74c95dcee3": {
-      "tokens": 305544081,
-      "cost": 178.53131664999987,
+    "Ani": {
+      "tokens": 1730816,
+      "cost": 1.2859794999999998,
       "sessions": 1
     },
-    "c2dab68a-6395-4462-a667-bec5fc57070e": {
-      "tokens": 214129491,
-      "cost": 137.16407025000007,
+    "Licensing Dashboard": {
+      "tokens": 7320439,
+      "cost": 4.390064,
       "sessions": 1
     },
-    "149c09f5-8642-44a2-a982-9cc487cc2f25": {
+    "CLI Tool (subagent)": {
       "tokens": 111117,
       "cost": 0.19277325000000003,
       "sessions": 1

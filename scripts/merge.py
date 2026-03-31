@@ -7,37 +7,75 @@ from pathlib import Path
 DATA_DIR = Path(__file__).parent.parent / "data"
 
 def infer_project(session):
-    """Infer project name from session path or ID."""
+    """Infer project name from session path, ID, or any available field."""
     path = session.get("projectPath", "")
     sid = session.get("sessionId", "")
 
     if not path and not sid:
         return "Unknown"
 
-    # Extract from path
-    if path:
-        name = path.rstrip("/").split("/")[-1]
-        # Map known directories to project names
-        project_map = {
-            "nous": "Codey / Nous",
-            "codey": "Codey",
-            "egcstudy": "EGC Study",
-            "nfet": "NFET",
-            "armo": "Armo",
-            "roro": "Roro",
-            "ani": "Ani",
-            "capstone": "Capstone",
-        }
-        for key, proj in project_map.items():
-            if key in name.lower() or key in path.lower():
-                return proj
-        return name if name else "Unknown"
+    # Map known directory names to project names
+    project_map = {
+        "nous": "Codey / Nous",
+        "codey": "Codey",
+        "egcstudy": "EGC Study",
+        "nfet": "NFET",
+        "armo": "Armo",
+        "roro": "Roro",
+        "ani": "Ani",
+        "capstone": "Capstone",
+        "vol-bot": "Vol-bot",
+        "vol_bot": "Vol-bot",
+        "latent": "Latent",
+        "capitalcore": "CapitalCore",
+        "new-project": "New Project",
+        "new_project": "New Project",
+        "liecnesing": "Licensing Dashboard",
+        "licensing": "Licensing Dashboard",
+        "dahbaord": "Licensing Dashboard",
+        "cli": "CLI Tool",
+        "bryan": "BRYAN (Personal)",
+    }
 
-    # Check if it's a subagent
+    # Check subagent first — use parent path for project name
     if "subagent" in sid.lower():
+        # Path contains the parent project, e.g. '-Users-bry-Documents-Vol-bot/session-id'
+        search_str = path.lower().replace("-", " ").replace("/", " ")
+        for key, proj in project_map.items():
+            if key.replace("-", " ") in search_str:
+                return f"{proj} (subagent)"
         return "Subagent"
 
-    return sid[:12] + "..."
+    # Combine path and sessionId for searching — sessionId often has
+    # the real path encoded as dashes, e.g. '-Users-bry-Documents-Vol-bot'
+    search_strs = []
+    if path and path != "Unknown Project":
+        search_strs.append(path.lower())
+    if sid:
+        # Convert dash-encoded paths: -Users-bry-Documents-Vol-bot -> users bry documents vol bot
+        search_strs.append(sid.lower().replace("-", " ").replace("/", " "))
+
+    for search_str in search_strs:
+        for key, proj in project_map.items():
+            if key.replace("-", " ") in search_str or key in search_str:
+                # Check for worktree suffix
+                if "worktree" in search_str:
+                    return f"{proj} (worktree)"
+                return proj
+
+    # Fallback: try to extract a meaningful name from sessionId
+    if sid:
+        # Pattern: -Users-bry-{project-name} or -Users-bry-Documents-{project-name}
+        parts = sid.split("-")
+        # Remove known prefixes
+        clean = [p for p in parts if p and p.lower() not in ("users", "bry", "documents", "claude", "worktrees", "wor")]
+        if clean:
+            # Take the first meaningful part
+            name = clean[0]
+            if len(name) > 3 and not all(c in "0123456789abcdef" for c in name):
+                return name.title()
+
+    return "Unknown"
 
 
 def main():
