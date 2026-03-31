@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code Usage Dashboard — Bryan Leonard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --bg: #0a0a0a; --surface: #111111; --elevated: #1a1a1a;
+    --border: #2a2a2a; --text: #ffffff; --text2: #a0a0a0; --text3: #555555;
+    --blue: #3b82f6; --purple: #8b5cf6; --gold: #f59e0b; --green: #22c55e;
+    --red: #ef4444; --pink: #ec4899;
+}
+body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+.container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+
+/* Hero */
+.hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+#globe-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+.hero-content { position: relative; z-index: 1; text-align: center; }
+.hero-label { font-size: 13px; color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; }
+.hero-title { font-size: 64px; font-weight: 800; background: linear-gradient(135deg, var(--blue), var(--purple), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px; }
+.hero-subtitle { font-size: 20px; color: var(--text2); margin-bottom: 48px; }
+.hero-stats { display: flex; gap: 48px; justify-content: center; flex-wrap: wrap; }
+.hero-stat { text-align: center; }
+.hero-stat .value { font-size: 48px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.hero-stat .label { font-size: 12px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 4px; }
+.val-tokens { color: var(--blue); }
+.val-cost { color: var(--gold); }
+.val-sessions { color: var(--purple); }
+.val-days { color: var(--green); }
+
+/* Stats cards */
+.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; padding: 48px 0; }
+.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; text-align: center; backdrop-filter: blur(10px); }
+.stat-card .icon { font-size: 28px; margin-bottom: 8px; }
+.stat-card .value { font-size: 28px; font-weight: 700; }
+.stat-card .label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 4px; }
+
+/* Section */
+.section { padding: 80px 0; }
+.section-title { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+.section-sub { font-size: 14px; color: var(--text2); margin-bottom: 32px; }
+
+/* Charts */
+.chart-container { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 24px; }
+.chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+canvas.chart { width: 100% !important; height: 300px !important; }
+
+/* 3D container */
+.three-container { width: 100%; height: 500px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; position: relative; }
+
+/* Session table */
+.session-table { width: 100%; border-collapse: collapse; }
+.session-table th, .session-table td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 13px; }
+.session-table th { color: var(--text3); font-weight: 600; text-transform: uppercase; font-size: 11px; }
+.session-table tr:hover td { background: var(--elevated); }
+.cost-badge { display: inline-block; padding: 2px 8px; border-radius: 9999px; font-size: 11px; font-weight: 600; }
+.cost-high { background: rgba(239,68,68,0.15); color: var(--red); }
+.cost-med { background: rgba(245,158,11,0.15); color: var(--gold); }
+.cost-low { background: rgba(34,197,94,0.15); color: var(--green); }
+
+/* Heatmap */
+.heatmap { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; max-width: 600px; }
+.heatmap-cell { width: 100%; aspect-ratio: 1; border-radius: 3px; cursor: pointer; position: relative; }
+.heatmap-cell:hover::after { content: attr(data-tooltip); position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%); background: var(--elevated); border: 1px solid var(--border); padding: 4px 8px; border-radius: 4px; font-size: 11px; white-space: nowrap; z-index: 10; }
+.heatmap-legend { display: flex; align-items: center; gap: 4px; margin-top: 8px; font-size: 11px; color: var(--text3); }
+.heatmap-legend .cell { width: 12px; height: 12px; border-radius: 2px; }
+
+/* Footer */
+footer { padding: 48px 0; text-align: center; color: var(--text3); font-size: 13px; border-top: 1px solid var(--border); }
+footer a { color: var(--blue); text-decoration: none; }
+
+/* Comparison */
+.compare-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.compare-label { width: 120px; font-size: 13px; color: var(--text2); text-align: right; }
+.compare-track { flex: 1; height: 24px; background: var(--elevated); border-radius: 4px; position: relative; overflow: hidden; }
+.compare-fill { height: 100%; border-radius: 4px; transition: width 1s ease; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 600; }
+.compare-value { font-size: 12px; color: var(--text3); width: 80px; }
+
+@media (max-width: 768px) {
+    .hero-title { font-size: 36px; }
+    .hero-stats { gap: 24px; }
+    .hero-stat .value { font-size: 32px; }
+    .chart-row { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- Hero with 3D Globe -->
+<section class="hero">
+    <canvas id="globe-canvas"></canvas>
+    <div class="hero-content">
+        <div class="hero-label">Estimated Top 0.1% of Claude Users by Token Consumption</div>
+        <h1 class="hero-title" id="hero-title">9,302,790,171</h1>
+        <p class="hero-subtitle">Total tokens processed by Bryan Leonard — <span id="hero-multiple" style="color:var(--red);font-weight:700;">32x</span> the Max plan</p>
+        <div class="hero-stats">
+            <div class="hero-stat"><div class="value val-tokens" id="total-tokens">—</div><div class="label">Total Tokens</div></div>
+            <div class="hero-stat"><div class="value val-cost" id="total-cost">—</div><div class="label">Total Cost</div></div>
+            <div class="hero-stat"><div class="value val-sessions" id="total-sessions">—</div><div class="label">Sessions</div></div>
+            <div class="hero-stat"><div class="value val-days" id="total-days">—</div><div class="label">Days Active</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Cards -->
+<div class="container">
+    <div class="stats-row" id="stats-cards"></div>
+</div>
+
+<!-- Daily Usage Chart -->
+<div class="container">
+    <div class="section">
+        <h2 class="section-title">Daily Usage</h2>
+        <p class="section-sub">Token consumption and cost by day</p>
+        <div class="chart-container">
+            <canvas id="daily-chart" class="chart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Model Breakdown + Cost Heatmap -->
+<div class="container">
+    <div class="chart-row">
+        <div>
+            <h2 class="section-title">Model Breakdown</h2>
+            <p class="section-sub">Usage by model</p>
+            <div class="chart-container">
+                <canvas id="model-chart" class="chart"></canvas>
+            </div>
+        </div>
+        <div>
+            <h2 class="section-title">Cost Heatmap</h2>
+            <p class="section-sub">Daily spend intensity</p>
+            <div class="chart-container">
+                <div class="heatmap" id="heatmap"></div>
+                <div class="heatmap-legend">
+                    <span>Less</span>
+                    <div class="cell" style="background:#1a1a2e"></div>
+                    <div class="cell" style="background:#16213e"></div>
+                    <div class="cell" style="background:#0f3460"></div>
+                    <div class="cell" style="background:#533483"></div>
+                    <div class="cell" style="background:#e94560"></div>
+                    <span>More</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Burn Rate Projection -->
+<div class="container">
+    <div class="section">
+        <h2 class="section-title">Burn Rate Projection</h2>
+        <p class="section-sub">At current pace, where is this heading?</p>
+        <div class="stats-row" id="burn-rate-cards"></div>
+    </div>
+</div>
+
+<!-- Project Breakdown -->
+<div class="container">
+    <div class="section">
+        <h2 class="section-title">Project Breakdown</h2>
+        <p class="section-sub">Where the tokens actually went</p>
+        <div class="chart-container">
+            <canvas id="project-chart" class="chart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Monthly -->
+<div class="container">
+    <div class="section">
+        <h2 class="section-title">Monthly Totals</h2>
+        <p class="section-sub">Aggregated by month</p>
+        <div class="chart-container">
+            <canvas id="monthly-chart" class="chart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Token Flow -->
+<div class="container">
+    <div class="section">
+        <h2 class="section-title">Token Flow</h2>
+        <p class="section-sub">How tokens move through the system</p>
+        <div class="chart-container">
+            <canvas id="flow-chart" class="chart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Session Explorer -->
+<div class="container">
+    <div class="section">
+        <h2 class="section-title">Session Explorer</h2>
+        <p class="section-sub">All sessions ranked by cost</p>
+        <div class="chart-container" style="overflow-x:auto;">
+            <table class="session-table" id="session-table">
+                <thead><tr><th>Session</th><th>Tokens</th><th>Cost</th><th>Models</th><th>Last Active</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Comparison -->
+<div class="container">
+    <div class="section">
+        <h2 class="section-title">How This Compares</h2>
+        <p class="section-sub">Bryan's usage vs typical Claude Code users</p>
+        <div class="chart-container" id="comparison"></div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <p>Claude Code Usage Dashboard — Bryan Leonard — <a href="https://github.com/TheArtOfSound">@TheArtOfSound</a></p>
+        <p style="margin-top:8px;">Generated with <a href="https://github.com/ryoppippi/ccusage">ccusage</a> — Last updated: <span id="last-updated">—</span></p>
+    </div>
+</footer>
+
+<script>
+// ── Data Loading ──
+let DATA = null;
+
+async function loadData() {
+    const resp = await fetch('data/usage.json');
+    DATA = await resp.json();
+    renderAll();
+}
+
+function renderAll() {
+    renderHero();
+    renderStats();
+    renderBurnRate();
+    renderProjectChart();
+    renderDailyChart();
+    renderModelChart();
+    renderHeatmap();
+    renderMonthly();
+    renderTokenFlow();
+    renderSessions();
+    renderComparison();
+    document.getElementById('last-updated').textContent = DATA.generated_at?.split('T')[0] || 'Unknown';
+}
+
+// ── Animated Counter ──
+function animateCounter(el, target, prefix = '', suffix = '', duration = 2000) {
+    const start = performance.now();
+    const initial = 0;
+    function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(initial + (target - initial) * eased);
+        el.textContent = prefix + current.toLocaleString() + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+}
+
+// ── Hero ──
+function renderHero() {
+    const t = DATA.totals;
+    animateCounter(document.getElementById('hero-title'), t.tokens);
+    animateCounter(document.getElementById('total-tokens'), t.tokens);
+    animateCounter(document.getElementById('total-cost'), t.cost, '$');
+    animateCounter(document.getElementById('total-sessions'), t.sessions);
+    animateCounter(document.getElementById('total-days'), t.days_active);
+    document.getElementById('hero-multiple').textContent = (t.usage_multiple || 32) + 'x';
+}
+
+// ── Burn Rate ──
+function renderBurnRate() {
+    const t = DATA.totals;
+    const cards = [
+        { icon: '&#128293;', value: '$' + (t.avg_daily_cost || 0).toLocaleString(), label: 'Per Day', color: 'var(--gold)' },
+        { icon: '&#128200;', value: '$' + (t.monthly_projection || 0).toLocaleString(), label: 'Monthly Projection', color: 'var(--red)' },
+        { icon: '&#128640;', value: '$' + (t.annual_projection || 0).toLocaleString(), label: 'Annual Projection', color: 'var(--pink)' },
+        { icon: '&#9889;', value: (t.usage_multiple || 0) + 'x', label: 'vs Max Plan ($200/mo)', color: 'var(--purple)' },
+    ];
+    document.getElementById('burn-rate-cards').innerHTML = cards.map(c => `
+        <div class="stat-card">
+            <div class="icon">${c.icon}</div>
+            <div class="value" style="color:${c.color}">${c.value}</div>
+            <div class="label">${c.label}</div>
+        </div>
+    `).join('');
+}
+
+// ── Project Chart ──
+function renderProjectChart() {
+    const projects = DATA.projects || {};
+    const sorted = Object.entries(projects).sort((a, b) => b[1].cost - a[1].cost);
+    const colors = ['#3b82f6','#8b5cf6','#f59e0b','#22c55e','#ef4444','#ec4899','#06b6d4','#84cc16','#f97316','#6366f1','#14b8a6','#a855f7','#eab308','#64748b','#fb7185','#38bdf8'];
+    new Chart(document.getElementById('project-chart'), {
+        type: 'bar',
+        data: {
+            labels: sorted.map(([name]) => name),
+            datasets: [{
+                label: 'Cost ($)',
+                data: sorted.map(([_, d]) => d.cost),
+                backgroundColor: sorted.map((_, i) => colors[i % colors.length]),
+            }]
+        },
+        options: {
+            indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: { callbacks: { label: ctx => '$' + ctx.raw.toFixed(2) + ' | ' + (sorted[ctx.dataIndex][1].tokens / 1e6).toFixed(0) + 'M tokens | ' + sorted[ctx.dataIndex][1].sessions + ' sessions' } }
+            },
+            scales: {
+                x: { ticks: { color: '#a0a0a0', callback: v => '$' + v }, grid: { color: '#1a1a1a' } },
+                y: { ticks: { color: '#a0a0a0', font: { size: 11 } }, grid: { display: false } },
+            }
+        }
+    });
+}
+
+// ── Stats Cards ──
+function renderStats() {
+    const t = DATA.totals;
+    const cards = [
+        { icon: '&#9889;', value: '$' + t.avg_daily_cost?.toLocaleString(), label: 'Avg Daily Cost', color: 'var(--gold)' },
+        { icon: '&#128200;', value: t.peak_day || '—', label: 'Peak Day', color: 'var(--red)' },
+        { icon: '&#128176;', value: '$' + (t.peak_day_cost || 0).toLocaleString(), label: 'Peak Day Cost', color: 'var(--red)' },
+        { icon: '&#129302;', value: Object.keys(t.model_totals || {}).length, label: 'Models Used', color: 'var(--purple)' },
+        { icon: '&#128202;', value: (t.tokens_per_dollar || 0).toLocaleString(), label: 'Tokens per Dollar', color: 'var(--blue)' },
+        { icon: '&#127919;', value: '9.3B', label: 'Total Tokens', color: 'var(--blue)' },
+    ];
+    const container = document.getElementById('stats-cards');
+    container.innerHTML = cards.map(c => `
+        <div class="stat-card">
+            <div class="icon">${c.icon}</div>
+            <div class="value" style="color:${c.color}">${c.value}</div>
+            <div class="label">${c.label}</div>
+        </div>
+    `).join('');
+}
+
+// ── Daily Chart ──
+function renderDailyChart() {
+    const daily = DATA.daily || [];
+    new Chart(document.getElementById('daily-chart'), {
+        type: 'bar',
+        data: {
+            labels: daily.map(d => d.date),
+            datasets: [
+                { label: 'Cost ($)', data: daily.map(d => d.totalCost), backgroundColor: 'rgba(245,158,11,0.6)', yAxisID: 'y' },
+                { label: 'Tokens (M)', data: daily.map(d => d.totalTokens / 1e6), backgroundColor: 'rgba(59,130,246,0.3)', yAxisID: 'y1' },
+            ]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { labels: { color: '#a0a0a0' } } },
+            scales: {
+                x: { ticks: { color: '#555', maxRotation: 45 }, grid: { color: '#1a1a1a' } },
+                y: { position: 'left', ticks: { color: '#f59e0b', callback: v => '$' + v }, grid: { color: '#1a1a1a' } },
+                y1: { position: 'right', ticks: { color: '#3b82f6', callback: v => v + 'M' }, grid: { display: false } },
+            }
+        }
+    });
+}
+
+// ── Model Chart ──
+function renderModelChart() {
+    const models = DATA.totals?.model_totals || {};
+    const names = Object.keys(models);
+    const colors = ['#3b82f6', '#8b5cf6', '#22c55e', '#f59e0b'];
+    new Chart(document.getElementById('model-chart'), {
+        type: 'doughnut',
+        data: {
+            labels: names.map(n => n.replace('claude-', '').replace('-20251001', '')),
+            datasets: [{ data: names.map(n => models[n].cost), backgroundColor: colors }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom', labels: { color: '#a0a0a0', padding: 16 } },
+                tooltip: { callbacks: { label: ctx => ctx.label + ': $' + ctx.raw.toFixed(2) } }
+            }
+        }
+    });
+}
+
+// ── Heatmap ──
+function renderHeatmap() {
+    const daily = DATA.daily || [];
+    const maxCost = Math.max(...daily.map(d => d.totalCost));
+    const heatmap = document.getElementById('heatmap');
+    const colors = ['#0a0a0a', '#1a1a2e', '#16213e', '#0f3460', '#533483', '#e94560'];
+
+    daily.forEach(d => {
+        const intensity = d.totalCost / maxCost;
+        const colorIdx = Math.min(Math.floor(intensity * colors.length), colors.length - 1);
+        const cell = document.createElement('div');
+        cell.className = 'heatmap-cell';
+        cell.style.background = colors[colorIdx];
+        cell.dataset.tooltip = d.date + ': $' + d.totalCost.toFixed(0);
+        heatmap.appendChild(cell);
+    });
+}
+
+// ── Monthly Chart ──
+function renderMonthly() {
+    const monthly = DATA.monthly || [];
+    new Chart(document.getElementById('monthly-chart'), {
+        type: 'bar',
+        data: {
+            labels: monthly.map(m => m.month),
+            datasets: [
+                { label: 'Cost ($)', data: monthly.map(m => m.totalCost), backgroundColor: 'rgba(139,92,246,0.7)' },
+            ]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { labels: { color: '#a0a0a0' } } },
+            scales: {
+                x: { ticks: { color: '#a0a0a0' }, grid: { color: '#1a1a1a' } },
+                y: { ticks: { color: '#a0a0a0', callback: v => '$' + v }, grid: { color: '#1a1a1a' } },
+            }
+        }
+    });
+}
+
+// ── Token Flow ──
+function renderTokenFlow() {
+    const daily = DATA.daily || [];
+    let input = 0, output = 0, cacheCreate = 0, cacheRead = 0;
+    daily.forEach(d => {
+        input += d.inputTokens || 0;
+        output += d.outputTokens || 0;
+        cacheCreate += d.cacheCreationTokens || 0;
+        cacheRead += d.cacheReadTokens || 0;
+    });
+    new Chart(document.getElementById('flow-chart'), {
+        type: 'bar',
+        data: {
+            labels: ['Input', 'Output', 'Cache Create', 'Cache Read'],
+            datasets: [{
+                label: 'Tokens',
+                data: [input, output, cacheCreate, cacheRead],
+                backgroundColor: ['#3b82f6', '#22c55e', '#8b5cf6', '#f59e0b'],
+            }]
+        },
+        options: {
+            indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { ticks: { color: '#a0a0a0', callback: v => (v/1e9).toFixed(1) + 'B' }, grid: { color: '#1a1a1a' } },
+                y: { ticks: { color: '#a0a0a0' }, grid: { display: false } },
+            }
+        }
+    });
+}
+
+// ── Sessions Table ──
+function renderSessions() {
+    const sessions = (DATA.sessions || []).sort((a, b) => b.totalCost - a.totalCost);
+    const tbody = document.querySelector('#session-table tbody');
+    tbody.innerHTML = sessions.map(s => {
+        const cost = s.totalCost || 0;
+        const badge = cost > 500 ? 'cost-high' : cost > 50 ? 'cost-med' : 'cost-low';
+        const path = s.projectPath || '';
+        const name = path ? path.split('/').pop() : (s.sessionId || '').substring(0, 12) + '...';
+        return `<tr>
+            <td style="font-family:monospace;font-size:12px;">${name}</td>
+            <td>${(s.totalTokens || 0).toLocaleString()}</td>
+            <td><span class="cost-badge ${badge}">$${cost.toFixed(2)}</span></td>
+            <td style="font-size:11px;color:var(--text3);">${(s.modelsUsed || []).join(', ').replace(/claude-/g, '').replace(/-20251001/g, '')}</td>
+            <td style="font-size:11px;color:var(--text3);">${(s.lastActivity || '').split('T')[0]}</td>
+        </tr>`;
+    }).join('');
+}
+
+// ── Comparison ──
+function renderComparison() {
+    const t = DATA.totals || {};
+    const cost = t.cost || 0;
+    const days = t.days_active || 33;
+    const maxPlanForPeriod = Math.round((days / 30) * 200);
+    const multiple = t.usage_multiple || Math.round(cost / maxPlanForPeriod);
+    const container = document.getElementById('comparison');
+
+    // Header with the headline number
+    const headline = document.createElement('div');
+    headline.style.cssText = 'text-align:center;margin-bottom:32px;padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:12px;';
+    headline.innerHTML = `
+        <div style="font-size:14px;color:var(--text3);margin-bottom:8px;">Claude Max plan cost for ${days} days</div>
+        <div style="font-size:36px;font-weight:800;color:var(--text2);">$${maxPlanForPeriod.toLocaleString()}</div>
+        <div style="font-size:14px;color:var(--text3);margin:12px 0 8px;">Bryan's actual compute cost</div>
+        <div style="font-size:48px;font-weight:800;color:var(--red);">$${cost.toLocaleString()}</div>
+        <div style="margin-top:12px;font-size:24px;font-weight:700;color:var(--gold);">${multiple}x the Max plan</div>
+        <div style="margin-top:8px;font-size:13px;color:var(--text3);">Estimated top 0.1% of all Claude users by token consumption</div>
+    `;
+    container.appendChild(headline);
+
+    const items = [
+        { label: 'Free Tier', value: 0, max: cost, color: 'var(--green)' },
+        { label: 'Pro ($20/mo)', value: Math.round((days/30)*20), max: cost, color: 'var(--blue)' },
+        { label: 'Max ($200/mo)', value: maxPlanForPeriod, max: cost, color: 'var(--purple)' },
+        { label: 'Bryan Leonard', value: cost, max: cost, color: 'var(--red)' },
+    ];
+
+    container.innerHTML = items.map(item => {
+        const pct = Math.min(100, (item.value / item.max) * 100);
+        return `<div class="compare-bar">
+            <div class="compare-label">${item.label}</div>
+            <div class="compare-track">
+                <div class="compare-fill" style="width:${pct}%;background:${item.color};">
+                    ${pct > 10 ? '$' + item.value.toLocaleString() : ''}
+                </div>
+            </div>
+            <div class="compare-value">$${item.value.toLocaleString()}</div>
+        </div>`;
+    }).join('');
+}
+
+// ── 3D Particle Globe ──
+function initGlobe() {
+    const canvas = document.getElementById('globe-canvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // Particles
+    const count = 5000;
+    const positions = new Float32Array(count * 3);
+    const colors = new Float32Array(count * 3);
+    const palette = [
+        [0.23, 0.51, 0.96], // blue (input)
+        [0.13, 0.77, 0.37], // green (output)
+        [0.55, 0.36, 0.96], // purple (cache create)
+        [0.96, 0.62, 0.04], // gold (cache read)
+    ];
+
+    for (let i = 0; i < count; i++) {
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(2 * Math.random() - 1);
+        const r = 3 + Math.random() * 0.5;
+        positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+        positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+        positions[i * 3 + 2] = r * Math.cos(phi);
+        const c = palette[Math.floor(Math.random() * palette.length)];
+        colors[i * 3] = c[0];
+        colors[i * 3 + 1] = c[1];
+        colors[i * 3 + 2] = c[2];
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+    const material = new THREE.PointsMaterial({
+        size: 0.03, vertexColors: true, transparent: true, opacity: 0.8,
+        blending: THREE.AdditiveBlending, depthWrite: false,
+    });
+    const particles = new THREE.Points(geometry, material);
+    scene.add(particles);
+
+    camera.position.z = 6;
+
+    function animate() {
+        requestAnimationFrame(animate);
+        particles.rotation.y += 0.001;
+        particles.rotation.x += 0.0003;
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+}
+
+// ── Init ──
+initGlobe();
+loadData();
+</script>
+</body>
+</html>
