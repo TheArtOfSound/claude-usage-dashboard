@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-31T18:25:27.477759Z",
+  "generated_at": "2026-03-31T18:37:11.725785Z",
   "daily": [
     {
       "date": "2026-02-27",
@@ -922,13 +922,13 @@
       "project": "LOLM / Latent"
     },
     {
-      "sessionId": "-Users-bry-nous",
-      "inputTokens": 46438,
-      "outputTokens": 419153,
-      "cacheCreationTokens": 95385924,
-      "cacheReadTokens": 1593451292,
-      "totalTokens": 1689302807,
-      "totalCost": 1403.5986860000032,
+      "sessionId": "-Users-bry-nous--egc",
+      "inputTokens": 17730,
+      "outputTokens": 160034,
+      "cacheCreationTokens": 36418669,
+      "cacheReadTokens": 608385103,
+      "totalTokens": 644981536,
+      "totalCost": 535.8987348116865,
       "lastActivity": "2026-03-31",
       "modelsUsed": [
         "claude-opus-4-6"
@@ -944,7 +944,117 @@
         }
       ],
       "projectPath": "Unknown Project",
+      "_split_project": "EGC",
+      "_split_pct": 38.2,
+      "project": "EGC"
+    },
+    {
+      "sessionId": "-Users-bry-nous--nfet",
+      "inputTokens": 8726,
+      "outputTokens": 78769,
+      "cacheCreationTokens": 17925341,
+      "cacheReadTokens": 299448359,
+      "totalTokens": 317461197,
+      "totalCost": 263.7704249333491,
+      "lastActivity": "2026-03-31",
+      "modelsUsed": [
+        "claude-opus-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 46438,
+          "outputTokens": 419153,
+          "cacheCreationTokens": 95385924,
+          "cacheReadTokens": 1593451292,
+          "cost": 1403.5986860000032
+        }
+      ],
+      "projectPath": "Unknown Project",
+      "_split_project": "NFET",
+      "_split_pct": 18.8,
+      "project": "NFET"
+    },
+    {
+      "sessionId": "-Users-bry-nous--codey",
+      "inputTokens": 6000,
+      "outputTokens": 54163,
+      "cacheCreationTokens": 12325797,
+      "cacheReadTokens": 205906243,
+      "totalTokens": 218292203,
+      "totalCost": 181.3734336561759,
+      "lastActivity": "2026-03-31",
+      "modelsUsed": [
+        "claude-opus-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 46438,
+          "outputTokens": 419153,
+          "cacheCreationTokens": 95385924,
+          "cacheReadTokens": 1593451292,
+          "cost": 1403.5986860000032
+        }
+      ],
+      "projectPath": "Unknown Project",
+      "_split_project": "Codey / Nous",
+      "_split_pct": 12.9,
       "project": "Codey / Nous"
+    },
+    {
+      "sessionId": "-Users-bry-nous--lolm",
+      "inputTokens": 1061,
+      "outputTokens": 9581,
+      "cacheCreationTokens": 2180528,
+      "cacheReadTokens": 36426399,
+      "totalTokens": 38617570,
+      "totalCost": 32.086356266727094,
+      "lastActivity": "2026-03-31",
+      "modelsUsed": [
+        "claude-opus-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 46438,
+          "outputTokens": 419153,
+          "cacheCreationTokens": 95385924,
+          "cacheReadTokens": 1593451292,
+          "cost": 1403.5986860000032
+        }
+      ],
+      "projectPath": "Unknown Project",
+      "_split_project": "LOLM / Latent",
+      "_split_pct": 2.3,
+      "project": "LOLM / Latent"
+    },
+    {
+      "sessionId": "-Users-bry-nous--other",
+      "inputTokens": 12918,
+      "outputTokens": 116604,
+      "cacheCreationTokens": 26535588,
+      "cacheReadTokens": 443285186,
+      "totalTokens": 469950298,
+      "totalCost": 390.46973633206466,
+      "lastActivity": "2026-03-31",
+      "modelsUsed": [
+        "claude-opus-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 46438,
+          "outputTokens": 419153,
+          "cacheCreationTokens": 95385924,
+          "cacheReadTokens": 1593451292,
+          "cost": 1403.5986860000032
+        }
+      ],
+      "projectPath": "Unknown Project",
+      "_split_project": "Other (nous)",
+      "_split_pct": 27.8,
+      "project": "Other (nous)"
     },
     {
       "sessionId": "subagents",
@@ -1871,14 +1981,29 @@
   ],
   "projects": {
     "LOLM / Latent": {
-      "tokens": 2488131097,
-      "cost": 1495.4363398999985,
-      "sessions": 5
+      "tokens": 2526748667,
+      "cost": 1527.5226961667256,
+      "sessions": 6
+    },
+    "EGC": {
+      "tokens": 644981536,
+      "cost": 535.8987348116865,
+      "sessions": 1
+    },
+    "NFET": {
+      "tokens": 317461197,
+      "cost": 263.7704249333491,
+      "sessions": 1
     },
     "Codey / Nous": {
-      "tokens": 1743225437,
-      "cost": 1454.6175563500033,
+      "tokens": 272214833,
+      "cost": 232.3923040061759,
       "sessions": 4
+    },
+    "Other (nous)": {
+      "tokens": 469950298,
+      "cost": 390.46973633206466,
+      "sessions": 1
     },
     "Personal": {
       "tokens": 323093510,
@@ -1929,7 +2054,7 @@
   "totals": {
     "tokens": 9334408034,
     "cost": 6880.69,
-    "sessions": 32,
+    "sessions": 36,
     "days_active": 32,
     "avg_daily_cost": 215.02,
     "monthly_projection": 6450.64,

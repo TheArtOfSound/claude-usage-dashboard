@@ -5,9 +5,102 @@ from datetime import datetime
 from pathlib import Path
 
 DATA_DIR = Path(__file__).parent.parent / "data"
+CLAUDE_DIR = Path.home() / ".claude"
+
+# Keyword lists for content-based project detection
+EGC_KEYWORDS = ['egcstudy', 'egcrate', 'thegate', 'egc', 'expression-gated',
+    'r_proxy', 't_drop', 'egc_responses', 'aronson', 'consciousness', 'rater',
+    'compressor', 'expander', 'suppressor', 'pearson', 'comfort_gap', 'zenodo',
+    'three types', 'schmader', 'pennebaker', 'inzlicht', 'stereotype threat',
+    'preprint', 'egc_', 'p_proxy', 'writing_language']
+
+NFET_KEYWORDS = ['nfet', 'kuramoto', 'oscillator', 'bpr', 'az511', 'az-511',
+    'traffic', 'kappa', 'ridge_atlas', 'nfet_server', 'nfet_core', 'corridor']
+
+CODEY_KEYWORDS = ['codey', 'vscode-extension', 'saas', 'stripe', 'pricing page',
+    'frontend/src', 'codey/codey']
+
+LOLM_KEYWORDS = ['lolm', 'tpu', 'xla', 'fsdp', 'torch_xla', 'c4 dataset', 'qira-hq']
+
+
+def scan_session_content(project_dir):
+    """Scan JSONL session files and return proportional project split."""
+    sessions_dir = CLAUDE_DIR / "projects" / project_dir
+    if not sessions_dir.exists():
+        return None
+
+    totals = {"egc": 0, "nfet": 0, "codey": 0, "lolm": 0, "other": 0, "total": 0}
+
+    for fname in os.listdir(sessions_dir):
+        if not fname.endswith(".jsonl"):
+            continue
+        try:
+            with open(sessions_dir / fname) as f:
+                for line in f:
+                    try:
+                        data = json.loads(line)
+                        msg = data.get("message", {})
+                        text = ""
+                        if isinstance(msg, dict):
+                            content = msg.get("content", "")
+                            if isinstance(content, str):
+                                text = content
+                            elif isinstance(content, list):
+                                for c in content:
+                                    if isinstance(c, dict) and c.get("type") == "text":
+                                        text += c.get("text", "")
+                        if not text:
+                            continue
+                        chars = len(text)
+                        totals["total"] += chars
+                        tl = text.lower()
+                        if any(kw in tl for kw in EGC_KEYWORDS):
+                            totals["egc"] += chars
+                        elif any(kw in tl for kw in NFET_KEYWORDS):
+                            totals["nfet"] += chars
+                        elif any(kw in tl for kw in CODEY_KEYWORDS):
+                            totals["codey"] += chars
+                        elif any(kw in tl for kw in LOLM_KEYWORDS):
+                            totals["lolm"] += chars
+                        else:
+                            totals["other"] += chars
+                    except:
+                        continue
+        except:
+            continue
+
+    if totals["total"] == 0:
+        return None
+    return {k: v / totals["total"] for k, v in totals.items() if k != "total"}
+
+
+def split_session(session, proportions):
+    """Split a single aggregated session into multiple virtual sessions by proportion."""
+    splits = []
+    proj_names = {"egc": "EGC", "nfet": "NFET", "codey": "Codey / Nous", "lolm": "LOLM / Latent", "other": "Other (nous)"}
+    for key, pct in proportions.items():
+        if pct < 0.01:  # skip < 1%
+            continue
+        virtual = dict(session)
+        virtual["sessionId"] = f"{session['sessionId']}--{key}"
+        virtual["totalTokens"] = int(session["totalTokens"] * pct)
+        virtual["totalCost"] = session["totalCost"] * pct
+        virtual["inputTokens"] = int(session.get("inputTokens", 0) * pct)
+        virtual["outputTokens"] = int(session.get("outputTokens", 0) * pct)
+        virtual["cacheCreationTokens"] = int(session.get("cacheCreationTokens", 0) * pct)
+        virtual["cacheReadTokens"] = int(session.get("cacheReadTokens", 0) * pct)
+        virtual["_split_project"] = proj_names.get(key, key)
+        virtual["_split_pct"] = round(pct * 100, 1)
+        splits.append(virtual)
+    return splits
+
 
 def infer_project(session):
     """Infer project name from session path, ID, or any available field."""
+    # Check for content-based split override
+    if "_split_project" in session:
+        return session["_split_project"]
+
     path = session.get("projectPath", "")
     sid = session.get("sessionId", "")
 
@@ -84,8 +177,24 @@ def main():
     monthly = json.loads((DATA_DIR / "monthly.json").read_text())
 
     daily_list = daily.get("daily", [])
-    session_list = sessions.get("sessions", [])
+    raw_sessions = sessions.get("sessions", [])
     monthly_list = monthly.get("monthly", [])
+
+    # Content-based splitting for multi-project directories
+    session_list = []
+    for s in raw_sessions:
+        sid = s.get("sessionId", "")
+        # Split the nous directory session using content analysis
+        if sid == "-Users-bry-nous":
+            props = scan_session_content("-Users-bry-nous")
+            if props:
+                splits = split_session(s, props)
+                session_list.extend(splits)
+                print(f"Split nous session (${s['totalCost']:.2f}) into {len(splits)} projects:")
+                for sp in splits:
+                    print(f"  {sp['_split_project']}: ${sp['totalCost']:.2f} ({sp['_split_pct']}%)")
+                continue
+        session_list.append(s)
 
     # Calculate totals
     total_tokens = sum(d["totalTokens"] for d in daily_list)
@@ -133,7 +242,9 @@ def main():
         "BRYAN (Personal)": "Personal",
         "New Project": "New Project",
         "CapitalCore": "CapitalCore",
-        "EGC Study": "EGC Study",
+        "EGC Study": "EGC",
+        "EGC": "EGC",
+        "Other (nous)": "Other (nous)",
         "Roro": "Roro",
         "Armo": "Armo",
         "NFET": "NFET",
