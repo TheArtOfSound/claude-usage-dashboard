@@ -130,7 +130,7 @@ footer a { color: var(--blue); text-decoration: none; }
 
 <!-- Hero Context -->
 <div class="hero-context" style="max-width:800px;margin:32px auto;text-align:center;font-size:14px;color:#94a3b8;line-height:1.8;">
-  This is a real-time record of Claude API usage across four simultaneous independent projects: EGC (consciousness research), LOLM (custom language model training), Codey (AI coding platform), and NFET (traffic optimization). Every token here represents actual research, actual code, and actual systems being built — no institutional backing, no team, from Phoenix, Arizona. Data exported directly from <a href="https://github.com/ryoppippi/ccusage" target="_blank" style="color:#60a5fa;">ccusage</a>.
+  Token usage across four simultaneous independent projects: EGC (consciousness research), LOLM (custom language model training), Codey (AI coding platform), and NFET (traffic optimization). Token counts are read from local Claude Code session logs. Cost figures are estimates based on published API pricing — not pulled from invoices. No institutional backing, no team, from Phoenix, Arizona. Data exported via <a href="https://github.com/ryoppippi/ccusage" target="_blank" style="color:#60a5fa;">ccusage</a>, updated manually.
 </div>
 
 <!-- Stats Cards -->
@@ -273,7 +273,7 @@ footer a { color: var(--blue); text-decoration: none; }
         <td style="padding:12px 8px;color:#60a5fa;font-weight:600;">Bryan Leonard</td>
         <td style="padding:12px 8px;color:#f5f0e8;">9.3B</td>
         <td style="padding:12px 8px;color:#f5f0e8;">33 days</td>
-        <td style="padding:12px 8px;color:#f5f0e8;">$6,859 actual API</td>
+        <td style="padding:12px 8px;color:#f5f0e8;">$6,859 est. API equivalent</td>
         <td style="padding:12px 8px;"><a href="https://github.com/ryoppippi/ccusage" target="_blank" style="color:#60a5fa;font-size:11px;">ccusage data</a></td>
       </tr>
       <tr style="border-bottom:1px solid #1e2d40;">
@@ -308,7 +308,7 @@ footer a { color: var(--blue); text-decoration: none; }
   </table>
 
   <div style="margin-top:20px;padding:16px;background:rgba(200,168,75,0.08);border:1px solid rgba(200,168,75,0.2);border-radius:8px;font-size:12px;color:#c8a84b;line-height:1.7;">
-    <strong>Key distinction:</strong> Bryan is paying full API prices, not subscription prices. The ksred comparison — the closest publicly documented case — used a $200/month Max subscription. Bryan's $6,859 represents actual compute cost, not discounted flat-rate access. Bryan's rate is approximately 8x faster token consumption at full price.
+    <strong>Key distinction:</strong> All dollar amounts are <em>estimated API-equivalent costs</em> calculated by applying Anthropic's published per-token pricing to locally logged token counts. Bryan uses the API directly (not a Max subscription). The ksred comparison — the closest publicly documented case — used a $200/month Max subscription. Bryan's estimated $6,859 represents what this volume of tokens costs at published API rates. Bryan's rate is approximately 8x faster token consumption.
   </div>
 </div>
 
@@ -343,7 +343,7 @@ footer a { color: var(--blue); text-decoration: none; }
 </footer>
 
 <div style="max-width:800px;margin:64px auto 32px;padding:24px;border-top:1px solid #1e2d40;font-size:11px;color:#475569;line-height:1.8;">
-  <strong style="color:#64748b;">How this data is collected:</strong> Usage data exported via <a href="https://github.com/ryoppippi/ccusage" target="_blank" style="color:#60a5fa;">ccusage</a>, an open-source CLI tool that reads Claude Code's local session logs from ~/.claude/. Token counts and costs reflect actual API billing at Anthropic's published rates. Data is not estimated or projected — it is read directly from session logs.
+  <strong style="color:#64748b;">How this data is collected:</strong> Token counts exported via <a href="https://github.com/ryoppippi/ccusage" target="_blank" style="color:#60a5fa;">ccusage</a>, an open-source CLI tool that reads Claude Code's local JSONL session logs from ~/.claude/. Token counts are read directly from session logs and are accurate. Dollar amounts are <em>estimates</em> calculated by applying <a href="https://docs.anthropic.com/en/docs/about-claude/models" target="_blank" style="color:#60a5fa;">Anthropic's published per-token API pricing</a> to those token counts — they are not pulled from actual invoices. Over 95% of tokens are cache reads ($0.50/M for Opus), which makes the cost estimates approximate but directionally accurate.
 </div>
 <div style="max-width:800px;margin:0 auto 48px;font-size:10px;color:#334155;line-height:2;">
   <strong>Sources:</strong>
@@ -706,7 +706,7 @@ function renderComparison() {
     headline.innerHTML = `
         <div style="font-size:14px;color:var(--text3);margin-bottom:8px;">Claude Max plan cost for ${days} days</div>
         <div style="font-size:36px;font-weight:800;color:var(--text2);">$${maxPlanForPeriod.toLocaleString()}</div>
-        <div style="font-size:14px;color:var(--text3);margin:12px 0 8px;">Bryan's actual compute cost</div>
+        <div style="font-size:14px;color:var(--text3);margin:12px 0 8px;">Bryan's estimated API-equivalent cost</div>
         <div style="font-size:48px;font-weight:800;color:var(--red);">$${cost.toLocaleString()}</div>
         <div style="margin-top:12px;font-size:24px;font-weight:700;color:var(--gold);">${multiple}x the Max plan</div>
         <div style="margin-top:8px;font-size:13px;color:var(--text3);">Estimated top 0.1% of all Claude users by token consumption</div>
