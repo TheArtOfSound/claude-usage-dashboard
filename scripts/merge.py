@@ -125,19 +125,39 @@ def main():
     max_plan_for_period = max_plan_monthly * (days_active / 30)
     usage_multiple = total_cost / max(max_plan_for_period, 1)
 
-    # Project breakdown
+    # Friendly display names for canonical project keys
+    display_names = {
+        "Latent": "LOLM / Latent",
+        "Codey / Nous": "Codey / Nous",
+        "Vol-bot": "Vol-bot",
+        "BRYAN (Personal)": "Personal",
+        "New Project": "New Project",
+        "CapitalCore": "CapitalCore",
+        "EGC Study": "EGC Study",
+        "Roro": "Roro",
+        "Armo": "Armo",
+        "NFET": "NFET",
+        "Licensing Dashboard": "Licensing Dashboard",
+    }
+
+    def canonical(proj_name):
+        """Strip (worktree) / (subagent) suffixes to group all sub-sessions under one project."""
+        base = proj_name.replace(" (worktree)", "").replace(" (subagent)", "").strip()
+        return display_names.get(base, base)
+
+    # Project breakdown — group main + worktree + subagent together
     projects = {}
     for s in session_list:
-        proj = infer_project(s)
+        proj = canonical(infer_project(s))
         if proj not in projects:
             projects[proj] = {"tokens": 0, "cost": 0, "sessions": 0}
         projects[proj]["tokens"] += s.get("totalTokens", 0)
         projects[proj]["cost"] += s.get("totalCost", 0)
         projects[proj]["sessions"] += 1
 
-    # Add project name to each session
+    # Add canonical project name to each session
     for s in session_list:
-        s["project"] = infer_project(s)
+        s["project"] = canonical(infer_project(s))
 
     usage = {
         "generated_at": datetime.utcnow().isoformat() + "Z",
