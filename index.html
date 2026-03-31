@@ -95,6 +95,9 @@ footer a { color: var(--blue); text-decoration: none; }
 .top-nav .nav-links { display: flex; gap: 24px; }
 .top-nav .nav-links a { color: var(--text3); text-decoration: none; font-size: 13px; transition: color 0.2s; }
 .top-nav .nav-links a:hover { color: var(--text); }
+.machine-btn { padding: 8px 16px; border: none; cursor: pointer; background: transparent; color: var(--text3); font-weight: 500; transition: all 0.2s; font-family: inherit; font-size: 13px; }
+.machine-btn:hover { color: var(--text); background: var(--elevated); }
+.machine-btn.active { background: var(--blue); color: white; font-weight: 600; }
 </style>
 </head>
 <body>
@@ -121,6 +124,7 @@ footer a { color: var(--blue); text-decoration: none; }
             <div class="hero-stat"><div class="value val-sessions" id="total-sessions">—</div><div class="label">Sessions</div></div>
             <div class="hero-stat"><div class="value val-days" id="total-days">—</div><div class="label">Days Active</div></div>
         </div>
+        <div id="data-sources" style="margin-top:24px;font-size:12px;color:#64748b;text-shadow:0 0 15px rgba(0,0,0,1);"></div>
     </div>
 </section>
 
@@ -192,6 +196,11 @@ footer a { color: var(--blue); text-decoration: none; }
         <h2 class="section-title">Project Breakdown</h2>
         <p class="section-sub">Where the tokens actually went</p>
         <p style="font-size:13px;color:#64748b;margin-top:4px;margin-bottom:16px;">Four simultaneous projects, zero institutional backing</p>
+        <div id="machine-toggle" style="display:none;margin-bottom:16px;">
+            <div style="display:inline-flex;background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;font-size:13px;">
+                <button class="machine-btn active" data-machine="combined" style="padding:8px 16px;border:none;cursor:pointer;background:var(--blue);color:white;font-weight:600;transition:all 0.2s;">Combined</button>
+            </div>
+        </div>
         <div class="chart-container">
             <canvas id="project-chart" class="chart"></canvas>
         </div>
@@ -393,6 +402,19 @@ function renderHero() {
     animateCounter(document.getElementById('total-sessions'), t.sessions);
     animateCounter(document.getElementById('total-days'), t.days_active);
     document.getElementById('hero-multiple').textContent = (t.usage_multiple || 32) + 'x';
+
+    // Data sources indicator
+    const sources = DATA.sources || {};
+    const sourceNames = Object.keys(sources);
+    if (sourceNames.length > 0) {
+        const parts = sourceNames.map(function(name) {
+            var src = sources[name];
+            var syncDate = src.synced_at ? new Date(src.synced_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '?';
+            return name + ' (synced ' + syncDate + ')';
+        });
+        document.getElementById('data-sources').innerHTML =
+            '<span style="color:#475569;">Data sources:</span> ' + parts.join(' &middot; ');
+    }
 }
 
 // ── Burn Rate ──
@@ -414,22 +436,40 @@ function renderBurnRate() {
     `).join('');
 }
 
-// ── Project Chart ──
-function renderProjectChart() {
-    const projects = DATA.projects || {};
-    // Sort by cost descending, filter out tiny/unknown
-    const sorted = Object.entries(projects)
-        .filter(([name, d]) => d.cost > 1)
-        .sort((a, b) => b[1].cost - a[1].cost);
-    const colors = ['#3b82f6','#8b5cf6','#f59e0b','#22c55e','#ef4444','#ec4899','#06b6d4','#84cc16','#f97316','#6366f1','#14b8a6','#a855f7','#eab308','#64748b','#fb7185','#38bdf8'];
-    new Chart(document.getElementById('project-chart'), {
+// ── Project Chart (with machine toggle) ──
+var projectChart = null;
+var currentMachineView = 'combined';
+
+function getProjectData(machineFilter) {
+    if (machineFilter === 'combined' || !DATA.projects_by_machine) {
+        return DATA.projects || {};
+    }
+    return DATA.projects_by_machine[machineFilter] || {};
+}
+
+function renderProjectChart(machineFilter) {
+    machineFilter = machineFilter || 'combined';
+    currentMachineView = machineFilter;
+
+    var projects = getProjectData(machineFilter);
+    var sorted = Object.entries(projects)
+        .filter(function(entry) { return entry[1].cost > 1; })
+        .sort(function(a, b) { return b[1].cost - a[1].cost; });
+    var colors = ['#3b82f6','#8b5cf6','#f59e0b','#22c55e','#ef4444','#ec4899','#06b6d4','#84cc16','#f97316','#6366f1','#14b8a6','#a855f7','#eab308','#64748b','#fb7185','#38bdf8'];
+
+    // Destroy existing chart if re-rendering
+    if (projectChart) {
+        projectChart.destroy();
+    }
+
+    projectChart = new Chart(document.getElementById('project-chart'), {
         type: 'bar',
         data: {
-            labels: sorted.map(([name]) => name),
+            labels: sorted.map(function(entry) { return entry[0]; }),
             datasets: [{
                 label: 'Cost ($)',
-                data: sorted.map(([_, d]) => d.cost),
-                backgroundColor: sorted.map((_, i) => colors[i % colors.length]),
+                data: sorted.map(function(entry) { return entry[1].cost; }),
+                backgroundColor: sorted.map(function(_, i) { return colors[i % colors.length]; }),
                 borderRadius: 4,
             }]
         },
@@ -438,9 +478,9 @@ function renderProjectChart() {
             plugins: {
                 legend: { display: false },
                 tooltip: { callbacks: {
-                    label: ctx => {
-                        const d = sorted[ctx.dataIndex][1];
-                        const tokens = d.tokens > 1e9
+                    label: function(ctx) {
+                        var d = sorted[ctx.dataIndex][1];
+                        var tokens = d.tokens > 1e9
                             ? (d.tokens / 1e9).toFixed(2) + 'B'
                             : (d.tokens / 1e6).toFixed(0) + 'M';
                         return '$' + ctx.raw.toFixed(2) + '  ·  ' + tokens + ' tokens  ·  ' + d.sessions + ' sessions';
@@ -448,11 +488,36 @@ function renderProjectChart() {
                 }}
             },
             scales: {
-                x: { ticks: { color: '#a0a0a0', callback: v => '$' + v }, grid: { color: '#1a1a1a' } },
+                x: { ticks: { color: '#a0a0a0', callback: function(v) { return '$' + v; } }, grid: { color: '#1a1a1a' } },
                 y: { ticks: { color: '#a0a0a0', font: { size: 12 } }, grid: { display: false } },
             }
         }
     });
+
+    // Build machine toggle buttons if multi-machine data exists
+    var byMachine = DATA.projects_by_machine || {};
+    var machineNames = Object.keys(byMachine);
+    if (machineNames.length > 1) {
+        var toggleContainer = document.getElementById('machine-toggle');
+        toggleContainer.style.display = 'block';
+        var btnWrap = toggleContainer.querySelector('div');
+        // Only rebuild buttons if they haven't been built yet
+        if (btnWrap.children.length <= 1) {
+            machineNames.forEach(function(name) {
+                var btn = document.createElement('button');
+                btn.className = 'machine-btn';
+                btn.dataset.machine = name;
+                btn.textContent = name;
+                btnWrap.appendChild(btn);
+            });
+        }
+        // Update active state
+        var buttons = btnWrap.querySelectorAll('.machine-btn');
+        buttons.forEach(function(btn) {
+            btn.classList.toggle('active', btn.dataset.machine === machineFilter);
+            btn.onclick = function() { renderProjectChart(btn.dataset.machine); };
+        });
+    }
 }
 
 // ── Stats Cards ──
@@ -594,20 +659,35 @@ function renderTokenFlow() {
 
 // ── Sessions Table ──
 function renderSessions() {
-    const sessions = (DATA.sessions || []).sort((a, b) => b.totalCost - a.totalCost);
-    const tbody = document.querySelector('#session-table tbody');
-    tbody.innerHTML = sessions.map(s => {
-        const cost = s.totalCost || 0;
-        const badge = cost > 500 ? 'cost-high' : cost > 50 ? 'cost-med' : 'cost-low';
-        const path = s.projectPath || '';
-        const name = path ? path.split('/').pop() : (s.sessionId || '').substring(0, 12) + '...';
-        return `<tr>
-            <td style="font-family:monospace;font-size:12px;">${name}</td>
-            <td>${(s.totalTokens || 0).toLocaleString()}</td>
-            <td><span class="cost-badge ${badge}">$${cost.toFixed(2)}</span></td>
-            <td style="font-size:11px;color:var(--text3);">${(s.modelsUsed || []).join(', ').replace(/claude-/g, '').replace(/-20251001/g, '')}</td>
-            <td style="font-size:11px;color:var(--text3);">${(s.lastActivity || '').split('T')[0]}</td>
-        </tr>`;
+    var sessions = (DATA.sessions || []).sort(function(a, b) { return b.totalCost - a.totalCost; });
+    var hasMachines = Object.keys(DATA.sources || {}).length > 1;
+    var thead = document.querySelector('#session-table thead tr');
+    var tbody = document.querySelector('#session-table tbody');
+
+    // Add Machine column header if multi-machine
+    if (hasMachines && !document.getElementById('th-machine')) {
+        var th = document.createElement('th');
+        th.id = 'th-machine';
+        th.textContent = 'Machine';
+        thead.insertBefore(th, thead.children[1]);
+    }
+
+    tbody.innerHTML = sessions.map(function(s) {
+        var cost = s.totalCost || 0;
+        var badge = cost > 500 ? 'cost-high' : cost > 50 ? 'cost-med' : 'cost-low';
+        var path = s.projectPath || '';
+        var name = path ? path.split('/').pop() : (s.sessionId || '').substring(0, 12) + '...';
+        var machineCol = hasMachines
+            ? '<td style="font-size:11px;color:var(--text2);">' + (s._machine || '?') + '</td>'
+            : '';
+        return '<tr>' +
+            '<td style="font-family:monospace;font-size:12px;">' + name + '</td>' +
+            machineCol +
+            '<td>' + (s.totalTokens || 0).toLocaleString() + '</td>' +
+            '<td><span class="cost-badge ' + badge + '">$' + cost.toFixed(2) + '</span></td>' +
+            '<td style="font-size:11px;color:var(--text3);">' + (s.modelsUsed || []).join(', ').replace(/claude-/g, '').replace(/-20251001/g, '') + '</td>' +
+            '<td style="font-size:11px;color:var(--text3);">' + ((s.lastActivity || '').split('T')[0]) + '</td>' +
+        '</tr>';
     }).join('');
 }
 

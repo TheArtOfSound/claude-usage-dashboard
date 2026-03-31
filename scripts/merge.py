@@ -1,13 +1,27 @@
-"""Merge ccusage JSON exports into a single usage.json with project inference."""
+"""Merge ccusage JSON exports into a single usage.json with project inference.
+
+Supports multi-machine merging: pass --machine2 <dir> to include a second
+machine's exports. Sessions are deduplicated by sessionId so nothing gets
+double-counted.
+
+Usage:
+    python3 scripts/merge.py                       # single machine (default)
+    python3 scripts/merge.py --machine2 data/m2    # merge two machines
+"""
+import argparse
 import json
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 DATA_DIR = Path(__file__).parent.parent / "data"
 CLAUDE_DIR = Path.home() / ".claude"
 
-# Keyword lists for content-based project detection
+# ── Machine labels ──
+MACHINE1_LABEL = "Bryan"
+MACHINE2_LABEL = "Brandyn"
+
+# ── Keyword lists for content-based project detection ──
 EGC_KEYWORDS = ['egcstudy', 'egcrate', 'thegate', 'egc', 'expression-gated',
     'r_proxy', 't_drop', 'egc_responses', 'aronson', 'consciousness', 'rater',
     'compressor', 'expander', 'suppressor', 'pearson', 'comfort_gap', 'zenodo',
@@ -21,6 +35,10 @@ CODEY_KEYWORDS = ['codey', 'vscode-extension', 'saas', 'stripe', 'pricing page',
     'frontend/src', 'codey/codey']
 
 LOLM_KEYWORDS = ['lolm', 'tpu', 'xla', 'fsdp', 'torch_xla', 'c4 dataset', 'qira-hq']
+
+AUTOHUSTLE_KEYWORDS = ['autohustle', 'shopify', 'solana_sniper', 'dropshipping',
+    'orchestrator', 'budget_guard', 'kill_switch', 'circuit_breaker', 'blog_publisher',
+    'repo_organizer', 'seo_content', 'stripe_premium']
 
 
 def scan_session_content(project_dir):
@@ -128,42 +146,42 @@ def infer_project(session):
         "dahbaord": "Licensing Dashboard",
         "cli": "CLI Tool",
         "bryan": "BRYAN (Personal)",
+        "auto": "AutoHustle",
+        "autohustle": "AutoHustle",
+        "claude-usage-dashboard": "Usage Dashboard",
+        "portfolio": "Portfolio",
     }
 
     # Check subagent first — use parent path for project name
     if "subagent" in sid.lower():
-        # Path contains the parent project, e.g. '-Users-bry-Documents-Vol-bot/session-id'
         search_str = path.lower().replace("-", " ").replace("/", " ")
         for key, proj in project_map.items():
             if key.replace("-", " ") in search_str:
                 return f"{proj} (subagent)"
         return "Subagent"
 
-    # Combine path and sessionId for searching — sessionId often has
-    # the real path encoded as dashes, e.g. '-Users-bry-Documents-Vol-bot'
+    # Combine path and sessionId for searching
     search_strs = []
     if path and path != "Unknown Project":
         search_strs.append(path.lower())
     if sid:
-        # Convert dash-encoded paths: -Users-bry-Documents-Vol-bot -> users bry documents vol bot
         search_strs.append(sid.lower().replace("-", " ").replace("/", " "))
 
     for search_str in search_strs:
         for key, proj in project_map.items():
             if key.replace("-", " ") in search_str or key in search_str:
-                # Check for worktree suffix
                 if "worktree" in search_str:
                     return f"{proj} (worktree)"
                 return proj
 
     # Fallback: try to extract a meaningful name from sessionId
     if sid:
-        # Pattern: -Users-bry-{project-name} or -Users-bry-Documents-{project-name}
         parts = sid.split("-")
-        # Remove known prefixes
-        clean = [p for p in parts if p and p.lower() not in ("users", "bry", "documents", "claude", "worktrees", "wor")]
+        clean = [p for p in parts if p and p.lower() not in (
+            "users", "bry", "brandyn", "finky", "documents", "claude", "worktrees", "wor",
+            "c", "program files"
+        )]
         if clean:
-            # Take the first meaningful part
             name = clean[0]
             if len(name) > 3 and not all(c in "0123456789abcdef" for c in name):
                 return name.title()
@@ -171,24 +189,210 @@ def infer_project(session):
     return "Unknown"
 
 
+# ── Multi-machine merging helpers ──
+
+def load_json_safe(path):
+    """Load a JSON file, return empty structure on failure."""
+    p = Path(path)
+    if not p.exists():
+        return {}
+    try:
+        return json.loads(p.read_text())
+    except Exception as e:
+        print(f"  Warning: could not read {p}: {e}")
+        return {}
+
+
+def merge_daily(daily1, daily2):
+    """Merge two daily lists. Same date -> sum the numbers. Different dates -> union."""
+    by_date = {}
+    for d in daily1:
+        by_date[d["date"]] = dict(d)
+
+    for d in daily2:
+        date = d["date"]
+        if date in by_date:
+            existing = by_date[date]
+            for key in ("inputTokens", "outputTokens", "cacheCreationTokens",
+                        "cacheReadTokens", "totalTokens"):
+                existing[key] = existing.get(key, 0) + d.get(key, 0)
+            existing["totalCost"] = existing.get("totalCost", 0) + d.get("totalCost", 0)
+            # Merge modelsUsed
+            models = set(existing.get("modelsUsed", []))
+            models.update(d.get("modelsUsed", []))
+            existing["modelsUsed"] = sorted(models)
+            # Merge modelBreakdowns
+            mb_map = {}
+            for mb in existing.get("modelBreakdowns", []):
+                mb_map[mb["modelName"]] = dict(mb)
+            for mb in d.get("modelBreakdowns", []):
+                name = mb["modelName"]
+                if name in mb_map:
+                    for k in ("inputTokens", "outputTokens", "cacheCreationTokens",
+                              "cacheReadTokens", "cost"):
+                        mb_map[name][k] = mb_map[name].get(k, 0) + mb.get(k, 0)
+                else:
+                    mb_map[name] = dict(mb)
+            existing["modelBreakdowns"] = list(mb_map.values())
+        else:
+            by_date[date] = dict(d)
+
+    return sorted(by_date.values(), key=lambda x: x["date"])
+
+
+def merge_sessions(sessions1, sessions2):
+    """Merge two session lists. Deduplicate by sessionId."""
+    seen = {}
+    for s in sessions1:
+        sid = s.get("sessionId", "")
+        seen[sid] = s
+    dupes = 0
+    for s in sessions2:
+        sid = s.get("sessionId", "")
+        if sid in seen:
+            dupes += 1
+        else:
+            seen[sid] = s
+    if dupes:
+        print(f"  Deduped {dupes} sessions by sessionId")
+    return list(seen.values())
+
+
+def merge_monthly(monthly1, monthly2):
+    """Merge two monthly lists. Same month -> sum. Different months -> union."""
+    by_month = {}
+    for m in monthly1:
+        by_month[m["month"]] = dict(m)
+
+    for m in monthly2:
+        month = m["month"]
+        if month in by_month:
+            existing = by_month[month]
+            for key in ("inputTokens", "outputTokens", "cacheCreationTokens",
+                        "cacheReadTokens", "totalTokens"):
+                existing[key] = existing.get(key, 0) + m.get(key, 0)
+            existing["totalCost"] = existing.get("totalCost", 0) + m.get("totalCost", 0)
+            models = set(existing.get("modelsUsed", []))
+            models.update(m.get("modelsUsed", []))
+            existing["modelsUsed"] = sorted(models)
+        else:
+            by_month[month] = dict(m)
+
+    return sorted(by_month.values(), key=lambda x: x["month"])
+
+
 def main():
-    daily = json.loads((DATA_DIR / "daily.json").read_text())
-    sessions = json.loads((DATA_DIR / "sessions.json").read_text())
-    monthly = json.loads((DATA_DIR / "monthly.json").read_text())
+    parser = argparse.ArgumentParser(description="Merge ccusage exports into usage.json")
+    parser.add_argument("--machine2", type=str, default=None,
+                        help="Path to directory containing machine 2 exports "
+                             "(daily_machine2.json, sessions_machine2.json, monthly_machine2.json)")
+    args = parser.parse_args()
 
-    daily_list = daily.get("daily", [])
-    raw_sessions = sessions.get("sessions", [])
-    monthly_list = monthly.get("monthly", [])
+    # ── Load machine 1 data (always from data/) ──
+    daily1 = json.loads((DATA_DIR / "daily.json").read_text())
+    sessions1 = json.loads((DATA_DIR / "sessions.json").read_text())
+    monthly1 = json.loads((DATA_DIR / "monthly.json").read_text())
 
-    # Content-based splitting for multi-project directories
+    daily_list = daily1.get("daily", [])
+    raw_sessions = sessions1.get("sessions", [])
+    monthly_list = monthly1.get("monthly", [])
+
+    # Tag machine 1 sessions
+    for s in raw_sessions:
+        s["_machine"] = MACHINE1_LABEL
+
+    # Tag machine 1 daily
+    for d in daily_list:
+        d.setdefault("_machines", [MACHINE1_LABEL])
+
+    # Track data sources with sync timestamps
+    sources = {
+        MACHINE1_LABEL: {
+            "synced_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+            "sessions": len(raw_sessions),
+            "daily_records": len(daily_list),
+        }
+    }
+
+    # ── Load + merge machine 2 data (if provided) ──
+    if args.machine2:
+        m2_dir = Path(args.machine2)
+        print(f"Loading machine 2 data from: {m2_dir}")
+
+        # Look for files with various naming conventions
+        daily2_path = None
+        sessions2_path = None
+        monthly2_path = None
+
+        for name in ("daily_machine2.json", "daily.json"):
+            p = m2_dir / name
+            if p.exists():
+                daily2_path = p
+                break
+        for name in ("sessions_machine2.json", "sessions.json"):
+            p = m2_dir / name
+            if p.exists():
+                sessions2_path = p
+                break
+        for name in ("monthly_machine2.json", "monthly.json"):
+            p = m2_dir / name
+            if p.exists():
+                monthly2_path = p
+                break
+
+        if daily2_path:
+            d2 = load_json_safe(daily2_path)
+            d2_list = d2.get("daily", [])
+            # Tag machine 2 daily
+            for d in d2_list:
+                d.setdefault("_machines", [MACHINE2_LABEL])
+            # Before merging, tag existing daily records that will get combined
+            daily_list = merge_daily(daily_list, d2_list)
+            # Update _machines for merged dates
+            for d in daily_list:
+                machines = d.get("_machines", [])
+                if MACHINE1_LABEL not in machines and MACHINE2_LABEL not in machines:
+                    d["_machines"] = [MACHINE1_LABEL]
+            print(f"  Daily: merged {len(d2_list)} records from machine 2")
+        else:
+            print(f"  Warning: no daily JSON found in {m2_dir}")
+
+        if sessions2_path:
+            s2 = load_json_safe(sessions2_path)
+            s2_list = s2.get("sessions", [])
+            for s in s2_list:
+                s["_machine"] = MACHINE2_LABEL
+            before = len(raw_sessions)
+            raw_sessions = merge_sessions(raw_sessions, s2_list)
+            print(f"  Sessions: {before} + {len(s2_list)} = {len(raw_sessions)} (after dedup)")
+        else:
+            print(f"  Warning: no sessions JSON found in {m2_dir}")
+
+        if monthly2_path:
+            m2 = load_json_safe(monthly2_path)
+            m2_list = m2.get("monthly", [])
+            monthly_list = merge_monthly(monthly_list, m2_list)
+            print(f"  Monthly: merged {len(m2_list)} records from machine 2")
+        else:
+            print(f"  Warning: no monthly JSON found in {m2_dir}")
+
+        sources[MACHINE2_LABEL] = {
+            "synced_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+            "sessions": len(s2_list) if sessions2_path else 0,
+            "daily_records": len(d2_list) if daily2_path else 0,
+        }
+
+    # ── Content-based splitting for multi-project directories ──
     session_list = []
     for s in raw_sessions:
         sid = s.get("sessionId", "")
-        # Split the nous directory session using content analysis
         if sid == "-Users-bry-nous":
             props = scan_session_content("-Users-bry-nous")
             if props:
                 splits = split_session(s, props)
+                # Preserve machine tag on splits
+                for sp in splits:
+                    sp["_machine"] = s.get("_machine", MACHINE1_LABEL)
                 session_list.extend(splits)
                 print(f"Split nous session (${s['totalCost']:.2f}) into {len(splits)} projects:")
                 for sp in splits:
@@ -196,13 +400,12 @@ def main():
                 continue
         session_list.append(s)
 
-    # Calculate totals
+    # ── Calculate totals ──
     total_tokens = sum(d["totalTokens"] for d in daily_list)
     total_cost = sum(d["totalCost"] for d in daily_list)
     days_active = len(daily_list)
     num_sessions = len(session_list)
 
-    # Peak day
     peak = max(daily_list, key=lambda d: d.get("totalCost", 0)) if daily_list else {}
 
     # Model totals
@@ -234,7 +437,7 @@ def main():
     max_plan_for_period = max_plan_monthly * (days_active / 30)
     usage_multiple = total_cost / max(max_plan_for_period, 1)
 
-    # Friendly display names for canonical project keys
+    # Friendly display names
     display_names = {
         "Latent": "LOLM / Latent",
         "Codey / Nous": "Codey / Nous",
@@ -249,14 +452,16 @@ def main():
         "Armo": "Armo",
         "NFET": "NFET",
         "Licensing Dashboard": "Licensing Dashboard",
+        "AutoHustle": "AutoHustle",
+        "Usage Dashboard": "Usage Dashboard",
+        "Portfolio": "Portfolio",
     }
 
     def canonical(proj_name):
-        """Strip (worktree) / (subagent) suffixes to group all sub-sessions under one project."""
         base = proj_name.replace(" (worktree)", "").replace(" (subagent)", "").strip()
         return display_names.get(base, base)
 
-    # Project breakdown — group main + worktree + subagent together
+    # ── Project breakdown (combined) ──
     projects = {}
     for s in session_list:
         proj = canonical(infer_project(s))
@@ -266,16 +471,31 @@ def main():
         projects[proj]["cost"] += s.get("totalCost", 0)
         projects[proj]["sessions"] += 1
 
-    # Add canonical project name to each session
+    # ── Per-machine project breakdown ──
+    projects_by_machine = {}
+    for s in session_list:
+        machine = s.get("_machine", MACHINE1_LABEL)
+        proj = canonical(infer_project(s))
+        if machine not in projects_by_machine:
+            projects_by_machine[machine] = {}
+        if proj not in projects_by_machine[machine]:
+            projects_by_machine[machine][proj] = {"tokens": 0, "cost": 0, "sessions": 0}
+        projects_by_machine[machine][proj]["tokens"] += s.get("totalTokens", 0)
+        projects_by_machine[machine][proj]["cost"] += s.get("totalCost", 0)
+        projects_by_machine[machine][proj]["sessions"] += 1
+
+    # Add canonical project name + machine to each session
     for s in session_list:
         s["project"] = canonical(infer_project(s))
 
     usage = {
-        "generated_at": datetime.utcnow().isoformat() + "Z",
+        "generated_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+        "sources": sources,
         "daily": daily_list,
         "sessions": session_list,
         "monthly": monthly_list,
         "projects": projects,
+        "projects_by_machine": projects_by_machine,
         "totals": {
             "tokens": total_tokens,
             "cost": round(total_cost, 2),
@@ -302,10 +522,18 @@ def main():
 
     out = DATA_DIR / "usage.json"
     out.write_text(json.dumps(usage, indent=2))
-    print(f"Exported: {total_tokens:,} tokens, ${total_cost:,.2f}")
+    print(f"\nExported: {total_tokens:,} tokens, ${total_cost:,.2f}")
     print(f"Projects: {len(projects)}")
-    print(f"Burn rate: ${avg_daily:,.0f}/day → ${monthly_projection:,.0f}/mo → ${annual_projection:,.0f}/yr")
+    print(f"Sources: {', '.join(sources.keys())}")
+    print(f"Burn rate: ${avg_daily:,.0f}/day -> ${monthly_projection:,.0f}/mo -> ${annual_projection:,.0f}/yr")
     print(f"Max plan multiple: {usage_multiple:.1f}x")
+
+    if len(sources) > 1:
+        print(f"\nPer-machine breakdown:")
+        for machine, projs in projects_by_machine.items():
+            m_cost = sum(p["cost"] for p in projs.values())
+            m_sessions = sum(p["sessions"] for p in projs.values())
+            print(f"  {machine}: ${m_cost:,.2f} across {m_sessions} sessions")
 
 
 if __name__ == "__main__":
