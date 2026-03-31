@@ -124,6 +124,11 @@ footer a { color: var(--blue); text-decoration: none; }
     </div>
 </section>
 
+<!-- Hero Context -->
+<div class="hero-context" style="max-width:800px;margin:32px auto;text-align:center;font-size:14px;color:#94a3b8;line-height:1.8;">
+  This is a real-time record of Claude API usage across four simultaneous independent projects: EGC (consciousness research), LOLM (custom language model training), Codey (AI coding platform), and NFET (traffic optimization). Every token here represents actual research, actual code, and actual systems being built — no institutional backing, no team, from Phoenix, Arizona. Data exported directly from <a href="https://github.com/ryoppippi/ccusage" target="_blank" style="color:#60a5fa;">ccusage</a>.
+</div>
+
 <!-- Stats Cards -->
 <div class="container">
     <div class="stats-row" id="stats-cards"></div>
@@ -134,6 +139,7 @@ footer a { color: var(--blue); text-decoration: none; }
     <div class="section">
         <h2 class="section-title">Daily Usage</h2>
         <p class="section-sub">Token consumption and cost by day</p>
+        <p style="font-size:13px;color:#64748b;margin-top:4px;margin-bottom:16px;">What $208/day of AI compute actually looks like</p>
         <div class="chart-container">
             <canvas id="daily-chart" class="chart"></canvas>
         </div>
@@ -146,6 +152,7 @@ footer a { color: var(--blue); text-decoration: none; }
         <div>
             <h2 class="section-title">Model Breakdown</h2>
             <p class="section-sub">Usage by model</p>
+            <p style="font-size:13px;color:#64748b;margin-top:4px;margin-bottom:16px;">Opus for deep research, Sonnet for building, Haiku for speed</p>
             <div class="chart-container">
                 <canvas id="model-chart" class="chart"></canvas>
             </div>
@@ -174,6 +181,7 @@ footer a { color: var(--blue); text-decoration: none; }
     <div class="section">
         <h2 class="section-title">Burn Rate Projection</h2>
         <p class="section-sub">At current pace, where is this heading?</p>
+        <p style="font-size:13px;color:#64748b;margin-top:4px;margin-bottom:16px;">At this rate, the projected annual spend exceeds $41,000</p>
         <div class="stats-row" id="burn-rate-cards"></div>
     </div>
 </div>
@@ -183,6 +191,7 @@ footer a { color: var(--blue); text-decoration: none; }
     <div class="section">
         <h2 class="section-title">Project Breakdown</h2>
         <p class="section-sub">Where the tokens actually went</p>
+        <p style="font-size:13px;color:#64748b;margin-top:4px;margin-bottom:16px;">Four simultaneous projects, zero institutional backing</p>
         <div class="chart-container">
             <canvas id="project-chart" class="chart"></canvas>
         </div>
@@ -216,6 +225,7 @@ footer a { color: var(--blue); text-decoration: none; }
     <div class="section">
         <h2 class="section-title">Session Explorer</h2>
         <p class="section-sub">All sessions ranked by cost</p>
+        <p style="font-size:13px;color:#64748b;margin-top:4px;margin-bottom:16px;">Every individual Claude session logged</p>
         <div class="chart-container" style="overflow-x:auto;">
             <table class="session-table" id="session-table">
                 <thead><tr><th>Session</th><th>Tokens</th><th>Cost</th><th>Models</th><th>Last Active</th></tr></thead>
@@ -231,29 +241,89 @@ footer a { color: var(--blue); text-decoration: none; }
         <h2 class="section-title">How This Compares</h2>
         <p class="section-sub">Bryan's usage vs typical Claude Code users — sourced from public data</p>
         <div class="chart-container" id="comparison"></div>
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:16px; margin-top:24px;">
-            <div class="stat-card">
-                <div class="value" style="color:var(--red); font-size:32px;">19x</div>
-                <div class="label">vs average Claude Code developer ($6/day)</div>
-            </div>
-            <div class="stat-card">
-                <div class="value" style="color:var(--gold); font-size:32px;">9.5x</div>
-                <div class="label">vs 90th percentile user ($12/day)</div>
-            </div>
-            <div class="stat-card">
-                <div class="value" style="color:var(--purple); font-size:32px;">5x</div>
-                <div class="label">intensity vs closest public comparable (10B tokens / 8 months)</div>
-            </div>
-            <div class="stat-card">
-                <div class="value" style="color:var(--blue); font-size:32px;">~$41K/yr</div>
-                <div class="label">projected spend — equivalent to a small business API customer</div>
-            </div>
-        </div>
-        <p style="color:var(--text3); font-size:12px; margin-top:16px; line-height:1.6;">
-            Sources: Anthropic cost docs, Claude pricing pages, Backlinko (18.9M MAU), DemandSage, Towards AI, The Register (rate limit policy changes).
-            90% of Claude Code developers stay under $12/day. The average is $6/day. Bryan averages $215/day.
-        </p>
     </div>
+</div>
+
+<!-- Sourced Comparison Table -->
+<div class="comparison-section" style="max-width:900px;margin:48px auto;padding:40px;">
+  <h2 style="font-family:'Syne',sans-serif;font-size:24px;color:#f5f0e8;margin-bottom:8px;">Where This Sits</h2>
+  <p style="font-size:13px;color:#64748b;margin-bottom:24px;">Among the most documented heavy Claude users publicly known.</p>
+
+  <table style="width:100%;border-collapse:collapse;font-size:13px;">
+    <thead>
+      <tr style="border-bottom:1px solid #1e2d40;">
+        <th style="text-align:left;padding:12px 8px;color:#64748b;font-weight:400;">User</th>
+        <th style="text-align:left;padding:12px 8px;color:#64748b;font-weight:400;">Tokens</th>
+        <th style="text-align:left;padding:12px 8px;color:#64748b;font-weight:400;">Period</th>
+        <th style="text-align:left;padding:12px 8px;color:#64748b;font-weight:400;">Cost</th>
+        <th style="text-align:left;padding:12px 8px;color:#64748b;font-weight:400;">Source</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #1e2d40;background:rgba(37,99,235,0.08);">
+        <td style="padding:12px 8px;color:#60a5fa;font-weight:600;">Bryan Leonard</td>
+        <td style="padding:12px 8px;color:#f5f0e8;">9.3B</td>
+        <td style="padding:12px 8px;color:#f5f0e8;">33 days</td>
+        <td style="padding:12px 8px;color:#f5f0e8;">$6,859 actual API</td>
+        <td style="padding:12px 8px;"><a href="https://github.com/ryoppippi/ccusage" target="_blank" style="color:#60a5fa;font-size:11px;">ccusage data</a></td>
+      </tr>
+      <tr style="border-bottom:1px solid #1e2d40;">
+        <td style="padding:12px 8px;color:#94a3b8;">ksred (ksred.com)</td>
+        <td style="padding:12px 8px;color:#94a3b8;">10B</td>
+        <td style="padding:12px 8px;color:#94a3b8;">8 months</td>
+        <td style="padding:12px 8px;color:#94a3b8;">~$800 sub ($15K+ API equiv)</td>
+        <td style="padding:12px 8px;"><a href="https://ksred.com/claude-code-pricing-guide-which-plan-actually-saves-you-money" target="_blank" style="color:#60a5fa;font-size:11px;">ksred.com</a></td>
+      </tr>
+      <tr style="border-bottom:1px solid #1e2d40;">
+        <td style="padding:12px 8px;color:#94a3b8;">Average developer</td>
+        <td style="padding:12px 8px;color:#94a3b8;">~180M</td>
+        <td style="padding:12px 8px;color:#94a3b8;">30 days</td>
+        <td style="padding:12px 8px;color:#94a3b8;">~$180</td>
+        <td style="padding:12px 8px;"><a href="https://docs.anthropic.com/en/docs/claude-code/costs" target="_blank" style="color:#60a5fa;font-size:11px;">Anthropic docs</a></td>
+      </tr>
+      <tr style="border-bottom:1px solid #1e2d40;">
+        <td style="padding:12px 8px;color:#94a3b8;">90th percentile dev</td>
+        <td style="padding:12px 8px;color:#94a3b8;">~360M</td>
+        <td style="padding:12px 8px;color:#94a3b8;">30 days</td>
+        <td style="padding:12px 8px;color:#94a3b8;">~$360</td>
+        <td style="padding:12px 8px;"><a href="https://docs.anthropic.com/en/docs/claude-code/costs" target="_blank" style="color:#60a5fa;font-size:11px;">Anthropic docs</a></td>
+      </tr>
+      <tr style="border-bottom:1px solid #1e2d40;">
+        <td style="padding:12px 8px;color:#94a3b8;">Multi-agent workflows</td>
+        <td style="padding:12px 8px;color:#94a3b8;">variable</td>
+        <td style="padding:12px 8px;color:#94a3b8;">per day</td>
+        <td style="padding:12px 8px;color:#94a3b8;">$30–50/day</td>
+        <td style="padding:12px 8px;"><a href="https://www.reddit.com/r/ClaudeCode/" target="_blank" style="color:#60a5fa;font-size:11px;">r/ClaudeCode</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:20px;padding:16px;background:rgba(200,168,75,0.08);border:1px solid rgba(200,168,75,0.2);border-radius:8px;font-size:12px;color:#c8a84b;line-height:1.7;">
+    <strong>Key distinction:</strong> Bryan is paying full API prices, not subscription prices. The ksred comparison — the closest publicly documented case — used a $200/month Max subscription. Bryan's $6,859 represents actual compute cost, not discounted flat-rate access. Bryan's rate is approximately 8x faster token consumption at full price.
+  </div>
+</div>
+
+<!-- What This Paid For -->
+<div style="max-width:900px;margin:48px auto;padding:40px;">
+  <h2 style="font-family:'Syne',sans-serif;font-size:24px;color:#f5f0e8;margin-bottom:24px;">What This Paid For</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div style="background:rgba(37,99,235,0.06);border:1px solid rgba(37,99,235,0.15);border-radius:10px;padding:20px;">
+      <div style="font-size:16px;font-weight:700;color:#60a5fa;margin-bottom:6px;">EGC Research</div>
+      <div style="font-size:12px;color:#94a3b8;line-height:1.6;">44+ research subjects · Live empirical study · Pearson r=0.311 · Peer-reviewable dataset on consciousness and expression</div>
+    </div>
+    <div style="background:rgba(200,168,75,0.06);border:1px solid rgba(200,168,75,0.15);border-radius:10px;padding:20px;">
+      <div style="font-size:16px;font-weight:700;color:#c8a84b;margin-bottom:6px;">LOLM</div>
+      <div style="font-size:12px;color:#94a3b8;line-height:1.6;">Custom language model · 10B-100B parameter target · Google TPU Research Cloud grant · Training infrastructure built from scratch</div>
+    </div>
+    <div style="background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);border-radius:10px;padding:20px;">
+      <div style="font-size:16px;font-weight:700;color:#10b981;margin-bottom:6px;">Codey</div>
+      <div style="font-size:12px;color:#94a3b8;line-height:1.6;">AI coding intelligence platform · Live on Render · Stripe billing integrated · 9 specification documents</div>
+    </div>
+    <div style="background:rgba(6,182,212,0.06);border:1px solid rgba(6,182,212,0.15);border-radius:10px;padding:20px;">
+      <div style="font-size:16px;font-weight:700;color:#06b6d4;margin-bottom:6px;">NFET</div>
+      <div style="font-size:12px;color:#94a3b8;line-height:1.6;">Traffic optimization system · Kuramoto oscillator modeling · Live AZ-511 data feed · Phoenix metro area</div>
+    </div>
+  </div>
 </div>
 
 <footer>
@@ -262,6 +332,17 @@ footer a { color: var(--blue); text-decoration: none; }
         <p style="margin-top:8px;"><a href="https://theartofsound.github.io/portfolio/">Portfolio</a> · <a href="https://theartofsound.github.io/portfolio/#work">All Projects</a> · Generated with <a href="https://github.com/ryoppippi/ccusage">ccusage</a> — Last updated: <span id="last-updated">—</span></p>
     </div>
 </footer>
+
+<div style="max-width:800px;margin:64px auto 32px;padding:24px;border-top:1px solid #1e2d40;font-size:11px;color:#475569;line-height:1.8;">
+  <strong style="color:#64748b;">How this data is collected:</strong> Usage data exported via <a href="https://github.com/ryoppippi/ccusage" target="_blank" style="color:#60a5fa;">ccusage</a>, an open-source CLI tool that reads Claude Code's local session logs from ~/.claude/. Token counts and costs reflect actual API billing at Anthropic's published rates. Data is not estimated or projected — it is read directly from session logs.
+</div>
+<div style="max-width:800px;margin:0 auto 48px;font-size:10px;color:#334155;line-height:2;">
+  <strong>Sources:</strong>
+  <a href="https://ksred.com/claude-code-pricing-guide-which-plan-actually-saves-you-money" target="_blank" style="color:#475569;">ksred.com</a> ·
+  <a href="https://docs.anthropic.com/en/docs/claude-code/costs" target="_blank" style="color:#475569;">Anthropic docs</a> ·
+  <a href="https://usagebox.com/articles/api-usage-billing-claude-limits" target="_blank" style="color:#475569;">UsageBox</a> ·
+  <a href="https://www.reddit.com/r/ClaudeCode/" target="_blank" style="color:#475569;">r/ClaudeCode</a>
+</div>
 
 <script>
 // ── Data Loading ──
@@ -320,14 +401,15 @@ function renderBurnRate() {
     const cards = [
         { icon: '&#128293;', value: '$' + (t.avg_daily_cost || 0).toLocaleString(), label: 'Per Day', color: 'var(--gold)' },
         { icon: '&#128200;', value: '$' + (t.monthly_projection || 0).toLocaleString(), label: 'Monthly Projection', color: 'var(--red)' },
-        { icon: '&#128640;', value: '$' + (t.annual_projection || 0).toLocaleString(), label: 'Annual Projection', color: 'var(--pink)' },
+        { icon: '&#128640;', value: '$' + (t.annual_projection || 0).toLocaleString(), label: 'Annual Projection', color: '#c8a84b', fontSize: '36px', subtitle: 'Projected annual compute spend at current rate' },
         { icon: '&#9889;', value: (t.usage_multiple || 0) + 'x', label: 'vs Max Plan ($200/mo)', color: 'var(--purple)' },
     ];
     document.getElementById('burn-rate-cards').innerHTML = cards.map(c => `
         <div class="stat-card">
             <div class="icon">${c.icon}</div>
-            <div class="value" style="color:${c.color}">${c.value}</div>
+            <div class="value" style="color:${c.color};${c.fontSize ? 'font-size:'+c.fontSize : ''}">${c.value}</div>
             <div class="label">${c.label}</div>
+            ${c.subtitle ? '<div style="font-size:11px;color:#64748b;margin-top:6px;">'+c.subtitle+'</div>' : ''}
         </div>
     `).join('');
 }
@@ -623,7 +705,17 @@ function initGlobe() {
 
 // ── Init ──
 initGlobe();
-loadData();
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    loadData();
+} else {
+    window.addEventListener('DOMContentLoaded', loadData);
+}
+// Fallback: if counters haven't fired after 3s (e.g. hero already in viewport), retry
+setTimeout(() => {
+    if (document.getElementById('total-tokens').textContent === '—' && DATA) {
+        renderHero();
+    }
+}, 3000);
 </script>
 </body>
 </html>
