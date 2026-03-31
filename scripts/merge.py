@@ -241,21 +241,44 @@ def merge_daily(daily1, daily2):
 
 
 def merge_sessions(sessions1, sessions2):
-    """Merge two session lists. Deduplicate by sessionId."""
-    seen = {}
+    """Merge two session lists from different machines.
+
+    Keeps ALL sessions from both machines. Only deduplicates sessions that
+    appear to be truly identical (same sessionId AND similar cost — indicating
+    the same session log exists on both machines, e.g. via cloud sync).
+
+    ccusage reports subagent sessions as separate entries all sharing the
+    generic sessionId "subagents". These are distinct work and must NOT be
+    collapsed.
+    """
+    result = list(sessions1)  # keep all machine 1 sessions
+    dupes = 0
+
+    # Build a fingerprint set from machine 1 for true-duplicate detection.
+    # A session is a true duplicate only if sessionId + cost match closely.
+    m1_fingerprints = set()
     for s in sessions1:
         sid = s.get("sessionId", "")
-        seen[sid] = s
-    dupes = 0
+        cost = round(s.get("totalCost", 0), 2)
+        tokens = s.get("totalTokens", 0)
+        m1_fingerprints.add((sid, cost, tokens))
+
     for s in sessions2:
         sid = s.get("sessionId", "")
-        if sid in seen:
+        cost = round(s.get("totalCost", 0), 2)
+        tokens = s.get("totalTokens", 0)
+        fp = (sid, cost, tokens)
+        if fp in m1_fingerprints:
             dupes += 1
+            # Remove from fingerprints so if M2 has multiple entries with
+            # same fingerprint, only one gets deduped per M1 match
+            m1_fingerprints.discard(fp)
         else:
-            seen[sid] = s
+            result.append(s)
+
     if dupes:
-        print(f"  Deduped {dupes} sessions by sessionId")
-    return list(seen.values())
+        print(f"  Deduped {dupes} truly identical sessions (same ID + cost + tokens)")
+    return result
 
 
 def merge_monthly(monthly1, monthly2):
