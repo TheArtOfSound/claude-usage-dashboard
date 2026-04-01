@@ -40,6 +40,32 @@ AUTOHUSTLE_KEYWORDS = ['autohustle', 'shopify', 'solana_sniper', 'dropshipping',
     'orchestrator', 'budget_guard', 'kill_switch', 'circuit_breaker', 'blog_publisher',
     'repo_organizer', 'seo_content', 'stripe_premium']
 
+PUMPVOLUMEBOT_KEYWORDS = ['pumpvolumebot', 'pump.fun', 'volume bot', 'vol-bot', 'vol_bot',
+    'boss wallet', 'worker wallet', 'micro-trade', 'random-walk', 'wave strategy',
+    'bot.autohustle', 'solana_engine', 'telegram_bot', 'discord_bot', 'magic_link',
+    'license_key', 'volumeEngine']
+
+SOCIAL_ENGINE_KEYWORDS = ['social-engine', 'social_engine', 'goodgametoken', 'trend_scraper',
+    'video_assembler', 'tts_narration', 'upload_manager', 'anti_detection', 'browserforge',
+    'guardian_watchdog', 'coqui', 'edge_tts', 'moviepy', 'platform_upload']
+
+PORTFOLIO_KEYWORDS = ['portfolio', 'theartofsound.github.io/portfolio', 'resume.html',
+    'about-section', 'three.js particle', 'hero-fade']
+
+COMMAND_CENTER_KEYWORDS = ['command-center', 'command_center', 'nous agent', 'ai council',
+    'multi-agent', 'gmail_monitor', 'render_monitor', 'stripe_monitor']
+
+RORO_KEYWORDS = ['roro', 'aurora leonard', 'home styling', 'professional organizing',
+    'roro mode', 'booking', 'invoice']
+
+RESUMEAI_KEYWORDS = ['resumeai', 'resume-ai', 'resume builder', 'cover letter generator',
+    'gemini ai resume']
+
+DASHBOARD_KEYWORDS = ['claude-usage-dashboard', 'usage dashboard', 'ccusage', 'merge.py',
+    'token consumption', 'usage.json']
+
+QIRA_KEYWORDS = ['qira-website', 'qira-hq', 'qira llc', 'qira.ai']
+
 
 def scan_session_content(project_dir):
     """Scan JSONL session files and return proportional project split."""
@@ -47,13 +73,33 @@ def scan_session_content(project_dir):
     if not sessions_dir.exists():
         return None
 
-    totals = {"egc": 0, "nfet": 0, "codey": 0, "lolm": 0, "other": 0, "total": 0}
+    categories = ["egc", "nfet", "codey", "lolm", "autohustle", "pumpvolumebot",
+                   "social_engine", "portfolio", "command_center", "roro",
+                   "resumeai", "dashboard", "qira", "other"]
+    totals = {c: 0 for c in categories}
+    totals["total"] = 0
+
+    keyword_map = [
+        ("egc", EGC_KEYWORDS),
+        ("nfet", NFET_KEYWORDS),
+        ("codey", CODEY_KEYWORDS),
+        ("lolm", LOLM_KEYWORDS),
+        ("autohustle", AUTOHUSTLE_KEYWORDS),
+        ("pumpvolumebot", PUMPVOLUMEBOT_KEYWORDS),
+        ("social_engine", SOCIAL_ENGINE_KEYWORDS),
+        ("portfolio", PORTFOLIO_KEYWORDS),
+        ("command_center", COMMAND_CENTER_KEYWORDS),
+        ("roro", RORO_KEYWORDS),
+        ("resumeai", RESUMEAI_KEYWORDS),
+        ("dashboard", DASHBOARD_KEYWORDS),
+        ("qira", QIRA_KEYWORDS),
+    ]
 
     for fname in os.listdir(sessions_dir):
         if not fname.endswith(".jsonl"):
             continue
         try:
-            with open(sessions_dir / fname) as f:
+            with open(sessions_dir / fname, encoding="utf-8", errors="ignore") as f:
                 for line in f:
                     try:
                         data = json.loads(line)
@@ -72,15 +118,13 @@ def scan_session_content(project_dir):
                         chars = len(text)
                         totals["total"] += chars
                         tl = text.lower()
-                        if any(kw in tl for kw in EGC_KEYWORDS):
-                            totals["egc"] += chars
-                        elif any(kw in tl for kw in NFET_KEYWORDS):
-                            totals["nfet"] += chars
-                        elif any(kw in tl for kw in CODEY_KEYWORDS):
-                            totals["codey"] += chars
-                        elif any(kw in tl for kw in LOLM_KEYWORDS):
-                            totals["lolm"] += chars
-                        else:
+                        matched = False
+                        for cat, keywords in keyword_map:
+                            if any(kw in tl for kw in keywords):
+                                totals[cat] += chars
+                                matched = True
+                                break
+                        if not matched:
                             totals["other"] += chars
                     except:
                         continue
@@ -95,7 +139,13 @@ def scan_session_content(project_dir):
 def split_session(session, proportions):
     """Split a single aggregated session into multiple virtual sessions by proportion."""
     splits = []
-    proj_names = {"egc": "EGC", "nfet": "NFET", "codey": "Codey / Nous", "lolm": "LOLM / Latent", "other": "Other (nous)"}
+    proj_names = {
+        "egc": "EGC", "nfet": "NFET", "codey": "Codey / Nous", "lolm": "LOLM / Latent",
+        "autohustle": "AutoHustle", "pumpvolumebot": "Vol-bot", "social_engine": "Social Engine",
+        "portfolio": "Portfolio", "command_center": "Command Center", "roro": "Roro",
+        "resumeai": "ResumeAI", "dashboard": "Usage Dashboard", "qira": "Qira",
+        "other": "Other (nous)",
+    }
     for key, pct in proportions.items():
         if pct < 0.01:  # skip < 1%
             continue
@@ -130,6 +180,7 @@ def infer_project(session):
         "nous": "Codey / Nous",
         "codey": "Codey",
         "egcstudy": "EGC Study",
+        "thegate": "EGC Study",
         "nfet": "NFET",
         "armo": "Armo",
         "roro": "Roro",
@@ -137,7 +188,9 @@ def infer_project(session):
         "capstone": "Capstone",
         "vol-bot": "Vol-bot",
         "vol_bot": "Vol-bot",
+        "pumpvolumebot": "Vol-bot",
         "latent": "Latent",
+        "lolm": "LOLM / Latent",
         "capitalcore": "CapitalCore",
         "new-project": "New Project",
         "new_project": "New Project",
@@ -150,6 +203,19 @@ def infer_project(session):
         "autohustle": "AutoHustle",
         "claude-usage-dashboard": "Usage Dashboard",
         "portfolio": "Portfolio",
+        "command-center": "Command Center",
+        "command_center": "Command Center",
+        "social-engine": "Social Engine",
+        "social_engine": "Social Engine",
+        "social": "Social Engine",
+        "resumeai": "ResumeAI",
+        "nft": "NFT Toolkit",
+        "qira-website": "Qira",
+        "qira-hq": "Qira",
+        "qira": "Qira",
+        "shopify": "AutoHustle",
+        "caitica": "CAITICA",
+        "tasty": "Tasty Planet",
     }
 
     # Check subagent first — use parent path for project name
@@ -406,22 +472,35 @@ def main():
         }
 
     # ── Content-based splitting for multi-project directories ──
+    # Directories that contain multi-project work and need content-based splitting
+    MULTI_PROJECT_DIRS = [
+        "-Users-bry-nous",                              # Mac nous dir
+        "C--Users-finky-Documents-nous",                # Windows nous dir
+        "C--Users-finky-Documents-auto",                # Windows auto dir
+    ]
+
     session_list = []
     for s in raw_sessions:
         sid = s.get("sessionId", "")
-        if sid == "-Users-bry-nous":
-            props = scan_session_content("-Users-bry-nous")
-            if props:
-                splits = split_session(s, props)
-                # Preserve machine tag on splits
-                for sp in splits:
-                    sp["_machine"] = s.get("_machine", MACHINE1_LABEL)
-                session_list.extend(splits)
-                print(f"Split nous session (${s['totalCost']:.2f}) into {len(splits)} projects:")
-                for sp in splits:
-                    print(f"  {sp['_split_project']}: ${sp['totalCost']:.2f} ({sp['_split_pct']}%)")
-                continue
-        session_list.append(s)
+        path = s.get("projectPath", "")
+        split_done = False
+
+        for mp_dir in MULTI_PROJECT_DIRS:
+            if sid == mp_dir or mp_dir in sid or mp_dir in path.replace("/", "-").replace("\\", "-"):
+                props = scan_session_content(mp_dir)
+                if props:
+                    splits = split_session(s, props)
+                    for sp in splits:
+                        sp["_machine"] = s.get("_machine", MACHINE1_LABEL)
+                    session_list.extend(splits)
+                    print(f"Split {mp_dir} session (${s['totalCost']:.2f}) into {len(splits)} projects:")
+                    for sp in splits:
+                        print(f"  {sp['_split_project']}: ${sp['totalCost']:.2f} ({sp['_split_pct']}%)")
+                    split_done = True
+                    break
+
+        if not split_done:
+            session_list.append(s)
 
     # ── Calculate totals ──
     total_tokens = sum(d["totalTokens"] for d in daily_list)
@@ -478,6 +557,13 @@ def main():
         "AutoHustle": "AutoHustle",
         "Usage Dashboard": "Usage Dashboard",
         "Portfolio": "Portfolio",
+        "Command Center": "Command Center",
+        "Social Engine": "Social Engine",
+        "ResumeAI": "ResumeAI",
+        "NFT Toolkit": "NFT Toolkit",
+        "Qira": "Qira",
+        "CAITICA": "CAITICA",
+        "Tasty Planet": "Tasty Planet",
     }
 
     def canonical(proj_name):
