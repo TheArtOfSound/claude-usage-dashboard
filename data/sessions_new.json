@@ -1,0 +1,10 @@
+file:///C:/Users/finky/AppData/Local/npm-cache/_npx/5032fdcfd7bcf20e/node_modules/ccusage/dist/index.js:757
+	if (!command) throw new Error(`Command not found: ${name$1 || ""}`);
+	                    ^
+
+Error: Command not found: sessions
+    at cli (file:///C:/Users/finky/AppData/Local/npm-cache/_npx/5032fdcfd7bcf20e/node_modules/ccusage/dist/index.js:757:22)
+    at async run (file:///C:/Users/finky/AppData/Local/npm-cache/_npx/5032fdcfd7bcf20e/node_modules/ccusage/dist/index.js:3610:2)
+    at async file:///C:/Users/finky/AppData/Local/npm-cache/_npx/5032fdcfd7bcf20e/node_modules/ccusage/dist/index.js:3618:1
+
+Node.js v24.13.1

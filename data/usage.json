@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-04-01T02:06:36.528124Z",
+  "generated_at": "2026-04-01T06:48:33.961045Z",
   "sources": {
     "Bryan (Mac)": {
-      "synced_at": "2026-04-01T02:03:37.166021Z",
+      "synced_at": "2026-04-01T06:48:15.492586Z",
       "sessions": 32,
       "daily_records": 32
     },
     "Bryan (Laptop)": {
-      "synced_at": "2026-04-01T02:03:37.244566Z",
-      "sessions": 19,
+      "synced_at": "2026-04-01T06:48:15.493659Z",
+      "sessions": 21,
       "daily_records": 18
     }
   },
@@ -1396,12 +1396,12 @@
     },
     {
       "date": "2026-03-31",
-      "inputTokens": 6188,
-      "outputTokens": 77387,
-      "cacheCreationTokens": 24850347,
-      "cacheReadTokens": 384193368,
-      "totalTokens": 409127290,
-      "totalCost": 345.0773877500001,
+      "inputTokens": 44626,
+      "outputTokens": 129437,
+      "cacheCreationTokens": 28879445,
+      "cacheReadTokens": 511247542,
+      "totalTokens": 540301050,
+      "totalCost": 434.54699945000016,
       "modelsUsed": [
         "claude-haiku-4-5-20251001",
         "claude-opus-4-6",
@@ -1410,11 +1410,11 @@
       "modelBreakdowns": [
         {
           "modelName": "claude-opus-4-6",
-          "inputTokens": 4765,
-          "outputTokens": 59961,
-          "cacheCreationTokens": 24310003,
-          "cacheReadTokens": 376961806,
-          "cost": 341.94127175000017
+          "inputTokens": 33789,
+          "outputTokens": 111990,
+          "cacheCreationTokens": 28256866,
+          "cacheReadTokens": 503307163,
+          "cost": 431.2276890000002
         },
         {
           "modelName": "claude-sonnet-4-6",
@@ -1426,11 +1426,11 @@
         },
         {
           "modelName": "claude-haiku-4-5-20251001",
-          "inputTokens": 393,
-          "outputTokens": 10101,
-          "cacheCreationTokens": 275028,
-          "cacheReadTokens": 2679678,
-          "cost": 0.6626508000000002
+          "inputTokens": 9807,
+          "outputTokens": 10122,
+          "cacheCreationTokens": 357263,
+          "cacheReadTokens": 3388495,
+          "cost": 0.8458452500000002
         }
       ],
       "_machines": [
@@ -2390,12 +2390,12 @@
     },
     {
       "sessionId": "C--Users-finky-Documents-auto--nfet",
-      "inputTokens": 14617,
-      "outputTokens": 11775,
-      "cacheCreationTokens": 2317903,
-      "cacheReadTokens": 109399419,
-      "totalTokens": 111743715,
-      "totalCost": 69.55408039634584,
+      "inputTokens": 14621,
+      "outputTokens": 11953,
+      "cacheCreationTokens": 2321857,
+      "cacheReadTokens": 109816074,
+      "totalTokens": 112164507,
+      "totalCost": 69.79160322054251,
       "lastActivity": "2026-03-31",
       "modelsUsed": [
         "claude-opus-4-6"
@@ -2403,11 +2403,11 @@
       "modelBreakdowns": [
         {
           "modelName": "claude-opus-4-6",
-          "inputTokens": 123363,
-          "outputTokens": 99379,
-          "cacheCreationTokens": 19561751,
-          "cacheReadTokens": 923267362,
-          "cost": 586.9959147500025
+          "inputTokens": 123395,
+          "outputTokens": 100884,
+          "cacheCreationTokens": 19595128,
+          "cacheReadTokens": 926783688,
+          "cost": 589.0004690000025
         }
       ],
       "projectPath": "Unknown Project",
@@ -2418,12 +2418,12 @@
     },
     {
       "sessionId": "C--Users-finky-Documents-auto--codey",
-      "inputTokens": 42157,
-      "outputTokens": 33961,
-      "cacheCreationTokens": 6684883,
-      "cacheReadTokens": 315510363,
-      "totalTokens": 322271365,
-      "totalCost": 200.59551787090766,
+      "inputTokens": 42168,
+      "outputTokens": 34475,
+      "cacheCreationTokens": 6696289,
+      "cacheReadTokens": 316712006,
+      "totalTokens": 323484939,
+      "totalCost": 201.2805389890705,
       "lastActivity": "2026-03-31",
       "modelsUsed": [
         "claude-opus-4-6"
@@ -2431,11 +2431,11 @@
       "modelBreakdowns": [
         {
           "modelName": "claude-opus-4-6",
-          "inputTokens": 123363,
-          "outputTokens": 99379,
-          "cacheCreationTokens": 19561751,
-          "cacheReadTokens": 923267362,
-          "cost": 586.9959147500025
+          "inputTokens": 123395,
+          "outputTokens": 100884,
+          "cacheCreationTokens": 19595128,
+          "cacheReadTokens": 926783688,
+          "cost": 589.0004690000025
         }
       ],
       "projectPath": "Unknown Project",
@@ -2446,12 +2446,12 @@
     },
     {
       "sessionId": "C--Users-finky-Documents-auto--lolm",
-      "inputTokens": 14022,
-      "outputTokens": 11296,
-      "cacheCreationTokens": 2223530,
-      "cacheReadTokens": 104945253,
-      "totalTokens": 107194102,
-      "totalCost": 66.72220597440305,
+      "inputTokens": 14025,
+      "outputTokens": 11467,
+      "cacheCreationTokens": 2227324,
+      "cacheReadTokens": 105344944,
+      "totalTokens": 107597761,
+      "totalCost": 66.95005812497948,
       "lastActivity": "2026-03-31",
       "modelsUsed": [
         "claude-opus-4-6"
@@ -2459,11 +2459,11 @@
       "modelBreakdowns": [
         {
           "modelName": "claude-opus-4-6",
-          "inputTokens": 123363,
-          "outputTokens": 99379,
-          "cacheCreationTokens": 19561751,
-          "cacheReadTokens": 923267362,
-          "cost": 586.9959147500025
+          "inputTokens": 123395,
+          "outputTokens": 100884,
+          "cacheCreationTokens": 19595128,
+          "cacheReadTokens": 926783688,
+          "cost": 589.0004690000025
         }
       ],
       "projectPath": "Unknown Project",
@@ -2474,12 +2474,12 @@
     },
     {
       "sessionId": "C--Users-finky-Documents-auto--autohustle",
-      "inputTokens": 20301,
-      "outputTokens": 16354,
-      "cacheCreationTokens": 3219143,
-      "cacheReadTokens": 151935779,
-      "totalTokens": 155191577,
-      "totalCost": 96.59789272812704,
+      "inputTokens": 20306,
+      "outputTokens": 16601,
+      "cacheCreationTokens": 3224635,
+      "cacheReadTokens": 152514436,
+      "totalTokens": 155775980,
+      "totalCost": 96.92776847605568,
       "lastActivity": "2026-03-31",
       "modelsUsed": [
         "claude-opus-4-6"
@@ -2487,11 +2487,11 @@
       "modelBreakdowns": [
         {
           "modelName": "claude-opus-4-6",
-          "inputTokens": 123363,
-          "outputTokens": 99379,
-          "cacheCreationTokens": 19561751,
-          "cacheReadTokens": 923267362,
-          "cost": 586.9959147500025
+          "inputTokens": 123395,
+          "outputTokens": 100884,
+          "cacheCreationTokens": 19595128,
+          "cacheReadTokens": 926783688,
+          "cost": 589.0004690000025
         }
       ],
       "projectPath": "Unknown Project",
@@ -2503,11 +2503,11 @@
     {
       "sessionId": "C--Users-finky-Documents-auto--portfolio",
       "inputTokens": 1259,
-      "outputTokens": 1014,
-      "cacheCreationTokens": 199670,
-      "cacheReadTokens": 9423952,
-      "totalTokens": 9625896,
-      "totalCost": 5.991570459960882,
+      "outputTokens": 1029,
+      "cacheCreationTokens": 200010,
+      "cacheReadTokens": 9459843,
+      "totalTokens": 9662144,
+      "totalCost": 6.012031297469102,
       "lastActivity": "2026-03-31",
       "modelsUsed": [
         "claude-opus-4-6"
@@ -2515,11 +2515,11 @@
       "modelBreakdowns": [
         {
           "modelName": "claude-opus-4-6",
-          "inputTokens": 123363,
-          "outputTokens": 99379,
-          "cacheCreationTokens": 19561751,
-          "cacheReadTokens": 923267362,
-          "cost": 586.9959147500025
+          "inputTokens": 123395,
+          "outputTokens": 100884,
+          "cacheCreationTokens": 19595128,
+          "cacheReadTokens": 926783688,
+          "cost": 589.0004690000025
         }
       ],
       "projectPath": "Unknown Project",
@@ -2530,12 +2530,12 @@
     },
     {
       "sessionId": "C--Users-finky-Documents-auto--other",
-      "inputTokens": 29871,
-      "outputTokens": 24064,
-      "cacheCreationTokens": 4736796,
-      "cacheReadTokens": 223565351,
-      "totalTokens": 228356084,
-      "totalCost": 142.13861946283393,
+      "inputTokens": 29879,
+      "outputTokens": 24428,
+      "cacheCreationTokens": 4744878,
+      "cacheReadTokens": 224416815,
+      "totalTokens": 229216002,
+      "totalCost": 142.62401393760587,
       "lastActivity": "2026-03-31",
       "modelsUsed": [
         "claude-opus-4-6"
@@ -2543,11 +2543,11 @@
       "modelBreakdowns": [
         {
           "modelName": "claude-opus-4-6",
-          "inputTokens": 123363,
-          "outputTokens": 99379,
-          "cacheCreationTokens": 19561751,
-          "cacheReadTokens": 923267362,
-          "cost": 586.9959147500025
+          "inputTokens": 123395,
+          "outputTokens": 100884,
+          "cacheCreationTokens": 19595128,
+          "cacheReadTokens": 926783688,
+          "cost": 589.0004690000025
         }
       ],
       "projectPath": "Unknown Project",
@@ -2830,6 +2830,526 @@
       "_machine": "Bryan (Laptop)",
       "_split_project": "Other (nous)",
       "_split_pct": 24.2,
+      "project": "Other (nous)"
+    },
+    {
+      "sessionId": "C--Users-finky-Documents-nous--egc",
+      "inputTokens": 162,
+      "outputTokens": 3160,
+      "cacheCreationTokens": 181262,
+      "cacheReadTokens": 21640764,
+      "totalTokens": 21825349,
+      "totalCost": 12.03308705001424,
+      "lastActivity": "2026-03-31",
+      "modelsUsed": [
+        "claude-opus-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 584,
+          "outputTokens": 11353,
+          "cacheCreationTokens": 651216,
+          "cacheReadTokens": 77748060,
+          "cost": 43.230874999999976
+        }
+      ],
+      "projectPath": "Unknown Project",
+      "_machine": "Bryan (Laptop)",
+      "_split_project": "EGC",
+      "_split_pct": 27.8,
+      "project": "EGC"
+    },
+    {
+      "sessionId": "C--Users-finky-Documents-nous--nfet",
+      "inputTokens": 78,
+      "outputTokens": 1523,
+      "cacheCreationTokens": 87394,
+      "cacheReadTokens": 10433910,
+      "totalTokens": 10522906,
+      "totalCost": 5.80165067596804,
+      "lastActivity": "2026-03-31",
+      "modelsUsed": [
+        "claude-opus-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 584,
+          "outputTokens": 11353,
+          "cacheCreationTokens": 651216,
+          "cacheReadTokens": 77748060,
+          "cost": 43.230874999999976
+        }
+      ],
+      "projectPath": "Unknown Project",
+      "_machine": "Bryan (Laptop)",
+      "_split_project": "NFET",
+      "_split_pct": 13.4,
+      "project": "NFET"
+    },
+    {
+      "sessionId": "C--Users-finky-Documents-nous--codey",
+      "inputTokens": 74,
+      "outputTokens": 1442,
+      "cacheCreationTokens": 82727,
+      "cacheReadTokens": 9876767,
+      "totalTokens": 9961012,
+      "totalCost": 5.491858224805544,
+      "lastActivity": "2026-03-31",
+      "modelsUsed": [
+        "claude-opus-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 584,
+          "outputTokens": 11353,
+          "cacheCreationTokens": 651216,
+          "cacheReadTokens": 77748060,
+          "cost": 43.230874999999976
+        }
+      ],
+      "projectPath": "Unknown Project",
+      "_machine": "Bryan (Laptop)",
+      "_split_project": "Codey / Nous",
+      "_split_pct": 12.7,
+      "project": "Codey / Nous"
+    },
+    {
+      "sessionId": "C--Users-finky-Documents-nous--lolm",
+      "inputTokens": 100,
+      "outputTokens": 1963,
+      "cacheCreationTokens": 112617,
+      "cacheReadTokens": 13445270,
+      "totalTokens": 13559952,
+      "totalCost": 7.476081155741767,
+      "lastActivity": "2026-03-31",
+      "modelsUsed": [
+        "claude-opus-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 584,
+          "outputTokens": 11353,
+          "cacheCreationTokens": 651216,
+          "cacheReadTokens": 77748060,
+          "cost": 43.230874999999976
+        }
+      ],
+      "projectPath": "Unknown Project",
+      "_machine": "Bryan (Laptop)",
+      "_split_project": "LOLM / Latent",
+      "_split_pct": 17.3,
+      "project": "LOLM / Latent"
+    },
+    {
+      "sessionId": "C--Users-finky-Documents-nous--autohustle",
+      "inputTokens": 13,
+      "outputTokens": 268,
+      "cacheCreationTokens": 15381,
+      "cacheReadTokens": 1836355,
+      "totalTokens": 1852018,
+      "totalCost": 1.0210832190009809,
+      "lastActivity": "2026-03-31",
+      "modelsUsed": [
+        "claude-opus-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 584,
+          "outputTokens": 11353,
+          "cacheCreationTokens": 651216,
+          "cacheReadTokens": 77748060,
+          "cost": 43.230874999999976
+        }
+      ],
+      "projectPath": "Unknown Project",
+      "_machine": "Bryan (Laptop)",
+      "_split_project": "AutoHustle",
+      "_split_pct": 2.4,
+      "project": "AutoHustle"
+    },
+    {
+      "sessionId": "C--Users-finky-Documents-nous--pumpvolumebot",
+      "inputTokens": 12,
+      "outputTokens": 246,
+      "cacheCreationTokens": 14151,
+      "cacheReadTokens": 1689479,
+      "totalTokens": 1703889,
+      "totalCost": 0.9394148114043877,
+      "lastActivity": "2026-03-31",
+      "modelsUsed": [
+        "claude-opus-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 584,
+          "outputTokens": 11353,
+          "cacheCreationTokens": 651216,
+          "cacheReadTokens": 77748060,
+          "cost": 43.230874999999976
+        }
+      ],
+      "projectPath": "Unknown Project",
+      "_machine": "Bryan (Laptop)",
+      "_split_project": "Vol-bot",
+      "_split_pct": 2.2,
+      "project": "Vol-bot"
+    },
+    {
+      "sessionId": "C--Users-finky-Documents-nous--dashboard",
+      "inputTokens": 10,
+      "outputTokens": 205,
+      "cacheCreationTokens": 11759,
+      "cacheReadTokens": 1403933,
+      "totalTokens": 1415908,
+      "totalCost": 0.7806404770825194,
+      "lastActivity": "2026-03-31",
+      "modelsUsed": [
+        "claude-opus-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 584,
+          "outputTokens": 11353,
+          "cacheCreationTokens": 651216,
+          "cacheReadTokens": 77748060,
+          "cost": 43.230874999999976
+        }
+      ],
+      "projectPath": "Unknown Project",
+      "_machine": "Bryan (Laptop)",
+      "_split_project": "Usage Dashboard",
+      "_split_pct": 1.8,
+      "project": "Usage Dashboard"
+    },
+    {
+      "sessionId": "C--Users-finky-Documents-nous--other",
+      "inputTokens": 125,
+      "outputTokens": 2445,
+      "cacheCreationTokens": 140266,
+      "cacheReadTokens": 16746278,
+      "totalTokens": 16889116,
+      "totalCost": 9.31156721027302,
+      "lastActivity": "2026-03-31",
+      "modelsUsed": [
+        "claude-opus-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 584,
+          "outputTokens": 11353,
+          "cacheCreationTokens": 651216,
+          "cacheReadTokens": 77748060,
+          "cost": 43.230874999999976
+        }
+      ],
+      "projectPath": "Unknown Project",
+      "_machine": "Bryan (Laptop)",
+      "_split_project": "Other (nous)",
+      "_split_pct": 21.5,
+      "project": "Other (nous)"
+    },
+    {
+      "sessionId": "subagents--egc",
+      "inputTokens": 10528,
+      "outputTokens": 10933,
+      "cacheCreationTokens": 931126,
+      "cacheReadTokens": 13029464,
+      "totalTokens": 13982052,
+      "totalCost": 12.456275572998216,
+      "lastActivity": "2026-03-31",
+      "modelsUsed": [
+        "claude-opus-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 28410,
+          "outputTokens": 39258,
+          "cacheCreationTokens": 3262992,
+          "cacheReadTokens": 46101712,
+          "cost": 44.568056
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 9414,
+          "outputTokens": 21,
+          "cacheCreationTokens": 82235,
+          "cacheReadTokens": 708817,
+          "cost": 0.18319445
+        }
+      ],
+      "projectPath": "C--Users-finky-Documents-nous\\37115ca3-16d2-4621-aad5-a847fcbd093f",
+      "_machine": "Bryan (Laptop)",
+      "_split_project": "EGC",
+      "_split_pct": 27.8,
+      "project": "EGC"
+    },
+    {
+      "sessionId": "subagents--nfet",
+      "inputTokens": 5076,
+      "outputTokens": 5271,
+      "cacheCreationTokens": 448934,
+      "cacheReadTokens": 6282045,
+      "totalTokens": 6741327,
+      "totalCost": 6.005687426489926,
+      "lastActivity": "2026-03-31",
+      "modelsUsed": [
+        "claude-opus-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 28410,
+          "outputTokens": 39258,
+          "cacheCreationTokens": 3262992,
+          "cacheReadTokens": 46101712,
+          "cost": 44.568056
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 9414,
+          "outputTokens": 21,
+          "cacheCreationTokens": 82235,
+          "cacheReadTokens": 708817,
+          "cost": 0.18319445
+        }
+      ],
+      "projectPath": "C--Users-finky-Documents-nous\\37115ca3-16d2-4621-aad5-a847fcbd093f",
+      "_machine": "Bryan (Laptop)",
+      "_split_project": "NFET",
+      "_split_pct": 13.4,
+      "project": "NFET"
+    },
+    {
+      "sessionId": "subagents--codey",
+      "inputTokens": 4804,
+      "outputTokens": 4989,
+      "cacheCreationTokens": 424962,
+      "cacheReadTokens": 5946601,
+      "totalTokens": 6381359,
+      "totalCost": 5.684999964820639,
+      "lastActivity": "2026-03-31",
+      "modelsUsed": [
+        "claude-opus-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 28410,
+          "outputTokens": 39258,
+          "cacheCreationTokens": 3262992,
+          "cacheReadTokens": 46101712,
+          "cost": 44.568056
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 9414,
+          "outputTokens": 21,
+          "cacheCreationTokens": 82235,
+          "cacheReadTokens": 708817,
+          "cost": 0.18319445
+        }
+      ],
+      "projectPath": "C--Users-finky-Documents-nous\\37115ca3-16d2-4621-aad5-a847fcbd093f",
+      "_machine": "Bryan (Laptop)",
+      "_split_project": "Codey / Nous",
+      "_split_pct": 12.7,
+      "project": "Codey / Nous"
+    },
+    {
+      "sessionId": "subagents--lolm",
+      "inputTokens": 6541,
+      "outputTokens": 6792,
+      "cacheCreationTokens": 578502,
+      "cacheReadTokens": 8095124,
+      "totalTokens": 8686961,
+      "totalCost": 7.739005518281216,
+      "lastActivity": "2026-03-31",
+      "modelsUsed": [
+        "claude-opus-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 28410,
+          "outputTokens": 39258,
+          "cacheCreationTokens": 3262992,
+          "cacheReadTokens": 46101712,
+          "cost": 44.568056
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 9414,
+          "outputTokens": 21,
+          "cacheCreationTokens": 82235,
+          "cacheReadTokens": 708817,
+          "cost": 0.18319445
+        }
+      ],
+      "projectPath": "C--Users-finky-Documents-nous\\37115ca3-16d2-4621-aad5-a847fcbd093f",
+      "_machine": "Bryan (Laptop)",
+      "_split_project": "LOLM / Latent",
+      "_split_pct": 17.3,
+      "project": "LOLM / Latent"
+    },
+    {
+      "sessionId": "subagents--autohustle",
+      "inputTokens": 893,
+      "outputTokens": 927,
+      "cacheCreationTokens": 79011,
+      "cacheReadTokens": 1105632,
+      "totalTokens": 1186465,
+      "totalCost": 1.0569934303620994,
+      "lastActivity": "2026-03-31",
+      "modelsUsed": [
+        "claude-opus-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 28410,
+          "outputTokens": 39258,
+          "cacheCreationTokens": 3262992,
+          "cacheReadTokens": 46101712,
+          "cost": 44.568056
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 9414,
+          "outputTokens": 21,
+          "cacheCreationTokens": 82235,
+          "cacheReadTokens": 708817,
+          "cost": 0.18319445
+        }
+      ],
+      "projectPath": "C--Users-finky-Documents-nous\\37115ca3-16d2-4621-aad5-a847fcbd093f",
+      "_machine": "Bryan (Laptop)",
+      "_split_project": "AutoHustle",
+      "_split_pct": 2.4,
+      "project": "AutoHustle"
+    },
+    {
+      "sessionId": "subagents--pumpvolumebot",
+      "inputTokens": 821,
+      "outputTokens": 853,
+      "cacheCreationTokens": 72692,
+      "cacheReadTokens": 1017201,
+      "totalTokens": 1091569,
+      "totalCost": 0.9724528476834506,
+      "lastActivity": "2026-03-31",
+      "modelsUsed": [
+        "claude-opus-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 28410,
+          "outputTokens": 39258,
+          "cacheCreationTokens": 3262992,
+          "cacheReadTokens": 46101712,
+          "cost": 44.568056
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 9414,
+          "outputTokens": 21,
+          "cacheCreationTokens": 82235,
+          "cacheReadTokens": 708817,
+          "cost": 0.18319445
+        }
+      ],
+      "projectPath": "C--Users-finky-Documents-nous\\37115ca3-16d2-4621-aad5-a847fcbd093f",
+      "_machine": "Bryan (Laptop)",
+      "_split_project": "Vol-bot",
+      "_split_pct": 2.2,
+      "project": "Vol-bot"
+    },
+    {
+      "sessionId": "subagents--dashboard",
+      "inputTokens": 683,
+      "outputTokens": 709,
+      "cacheCreationTokens": 60406,
+      "cacheReadTokens": 845279,
+      "totalTokens": 907078,
+      "totalCost": 0.8080946199059661,
+      "lastActivity": "2026-03-31",
+      "modelsUsed": [
+        "claude-opus-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 28410,
+          "outputTokens": 39258,
+          "cacheCreationTokens": 3262992,
+          "cacheReadTokens": 46101712,
+          "cost": 44.568056
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 9414,
+          "outputTokens": 21,
+          "cacheCreationTokens": 82235,
+          "cacheReadTokens": 708817,
+          "cost": 0.18319445
+        }
+      ],
+      "projectPath": "C--Users-finky-Documents-nous\\37115ca3-16d2-4621-aad5-a847fcbd093f",
+      "_machine": "Bryan (Laptop)",
+      "_split_project": "Usage Dashboard",
+      "_split_pct": 1.8,
+      "project": "Usage Dashboard"
+    },
+    {
+      "sessionId": "subagents--other",
+      "inputTokens": 8146,
+      "outputTokens": 8460,
+      "cacheCreationTokens": 720533,
+      "cacheReadTokens": 10082594,
+      "totalTokens": 10819735,
+      "totalCost": 9.639043306639895,
+      "lastActivity": "2026-03-31",
+      "modelsUsed": [
+        "claude-opus-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 28410,
+          "outputTokens": 39258,
+          "cacheCreationTokens": 3262992,
+          "cacheReadTokens": 46101712,
+          "cost": 44.568056
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 9414,
+          "outputTokens": 21,
+          "cacheCreationTokens": 82235,
+          "cacheReadTokens": 708817,
+          "cost": 0.18319445
+        }
+      ],
+      "projectPath": "C--Users-finky-Documents-nous\\37115ca3-16d2-4621-aad5-a847fcbd093f",
+      "_machine": "Bryan (Laptop)",
+      "_split_project": "Other (nous)",
+      "_split_pct": 21.5,
       "project": "Other (nous)"
     },
     {
@@ -5197,12 +5717,12 @@
     },
     {
       "month": "2026-03",
-      "inputTokens": 544977,
-      "outputTokens": 3429492,
-      "cacheCreationTokens": 383842253,
-      "cacheReadTokens": 8952684057,
-      "totalTokens": 9340500779,
-      "totalCost": 6888.428879450001,
+      "inputTokens": 583414,
+      "outputTokens": 3481523,
+      "cacheCreationTokens": 387871173,
+      "cacheReadTokens": 9079596254,
+      "totalTokens": 9471532364,
+      "totalCost": 6977.825910150001,
       "modelsUsed": [
         "claude-haiku-4-5-20251001",
         "claude-opus-4-6",
@@ -5238,9 +5758,9 @@
   ],
   "projects": {
     "LOLM / Latent": {
-      "tokens": 2615947035,
-      "cost": 1572.5539502507752,
-      "sessions": 18
+      "tokens": 2638597607,
+      "cost": 1587.9968890753744,
+      "sessions": 20
     },
     "Armo": {
       "tokens": 60348061,
@@ -5248,9 +5768,9 @@
       "sessions": 2
     },
     "Codey / Nous": {
-      "tokens": 2218172809,
-      "cost": 1734.2239521100564,
-      "sessions": 17
+      "tokens": 2235728754,
+      "cost": 1746.0858314178456,
+      "sessions": 19
     },
     "Personal": {
       "tokens": 487602726,
@@ -5258,9 +5778,9 @@
       "sessions": 2
     },
     "Vol-bot": {
-      "tokens": 4417116693,
-      "cost": 3535.5518337499916,
-      "sessions": 8
+      "tokens": 4419912151,
+      "cost": 3537.4637014090795,
+      "sessions": 10
     },
     "Roro": {
       "tokens": 114452275,
@@ -5293,24 +5813,34 @@
       "sessions": 1
     },
     "NFET": {
-      "tokens": 129473398,
-      "cost": 78.40012478111046,
-      "sessions": 13
+      "tokens": 147158423,
+      "cost": 90.4449857077651,
+      "sessions": 15
     },
     "AutoHustle": {
-      "tokens": 179814867,
-      "cost": 108.88342999177029,
-      "sessions": 13
+      "tokens": 183437753,
+      "cost": 111.29138238906201,
+      "sessions": 15
     },
     "Portfolio": {
-      "tokens": 11153173,
-      "cost": 6.753591867205931,
+      "tokens": 11189421,
+      "cost": 6.774052704714151,
       "sessions": 13
     },
     "Other (nous)": {
-      "tokens": 264587936,
-      "cost": 160.2161287820925,
-      "sessions": 13
+      "tokens": 293156705,
+      "cost": 179.65213377377736,
+      "sessions": 15
+    },
+    "EGC": {
+      "tokens": 35807401,
+      "cost": 24.489362623012454,
+      "sessions": 2
+    },
+    "Usage Dashboard": {
+      "tokens": 2322986,
+      "cost": 1.5887350969884855,
+      "sessions": 2
     },
     "CAITICA": {
       "tokens": 63640826,
@@ -5383,34 +5913,49 @@
     },
     "Bryan (Laptop)": {
       "NFET": {
-        "tokens": 129473398,
-        "cost": 78.40012478111046,
-        "sessions": 13
+        "tokens": 147158423,
+        "cost": 90.4449857077651,
+        "sessions": 15
       },
       "Codey / Nous": {
-        "tokens": 373404182,
-        "cost": 226.10770701005305,
-        "sessions": 13
+        "tokens": 390960127,
+        "cost": 237.96958631784207,
+        "sessions": 15
       },
       "LOLM / Latent": {
-        "tokens": 124201926,
-        "cost": 75.20808620077705,
-        "sessions": 13
+        "tokens": 146852498,
+        "cost": 90.65102502537646,
+        "sessions": 15
       },
       "AutoHustle": {
-        "tokens": 179814867,
-        "cost": 108.88342999177029,
-        "sessions": 13
+        "tokens": 183437753,
+        "cost": 111.29138238906201,
+        "sessions": 15
       },
       "Portfolio": {
-        "tokens": 11153173,
-        "cost": 6.753591867205931,
+        "tokens": 11189421,
+        "cost": 6.774052704714151,
         "sessions": 13
       },
       "Other (nous)": {
-        "tokens": 264587936,
-        "cost": 160.2161287820925,
-        "sessions": 13
+        "tokens": 293156705,
+        "cost": 179.65213377377736,
+        "sessions": 15
+      },
+      "EGC": {
+        "tokens": 35807401,
+        "cost": 24.489362623012454,
+        "sessions": 2
+      },
+      "Vol-bot": {
+        "tokens": 2795458,
+        "cost": 1.9118676590878383,
+        "sessions": 2
+      },
+      "Usage Dashboard": {
+        "tokens": 2322986,
+        "cost": 1.5887350969884855,
+        "sessions": 2
       },
       "CAITICA": {
         "tokens": 63640826,
@@ -5425,27 +5970,27 @@
     }
   },
   "totals": {
-    "tokens": 10765890563,
-    "cost": 7765.07,
-    "sessions": 116,
+    "tokens": 10897064323,
+    "cost": 7854.54,
+    "sessions": 132,
     "days_active": 44,
-    "avg_daily_cost": 176.48,
-    "monthly_projection": 5294.37,
-    "annual_projection": 64414.81,
+    "avg_daily_cost": 178.51,
+    "monthly_projection": 5355.37,
+    "annual_projection": 65157.0,
     "peak_day": "2026-03-03",
     "peak_day_cost": 591.05,
     "peak_day_tokens": 954606504,
-    "tokens_per_dollar": 1386451,
+    "tokens_per_dollar": 1387358,
     "max_plan_for_period": 293.33,
-    "usage_multiple": 26.5,
+    "usage_multiple": 26.8,
     "model_totals": {
       "claude-opus-4-6": {
-        "tokens": 10559793488,
-        "cost": 7716.739095999999
+        "tokens": 10690166761,
+        "cost": 7806.02551325
       },
       "claude-haiku-4-5-20251001": {
-        "tokens": 195670753,
-        "cost": 42.25861269999999
+        "tokens": 196471240,
+        "cost": 42.441807149999995
       },
       "claude-sonnet-4-5-20250929": {
         "tokens": 921447,
@@ -5457,10 +6002,10 @@
       }
     },
     "token_types": {
-      "input": 1274321,
-      "output": 3602924,
-      "cache_create": 428035781,
-      "cache_read": 10332977537
+      "input": 1312759,
+      "output": 3654974,
+      "cache_create": 432064879,
+      "cache_read": 10460031711
     }
   }
 }
