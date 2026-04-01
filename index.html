@@ -237,9 +237,14 @@ footer a { color: var(--blue); text-decoration: none; }
         <p style="font-size:13px;color:#64748b;margin-top:4px;margin-bottom:16px;">Every individual Claude session logged</p>
         <div class="chart-container" style="overflow-x:auto;">
             <table class="session-table" id="session-table">
-                <thead><tr><th>Session</th><th>Tokens</th><th>Cost</th><th>Models</th><th>Last Active</th></tr></thead>
+                <thead><tr><th>Project</th><th>Tokens</th><th>Cost</th><th>Models</th><th>Last Active</th></tr></thead>
                 <tbody></tbody>
             </table>
+        </div>
+        <div id="session-pagination" style="display:flex;align-items:center;justify-content:center;gap:16px;margin-top:20px;">
+            <button id="prev-page" style="background:var(--elevated);border:1px solid var(--border);color:var(--text2);padding:8px 16px;border-radius:6px;cursor:pointer;font-size:12px;">&larr; Previous</button>
+            <span id="page-info" style="font-size:12px;color:var(--text3);"></span>
+            <button id="next-page" style="background:var(--elevated);border:1px solid var(--border);color:var(--text2);padding:8px 16px;border-radius:6px;cursor:pointer;font-size:12px;">Next &rarr;</button>
         </div>
     </div>
 </div>
@@ -657,12 +662,15 @@ function renderTokenFlow() {
     });
 }
 
-// ── Sessions Table ──
+// ── Sessions Table (paginated) ──
+var SESSION_PAGE = 0;
+var SESSIONS_PER_PAGE = 15;
+var SORTED_SESSIONS = [];
+
 function renderSessions() {
-    var sessions = (DATA.sessions || []).sort(function(a, b) { return b.totalCost - a.totalCost; });
+    SORTED_SESSIONS = (DATA.sessions || []).sort(function(a, b) { return b.totalCost - a.totalCost; });
     var hasMachines = Object.keys(DATA.sources || {}).length > 1;
     var thead = document.querySelector('#session-table thead tr');
-    var tbody = document.querySelector('#session-table tbody');
 
     // Add Machine column header if multi-machine
     if (hasMachines && !document.getElementById('th-machine')) {
@@ -672,11 +680,30 @@ function renderSessions() {
         thead.insertBefore(th, thead.children[1]);
     }
 
-    tbody.innerHTML = sessions.map(function(s) {
+    renderSessionPage();
+
+    // Pagination controls
+    document.getElementById('prev-page').addEventListener('click', function() {
+        if (SESSION_PAGE > 0) { SESSION_PAGE--; renderSessionPage(); }
+    });
+    document.getElementById('next-page').addEventListener('click', function() {
+        var maxPage = Math.ceil(SORTED_SESSIONS.length / SESSIONS_PER_PAGE) - 1;
+        if (SESSION_PAGE < maxPage) { SESSION_PAGE++; renderSessionPage(); }
+    });
+}
+
+function renderSessionPage() {
+    var hasMachines = Object.keys(DATA.sources || {}).length > 1;
+    var tbody = document.querySelector('#session-table tbody');
+    var start = SESSION_PAGE * SESSIONS_PER_PAGE;
+    var end = Math.min(start + SESSIONS_PER_PAGE, SORTED_SESSIONS.length);
+    var page = SORTED_SESSIONS.slice(start, end);
+    var totalPages = Math.ceil(SORTED_SESSIONS.length / SESSIONS_PER_PAGE);
+
+    tbody.innerHTML = page.map(function(s) {
         var cost = s.totalCost || 0;
         var badge = cost > 500 ? 'cost-high' : cost > 50 ? 'cost-med' : 'cost-low';
-        var path = s.projectPath || '';
-        var name = path ? path.split('/').pop() : (s.sessionId || '').substring(0, 12) + '...';
+        var name = s.project || s.projectPath || (s.sessionId || '').substring(0, 20) + '...';
         var machineCol = hasMachines
             ? '<td style="font-size:11px;color:var(--text2);">' + (s._machine || '?') + '</td>'
             : '';
@@ -689,6 +716,13 @@ function renderSessions() {
             '<td style="font-size:11px;color:var(--text3);">' + ((s.lastActivity || '').split('T')[0]) + '</td>' +
         '</tr>';
     }).join('');
+
+    // Update pagination info
+    document.getElementById('page-info').textContent = 'Page ' + (SESSION_PAGE + 1) + ' of ' + totalPages + ' (' + SORTED_SESSIONS.length + ' sessions)';
+    document.getElementById('prev-page').disabled = SESSION_PAGE === 0;
+    document.getElementById('next-page').disabled = SESSION_PAGE >= totalPages - 1;
+    document.getElementById('prev-page').style.opacity = SESSION_PAGE === 0 ? '0.4' : '1';
+    document.getElementById('next-page').style.opacity = SESSION_PAGE >= totalPages - 1 ? '0.4' : '1';
 }
 
 // ── Comparison ──
