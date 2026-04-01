@@ -68,12 +68,12 @@
     },
     {
       "sessionId": "C--Users-finky-Documents-nous",
-      "inputTokens": 584,
-      "outputTokens": 11353,
-      "cacheCreationTokens": 651216,
-      "cacheReadTokens": 77748060,
-      "totalTokens": 78411213,
-      "totalCost": 43.230874999999976,
+      "inputTokens": 597,
+      "outputTokens": 11570,
+      "cacheCreationTokens": 667822,
+      "cacheReadTokens": 82049054,
+      "totalTokens": 82729043,
+      "totalCost": 45.490649499999975,
       "lastActivity": "2026-03-31",
       "modelsUsed": [
         "claude-opus-4-6"
@@ -81,11 +81,11 @@
       "modelBreakdowns": [
         {
           "modelName": "claude-opus-4-6",
-          "inputTokens": 584,
-          "outputTokens": 11353,
-          "cacheCreationTokens": 651216,
-          "cacheReadTokens": 77748060,
-          "cost": 43.230874999999976
+          "inputTokens": 597,
+          "outputTokens": 11570,
+          "cacheCreationTokens": 667822,
+          "cacheReadTokens": 82049054,
+          "cost": 45.490649499999975
         }
       ],
       "projectPath": "Unknown Project"
@@ -632,11 +632,11 @@
     }
   ],
   "totals": {
-    "inputTokens": 793394,
-    "outputTokens": 191070,
-    "cacheCreationTokens": 41602728,
-    "cacheReadTokens": 1248445604,
-    "totalCost": 799.7730012000027,
-    "totalTokens": 1291032796
+    "inputTokens": 793407,
+    "outputTokens": 191287,
+    "cacheCreationTokens": 41619334,
+    "cacheReadTokens": 1252746598,
+    "totalCost": 802.0327757000027,
+    "totalTokens": 1295350626
   }
 }
