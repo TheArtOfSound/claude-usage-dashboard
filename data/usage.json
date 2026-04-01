@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-01T06:51:07.406858Z",
+  "generated_at": "2026-04-01T23:30:00.000000Z",
   "sources": {
     "Bryan (Mac)": {
       "synced_at": "2026-04-01T06:50:49.141239Z",
@@ -1026,6 +1026,15 @@
       "_machines": [
         "Bryan (Mac)"
       ]
+    },
+    {
+      "date": "2026-04-01",
+      "totalTokens": 816876600,
+      "totalCost": 466.2,
+      "inputTokens": 11703,
+      "outputTokens": 240455,
+      "cacheCreation": 12255000,
+      "cacheRead": 804368600
     }
   ],
   "sessions": [
@@ -5497,8 +5506,8 @@
   ],
   "projects": {
     "Personal": {
-      "tokens": 656443050,
-      "cost": 440.68916950000005,
+      "tokens": 487602726,
+      "cost": 295.88834149999974,
       "sessions": 2
     },
     "LOLM / Latent": {
@@ -5515,11 +5524,6 @@
       "tokens": 2236130773,
       "cost": 1746.2734743863678,
       "sessions": 19
-    },
-    "Personal": {
-      "tokens": 487602726,
-      "cost": 295.88834149999974,
-      "sessions": 2
     },
     "Vol-bot": {
       "tokens": 4419980919,
@@ -5600,8 +5604,8 @@
   "projects_by_machine": {
     "Bryan (Mac)": {
       "Personal": {
-        "tokens": 656443050,
-        "cost": 440.68916950000005,
+        "tokens": 487602726,
+        "cost": 295.88834149999974,
         "sessions": 2
       },
       "LOLM / Latent": {
@@ -5618,11 +5622,6 @@
         "tokens": 1844768627,
         "cost": 1508.1162451000034,
         "sessions": 4
-      },
-      "Personal": {
-        "tokens": 487602726,
-        "cost": 295.88834149999974,
-        "sessions": 2
       },
       "Vol-bot": {
         "tokens": 4417116693,
@@ -5719,11 +5718,11 @@
     }
   },
   "totals": {
-    "tokens": 10902545880,
-    "cost": 7857.39,
-    "sessions": 132,
-    "days_active": 44,
-    "avg_daily_cost": 178.58,
+    "tokens": 11719422480,
+    "cost": 8323.59,
+    "sessions": 152,
+    "days_active": 45,
+    "avg_daily_cost": 184.97,
     "monthly_projection": 5357.31,
     "annual_projection": 65180.64,
     "peak_day": "2026-03-03",
@@ -5731,7 +5730,7 @@
     "peak_day_tokens": 954606504,
     "tokens_per_dollar": 1387553,
     "max_plan_for_period": 293.33,
-    "usage_multiple": 26.8,
+    "usage_multiple": 78.1,
     "model_totals": {
       "claude-opus-4-6": {
         "tokens": 10695648318,
