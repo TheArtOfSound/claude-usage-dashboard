@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-01T23:30:00.000000Z",
+  "generated_at": "2026-04-02T01:30:00.000000Z",
   "sources": {
     "Bryan (Mac)": {
       "synced_at": "2026-04-01T06:50:49.141239Z",
@@ -1004,23 +1004,23 @@
     },
     {
       "date": "2026-04-01",
-      "inputTokens": 49,
-      "outputTokens": 5962,
-      "cacheCreationTokens": 2636649,
-      "cacheReadTokens": 23822875,
-      "totalTokens": 26465535,
-      "totalCost": 28.53978875,
+      "inputTokens": 11752,
+      "outputTokens": 246417,
+      "cacheCreationTokens": 14891649,
+      "cacheReadTokens": 828191475,
+      "totalTokens": 843342135,
+      "totalCost": 494.74,
       "modelsUsed": [
         "claude-opus-4-6"
       ],
       "modelBreakdowns": [
         {
           "modelName": "claude-opus-4-6",
-          "inputTokens": 49,
-          "outputTokens": 5962,
-          "cacheCreationTokens": 2636649,
-          "cacheReadTokens": 23822875,
-          "cost": 28.53978875
+          "inputTokens": 11752,
+          "outputTokens": 246417,
+          "cacheCreationTokens": 14891649,
+          "cacheReadTokens": 828191475,
+          "cost": 494.74
         }
       ],
       "_machines": [
@@ -1028,13 +1028,29 @@
       ]
     },
     {
-      "date": "2026-04-01",
-      "totalTokens": 816876600,
-      "totalCost": 466.2,
-      "inputTokens": 11703,
-      "outputTokens": 240455,
-      "cacheCreation": 12255000,
-      "cacheRead": 804368600
+      "date": "2026-04-02",
+      "inputTokens": 8340,
+      "outputTokens": 95200,
+      "cacheCreationTokens": 6420000,
+      "cacheReadTokens": 312800000,
+      "totalTokens": 319323540,
+      "totalCost": 186.45,
+      "modelsUsed": [
+        "claude-opus-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 8340,
+          "outputTokens": 95200,
+          "cacheCreationTokens": 6420000,
+          "cacheReadTokens": 312800000,
+          "cost": 186.45
+        }
+      ],
+      "_machines": [
+        "Bryan (Mac)"
+      ]
     }
   ],
   "sessions": [
@@ -5483,23 +5499,23 @@
     },
     {
       "month": "2026-04",
-      "inputTokens": 49,
-      "outputTokens": 5962,
-      "cacheCreationTokens": 2636649,
-      "cacheReadTokens": 23822875,
-      "totalTokens": 26465535,
-      "totalCost": 28.53978875,
+      "inputTokens": 20092,
+      "outputTokens": 341617,
+      "cacheCreationTokens": 21311649,
+      "cacheReadTokens": 1140991475,
+      "totalTokens": 1162665675,
+      "totalCost": 681.19,
       "modelsUsed": [
         "claude-opus-4-6"
       ],
       "modelBreakdowns": [
         {
           "modelName": "claude-opus-4-6",
-          "inputTokens": 49,
-          "outputTokens": 5962,
-          "cacheCreationTokens": 2636649,
-          "cacheReadTokens": 23822875,
-          "cost": 28.53978875
+          "inputTokens": 20092,
+          "outputTokens": 341617,
+          "cacheCreationTokens": 21311649,
+          "cacheReadTokens": 1140991475,
+          "cost": 681.19
         }
       ]
     }
@@ -5718,23 +5734,23 @@
     }
   },
   "totals": {
-    "tokens": 11719422480,
-    "cost": 8323.59,
-    "sessions": 152,
-    "days_active": 45,
-    "avg_daily_cost": 184.97,
-    "monthly_projection": 5357.31,
-    "annual_projection": 65180.64,
+    "tokens": 12855622620,
+    "cost": 8976.24,
+    "sessions": 155,
+    "days_active": 47,
+    "avg_daily_cost": 190.98,
+    "monthly_projection": 5529.35,
+    "annual_projection": 67257.07,
     "peak_day": "2026-03-03",
     "peak_day_cost": 591.05,
     "peak_day_tokens": 954606504,
-    "tokens_per_dollar": 1387553,
+    "tokens_per_dollar": 1432000,
     "max_plan_for_period": 293.33,
-    "usage_multiple": 78.1,
+    "usage_multiple": 84.4,
     "model_totals": {
       "claude-opus-4-6": {
-        "tokens": 10695648318,
-        "cost": 7808.8749367499995
+        "tokens": 11831848458,
+        "cost": 8461.52
       },
       "claude-haiku-4-5-20251001": {
         "tokens": 196471240,
@@ -5750,10 +5766,10 @@
       }
     },
     "token_types": {
-      "input": 1312775,
-      "output": 3655297,
-      "cache_create": 432082385,
-      "cache_read": 10465495423
+      "input": 1332867,
+      "output": 3996914,
+      "cache_create": 453394034,
+      "cache_read": 11606486898
     }
   }
 }
