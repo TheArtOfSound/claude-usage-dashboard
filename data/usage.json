@@ -3993,7 +3993,7 @@
     "peak_day_tokens": 1004707500,
     "tokens_per_dollar": 1423971,
     "max_plan_for_period": 300.0,
-    "usage_multiple": 30.4,
+    "usage_multiple": 31.1,
     "model_totals": {
       "claude-opus-4-6": {
         "tokens": 10864488642,
