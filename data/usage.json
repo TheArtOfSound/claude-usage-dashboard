@@ -1078,7 +1078,7 @@
       ],
       "projectPath": "Unknown Project",
       "_machine": "Bryan (Mac)",
-      "project": "Personal"
+      "project": "Multi-Project"
     },
     {
       "sessionId": "-Users-bry-Documents-Latent",
@@ -1244,7 +1244,7 @@
       ],
       "projectPath": "Unknown Project",
       "_machine": "Bryan (Mac)",
-      "project": "Codey / Nous"
+      "project": "Codey / CC"
     },
     {
       "sessionId": "-Users-bry-nous--lolm",
@@ -1298,9 +1298,9 @@
       ],
       "projectPath": "Unknown Project",
       "_machine": "Bryan (Mac)",
-      "_split_project": "Other (nous)",
+      "_split_project": "Unclassified",
       "_split_pct": 28.0,
-      "project": "Other (nous)"
+      "project": "Unclassified"
     },
     {
       "sessionId": "subagents",
@@ -1335,7 +1335,7 @@
       ],
       "projectPath": "-Users-bry-nous/0c280bb5-0557-41a0-914e-7890b9f0fc48",
       "_machine": "Bryan (Mac)",
-      "project": "Codey / Nous"
+      "project": "Codey / CC"
     },
     {
       "sessionId": "subagents",
@@ -1370,7 +1370,7 @@
       ],
       "projectPath": "-Users-bry-nous/817b45fc-29a6-4e65-a2c4-703e231ee215",
       "_machine": "Bryan (Mac)",
-      "project": "Codey / Nous"
+      "project": "Codey / CC"
     },
     {
       "sessionId": "-Users-bry-BRYAN",
@@ -1397,7 +1397,7 @@
       ],
       "projectPath": "Unknown Project",
       "_machine": "Bryan (Mac)",
-      "project": "Personal"
+      "project": "Multi-Project"
     },
     {
       "sessionId": "subagents",
@@ -1432,7 +1432,7 @@
       ],
       "projectPath": "-Users-bry-BRYAN/86adbd17-4cb6-49dd-b00a-1e31f5a143d9",
       "_machine": "Bryan (Mac)",
-      "project": "Personal"
+      "project": "Multi-Project"
     },
     {
       "sessionId": "-Users-bry-Documents-Vol-bot--claude-worktrees-tender-dhawan",
@@ -1493,7 +1493,7 @@
       ],
       "projectPath": "-Users-bry-nous/bf62cb70-84fc-4a90-9f4b-1a3613803e5d",
       "_machine": "Bryan (Mac)",
-      "project": "Codey / Nous"
+      "project": "Codey / CC"
     },
     {
       "sessionId": "subagents",
@@ -1711,7 +1711,7 @@
       ],
       "projectPath": "Unknown Project",
       "_machine": "Bryan (Mac)",
-      "project": "New Project"
+      "project": "Experimental"
     },
     {
       "sessionId": "-Users-bry-Documents-New-project--claude-worktrees-exciting-cannon",
@@ -1737,7 +1737,7 @@
       ],
       "projectPath": "Unknown Project",
       "_machine": "Bryan (Mac)",
-      "project": "New Project"
+      "project": "Experimental"
     },
     {
       "sessionId": "subagents",
@@ -1763,7 +1763,7 @@
       ],
       "projectPath": "-Users-bry-Documents-New-project--claude-worktrees-exciting-cannon/b00e2511-2952-4353-906d-cc6452f74e3f",
       "_machine": "Bryan (Mac)",
-      "project": "New Project"
+      "project": "Experimental"
     },
     {
       "sessionId": "subagents",
@@ -1850,7 +1850,7 @@
       ],
       "projectPath": "-Users-bry-Documents-New-project/4680b46c-6726-43fc-9456-aa7831aecb43",
       "_machine": "Bryan (Mac)",
-      "project": "New Project"
+      "project": "Experimental"
     },
     {
       "sessionId": "-Users-bry-Documents-Vol-bot--claude-worktrees-peaceful-pike",
@@ -2182,9 +2182,9 @@
       ],
       "projectPath": "Unknown Project",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Codey / Nous",
+      "_split_project": "Codey / CC",
       "_split_pct": 34.2,
-      "project": "Codey / Nous"
+      "project": "Codey / CC"
     },
     {
       "sessionId": "C--Users-finky-Documents-auto--lolm",
@@ -2294,9 +2294,9 @@
       ],
       "projectPath": "Unknown Project",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Other (nous)",
+      "_split_project": "Unclassified",
       "_split_pct": 24.2,
-      "project": "Other (nous)"
+      "project": "Unclassified"
     },
     {
       "sessionId": "subagents--nfet",
@@ -2386,9 +2386,9 @@
       ],
       "projectPath": "C--Users-finky-Documents-auto\\cf7bd24c-e7c0-46c4-97dc-372552694cb2",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Codey / Nous",
+      "_split_project": "Codey / CC",
       "_split_pct": 34.2,
-      "project": "Codey / Nous"
+      "project": "Codey / CC"
     },
     {
       "sessionId": "subagents--lolm",
@@ -2570,9 +2570,9 @@
       ],
       "projectPath": "C--Users-finky-Documents-auto\\cf7bd24c-e7c0-46c4-97dc-372552694cb2",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Other (nous)",
+      "_split_project": "Unclassified",
       "_split_pct": 24.2,
-      "project": "Other (nous)"
+      "project": "Unclassified"
     },
     {
       "sessionId": "C--Users-finky-Documents-nous--egc",
@@ -2654,9 +2654,9 @@
       ],
       "projectPath": "Unknown Project",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Codey / Nous",
+      "_split_project": "Codey / CC",
       "_split_pct": 12.6,
-      "project": "Codey / Nous"
+      "project": "Codey / CC"
     },
     {
       "sessionId": "C--Users-finky-Documents-nous--lolm",
@@ -2794,9 +2794,9 @@
       ],
       "projectPath": "Unknown Project",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Other (nous)",
+      "_split_project": "Unclassified",
       "_split_pct": 21.5,
-      "project": "Other (nous)"
+      "project": "Unclassified"
     },
     {
       "sessionId": "subagents--egc",
@@ -2905,9 +2905,9 @@
       ],
       "projectPath": "C--Users-finky-Documents-nous\\37115ca3-16d2-4621-aad5-a847fcbd093f",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Codey / Nous",
+      "_split_project": "Codey / CC",
       "_split_pct": 12.6,
-      "project": "Codey / Nous"
+      "project": "Codey / CC"
     },
     {
       "sessionId": "subagents--lolm",
@@ -3090,9 +3090,9 @@
       ],
       "projectPath": "C--Users-finky-Documents-nous\\37115ca3-16d2-4621-aad5-a847fcbd093f",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Other (nous)",
+      "_split_project": "Unclassified",
       "_split_pct": 21.5,
-      "project": "Other (nous)"
+      "project": "Unclassified"
     },
     {
       "sessionId": "C--Users-finky-Documents-auto--claude-worktrees-distracted-shaw--nfet",
@@ -3146,9 +3146,9 @@
       ],
       "projectPath": "Unknown Project",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Codey / Nous",
+      "_split_project": "Codey / CC",
       "_split_pct": 34.2,
-      "project": "Codey / Nous"
+      "project": "Codey / CC"
     },
     {
       "sessionId": "C--Users-finky-Documents-auto--claude-worktrees-distracted-shaw--lolm",
@@ -3258,9 +3258,9 @@
       ],
       "projectPath": "Unknown Project",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Other (nous)",
+      "_split_project": "Unclassified",
       "_split_pct": 24.2,
-      "project": "Other (nous)"
+      "project": "Unclassified"
     },
     {
       "sessionId": "subagents--nfet",
@@ -3332,9 +3332,9 @@
       ],
       "projectPath": "C--Users-finky-Documents-auto\\c22a725d-9f13-4250-b329-fc8881163765",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Codey / Nous",
+      "_split_project": "Codey / CC",
       "_split_pct": 34.2,
-      "project": "Codey / Nous"
+      "project": "Codey / CC"
     },
     {
       "sessionId": "subagents--lolm",
@@ -3480,9 +3480,9 @@
       ],
       "projectPath": "C--Users-finky-Documents-auto\\c22a725d-9f13-4250-b329-fc8881163765",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Other (nous)",
+      "_split_project": "Unclassified",
       "_split_pct": 24.2,
-      "project": "Other (nous)"
+      "project": "Unclassified"
     },
     {
       "sessionId": "subagents--nfet",
@@ -3554,9 +3554,9 @@
       ],
       "projectPath": "C--Users-finky-Documents-auto\\cc9c72bc-7f2c-4787-85c8-a0cff4ec0ad1",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Codey / Nous",
+      "_split_project": "Codey / CC",
       "_split_pct": 34.2,
-      "project": "Codey / Nous"
+      "project": "Codey / CC"
     },
     {
       "sessionId": "subagents--lolm",
@@ -3702,9 +3702,9 @@
       ],
       "projectPath": "C--Users-finky-Documents-auto\\cc9c72bc-7f2c-4787-85c8-a0cff4ec0ad1",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Other (nous)",
+      "_split_project": "Unclassified",
       "_split_pct": 24.2,
-      "project": "Other (nous)"
+      "project": "Unclassified"
     },
     {
       "sessionId": "subagents--nfet",
@@ -3776,9 +3776,9 @@
       ],
       "projectPath": "C--Users-finky-Documents-auto--claude-worktrees-relaxed-perlman\\d57fa4d3-2e2d-4e8d-865b-1cdc4a1babcf",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Codey / Nous",
+      "_split_project": "Codey / CC",
       "_split_pct": 34.2,
-      "project": "Codey / Nous"
+      "project": "Codey / CC"
     },
     {
       "sessionId": "subagents--lolm",
@@ -3924,9 +3924,9 @@
       ],
       "projectPath": "C--Users-finky-Documents-auto--claude-worktrees-relaxed-perlman\\d57fa4d3-2e2d-4e8d-865b-1cdc4a1babcf",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Other (nous)",
+      "_split_project": "Unclassified",
       "_split_pct": 24.2,
-      "project": "Other (nous)"
+      "project": "Unclassified"
     },
     {
       "sessionId": "subagents--nfet",
@@ -3998,9 +3998,9 @@
       ],
       "projectPath": "C--Users-finky-Documents-auto--claude-worktrees-laughing-keller\\5beafe12-69d8-401d-80d8-3a44f3877691",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Codey / Nous",
+      "_split_project": "Codey / CC",
       "_split_pct": 34.2,
-      "project": "Codey / Nous"
+      "project": "Codey / CC"
     },
     {
       "sessionId": "subagents--lolm",
@@ -4146,9 +4146,9 @@
       ],
       "projectPath": "C--Users-finky-Documents-auto--claude-worktrees-laughing-keller\\5beafe12-69d8-401d-80d8-3a44f3877691",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Other (nous)",
+      "_split_project": "Unclassified",
       "_split_pct": 24.2,
-      "project": "Other (nous)"
+      "project": "Unclassified"
     },
     {
       "sessionId": "subagents--nfet",
@@ -4202,9 +4202,9 @@
       ],
       "projectPath": "C--Users-finky-Documents-auto\\626e34b5-961d-47e4-8a4c-57752e749f6b",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Codey / Nous",
+      "_split_project": "Codey / CC",
       "_split_pct": 34.2,
-      "project": "Codey / Nous"
+      "project": "Codey / CC"
     },
     {
       "sessionId": "subagents--lolm",
@@ -4314,9 +4314,9 @@
       ],
       "projectPath": "C--Users-finky-Documents-auto\\626e34b5-961d-47e4-8a4c-57752e749f6b",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Other (nous)",
+      "_split_project": "Unclassified",
       "_split_pct": 24.2,
-      "project": "Other (nous)"
+      "project": "Unclassified"
     },
     {
       "sessionId": "subagents--nfet",
@@ -4370,9 +4370,9 @@
       ],
       "projectPath": "C--Users-finky-Documents-auto\\d2e108ff-5ee1-4956-95e3-097564fc4e0e",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Codey / Nous",
+      "_split_project": "Codey / CC",
       "_split_pct": 34.2,
-      "project": "Codey / Nous"
+      "project": "Codey / CC"
     },
     {
       "sessionId": "subagents--lolm",
@@ -4482,9 +4482,9 @@
       ],
       "projectPath": "C--Users-finky-Documents-auto\\d2e108ff-5ee1-4956-95e3-097564fc4e0e",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Other (nous)",
+      "_split_project": "Unclassified",
       "_split_pct": 24.2,
-      "project": "Other (nous)"
+      "project": "Unclassified"
     },
     {
       "sessionId": "subagents--nfet",
@@ -4538,9 +4538,9 @@
       ],
       "projectPath": "C--Users-finky-Documents-auto\\98b15cc0-7716-409f-8bf3-24e31e45046e",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Codey / Nous",
+      "_split_project": "Codey / CC",
       "_split_pct": 34.2,
-      "project": "Codey / Nous"
+      "project": "Codey / CC"
     },
     {
       "sessionId": "subagents--lolm",
@@ -4650,9 +4650,9 @@
       ],
       "projectPath": "C--Users-finky-Documents-auto\\98b15cc0-7716-409f-8bf3-24e31e45046e",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Other (nous)",
+      "_split_project": "Unclassified",
       "_split_pct": 24.2,
-      "project": "Other (nous)"
+      "project": "Unclassified"
     },
     {
       "sessionId": "subagents--nfet",
@@ -4724,9 +4724,9 @@
       ],
       "projectPath": "C--Users-finky-Documents-auto\\2a54f8a0-c588-4efb-9f07-79978ce61a16",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Codey / Nous",
+      "_split_project": "Codey / CC",
       "_split_pct": 34.2,
-      "project": "Codey / Nous"
+      "project": "Codey / CC"
     },
     {
       "sessionId": "subagents--lolm",
@@ -4872,9 +4872,9 @@
       ],
       "projectPath": "C--Users-finky-Documents-auto\\2a54f8a0-c588-4efb-9f07-79978ce61a16",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Other (nous)",
+      "_split_project": "Unclassified",
       "_split_pct": 24.2,
-      "project": "Other (nous)"
+      "project": "Unclassified"
     },
     {
       "sessionId": "subagents--nfet",
@@ -4928,9 +4928,9 @@
       ],
       "projectPath": "C--Users-finky-Documents-auto\\d9778e26-a255-4116-9a50-6038ccf5e000",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Codey / Nous",
+      "_split_project": "Codey / CC",
       "_split_pct": 34.2,
-      "project": "Codey / Nous"
+      "project": "Codey / CC"
     },
     {
       "sessionId": "subagents--lolm",
@@ -5040,9 +5040,9 @@
       ],
       "projectPath": "C--Users-finky-Documents-auto\\d9778e26-a255-4116-9a50-6038ccf5e000",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Other (nous)",
+      "_split_project": "Unclassified",
       "_split_pct": 24.2,
-      "project": "Other (nous)"
+      "project": "Unclassified"
     },
     {
       "sessionId": "subagents--nfet",
@@ -5096,9 +5096,9 @@
       ],
       "projectPath": "C--Users-finky-Documents-auto\\a7892bb0-0a82-414b-bf64-a8b0a9983f01",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Codey / Nous",
+      "_split_project": "Codey / CC",
       "_split_pct": 34.2,
-      "project": "Codey / Nous"
+      "project": "Codey / CC"
     },
     {
       "sessionId": "subagents--lolm",
@@ -5208,9 +5208,9 @@
       ],
       "projectPath": "C--Users-finky-Documents-auto\\a7892bb0-0a82-414b-bf64-a8b0a9983f01",
       "_machine": "Bryan (Laptop)",
-      "_split_project": "Other (nous)",
+      "_split_project": "Unclassified",
       "_split_pct": 24.2,
-      "project": "Other (nous)"
+      "project": "Unclassified"
     },
     {
       "sessionId": "subagents",
@@ -5521,7 +5521,7 @@
     }
   ],
   "projects": {
-    "Personal": {
+    "Multi-Project": {
       "tokens": 487602726,
       "cost": 295.88834149999974,
       "sessions": 2
@@ -5536,7 +5536,7 @@
       "cost": 36.73467494999999,
       "sessions": 2
     },
-    "Codey / Nous": {
+    "Codey / CC": {
       "tokens": 2236130773,
       "cost": 1746.2734743863678,
       "sessions": 19
@@ -5551,7 +5551,7 @@
       "cost": 62.449785349999985,
       "sessions": 2
     },
-    "New Project": {
+    "Experimental": {
       "tokens": 163907549,
       "cost": 101.79316215000014,
       "sessions": 4
@@ -5591,7 +5591,7 @@
       "cost": 6.774052704714151,
       "sessions": 13
     },
-    "Other (nous)": {
+    "Unclassified": {
       "tokens": 294047001,
       "cost": 180.11190618536617,
       "sessions": 15
@@ -5619,7 +5619,7 @@
   },
   "projects_by_machine": {
     "Bryan (Mac)": {
-      "Personal": {
+      "Multi-Project": {
         "tokens": 487602726,
         "cost": 295.88834149999974,
         "sessions": 2
@@ -5634,7 +5634,7 @@
         "cost": 36.73467494999999,
         "sessions": 2
       },
-      "Codey / Nous": {
+      "Codey / CC": {
         "tokens": 1844768627,
         "cost": 1508.1162451000034,
         "sessions": 4
@@ -5649,7 +5649,7 @@
         "cost": 62.449785349999985,
         "sessions": 2
       },
-      "New Project": {
+      "Experimental": {
         "tokens": 163907549,
         "cost": 101.79316215000014,
         "sessions": 4
@@ -5681,7 +5681,7 @@
         "cost": 90.64321350436973,
         "sessions": 15
       },
-      "Codey / Nous": {
+      "Codey / CC": {
         "tokens": 391362146,
         "cost": 238.15722928636438,
         "sessions": 15
@@ -5701,7 +5701,7 @@
         "cost": 6.774052704714151,
         "sessions": 13
       },
-      "Other (nous)": {
+      "Unclassified": {
         "tokens": 294047001,
         "cost": 180.11190618536617,
         "sessions": 15

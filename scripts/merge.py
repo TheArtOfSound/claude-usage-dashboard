@@ -140,7 +140,7 @@ def split_session(session, proportions):
     """Split a single aggregated session into multiple virtual sessions by proportion."""
     splits = []
     proj_names = {
-        "egc": "EGC", "nfet": "NFET", "codey": "Codey / Nous", "lolm": "LOLM / Latent",
+        "egc": "EGC", "nfet": "NFET", "codey": "Codey / CC", "lolm": "LOLM / Latent",
         "autohustle": "AutoHustle", "pumpvolumebot": "Vol-bot", "social_engine": "Social Engine",
         "portfolio": "Portfolio", "command_center": "Command Center", "roro": "Roro",
         "resumeai": "ResumeAI", "dashboard": "Usage Dashboard", "qira": "Qira",
@@ -177,10 +177,10 @@ def infer_project(session):
 
     # Map known directory names to project names
     project_map = {
-        "nous": "Codey / Nous",
+        "nous": "Codey / CC / Nous",
         "codey": "Codey",
-        "egcstudy": "EGC Study",
-        "thegate": "EGC Study",
+        "egcstudy": "EGC",
+        "thegate": "EGC",
         "nfet": "NFET",
         "armo": "Armo",
         "roro": "Roro",
@@ -198,7 +198,7 @@ def infer_project(session):
         "licensing": "Licensing Dashboard",
         "dahbaord": "Licensing Dashboard",
         "cli": "CLI Tool",
-        "bryan": "BRYAN (Personal)",
+        "bryan": "Multi-Project (BRYAN)",
         "auto": "AutoHustle",
         "autohustle": "AutoHustle",
         "claude-usage-dashboard": "Usage Dashboard",
@@ -542,7 +542,7 @@ def main():
     # Friendly display names
     display_names = {
         "Latent": "LOLM / Latent",
-        "Codey / Nous": "Codey / Nous",
+        "Codey / CC": "Codey / CC",
         "Vol-bot": "Vol-bot",
         "BRYAN (Personal)": "Personal",
         "New Project": "New Project",
