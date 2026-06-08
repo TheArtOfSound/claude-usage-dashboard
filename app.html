@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Claude Usage Lens — Free Local Token Calculator</title>
+  <meta name="description" content="Free open-source Claude usage calculator. Import ccusage JSON or paste Anthropic usage exports and estimate token usage, cache usage, costs, burn rate, and model breakdown locally in your browser." />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    :root{--bg:#090a0d;--panel:#12141a;--panel2:#181b23;--line:#282d39;--text:#f5f7fb;--muted:#98a2b3;--blue:#5aa9ff;--green:#42d392;--gold:#f7b955;--red:#ff6b6b;--purple:#b78cff;--radius:18px}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,rgba(90,169,255,.12),transparent 32rem),radial-gradient(circle at top right,rgba(183,140,255,.1),transparent 30rem),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.45}a{color:var(--blue)}.wrap{max-width:1180px;margin:0 auto;padding:24px}.nav{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 0 24px}.brand{display:flex;gap:12px;align-items:center;text-decoration:none;color:var(--text)}.mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--purple));display:grid;place-items:center;font-weight:900;color:#fff}.brand b{display:block;font-size:17px}.brand span{display:block;color:var(--muted);font-size:12px}.navlinks{display:flex;gap:10px;flex-wrap:wrap}.btn{border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:var(--panel);color:var(--text);text-decoration:none;font-weight:750;font-size:14px;cursor:pointer}.btn.primary{background:linear-gradient(135deg,var(--blue),var(--purple));border-color:transparent}.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:stretch}.card{background:rgba(18,20,26,.82);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:0 18px 60px rgba(0,0,0,.22);backdrop-filter:blur(10px)}.eyebrow{color:var(--green);text-transform:uppercase;letter-spacing:.14em;font-weight:900;font-size:12px}h1{font-size:clamp(38px,7vw,76px);line-height:.9;letter-spacing:-.07em;margin:14px 0 16px}.lede{font-size:clamp(16px,3vw,21px);color:var(--muted);max-width:780px;margin:0}.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.badge{font-size:12px;color:#dbeafe;background:rgba(90,169,255,.14);border:1px solid rgba(90,169,255,.32);border-radius:999px;padding:7px 10px}.drop{border:2px dashed #3b4456;border-radius:16px;min-height:220px;display:grid;place-items:center;text-align:center;padding:18px;background:rgba(255,255,255,.02)}.drop.drag{border-color:var(--blue);background:rgba(90,169,255,.08)}input[type=file]{display:none}.drop strong{display:block;font-size:22px;margin-bottom:8px}.drop p{color:var(--muted);margin:0 0 14px}.grid{display:grid;gap:14px}.grid.cols4{grid-template-columns:repeat(4,1fr)}.grid.cols3{grid-template-columns:repeat(3,1fr)}.metric{padding:18px;border-radius:16px;background:var(--panel);border:1px solid var(--line)}.metric .v{font-size:28px;font-weight:900;letter-spacing:-.04em}.metric .l{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:5px}.section{margin-top:16px}.section-title{display:flex;justify-content:space-between;gap:12px;align-items:end;margin:4px 0 12px}.section-title h2{margin:0;font-size:24px;letter-spacing:-.04em}.section-title p{margin:0;color:var(--muted);font-size:13px}.controls{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:800}input,select,textarea{width:100%;margin-top:6px;background:#0d0f14;border:1px solid var(--line);border-radius:12px;color:var(--text);padding:11px;font:inherit}textarea{min-height:150px;resize:vertical}.chartbox{height:320px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px}table{width:100%;border-collapse:collapse;min-width:760px}th,td{padding:11px 12px;border-bottom:1px solid var(--line);font-size:13px;text-align:left}th{color:var(--muted);text-transform:uppercase;font-size:11px;letter-spacing:.06em}tr:last-child td{border-bottom:0}.note{color:var(--muted);font-size:13px}.warning{border:1px solid rgba(247,185,85,.45);background:rgba(247,185,85,.1);border-radius:14px;padding:14px;color:#ffe3a3}.ok{border:1px solid rgba(66,211,146,.35);background:rgba(66,211,146,.09);border-radius:14px;padding:14px;color:#c8f7df}.footer{padding:30px 0;color:var(--muted);font-size:13px;text-align:center}@media(max-width:900px){.hero{grid-template-columns:1fr}.grid.cols4,.grid.cols3,.controls{grid-template-columns:1fr 1fr}.nav{display:block}.navlinks{margin-top:12px}.chartbox{height:260px}}@media(max-width:560px){.wrap{padding:14px}.grid.cols4,.grid.cols3,.controls{grid-template-columns:1fr}.card{padding:16px}.metric .v{font-size:24px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <a class="brand" href="./app.html"><span class="mark">CL</span><span><b>Claude Usage Lens</b><span>Free, open-source, local-first usage calculator</span></span></a>
+      <div class="navlinks"><a class="btn" href="./">Bryan demo</a><a class="btn" href="https://github.com/TheArtOfSound/claude-usage-dashboard">GitHub</a><a class="btn" href="./PRIVACY.md">Privacy</a></div>
+    </nav>
+
+    <section class="hero">
+      <div class="card">
+        <div class="eyebrow">No signup · no server upload · open source</div>
+        <h1>Put in your Claude usage. See the real token math.</h1>
+        <p class="lede">Import <code>ccusage --json</code> exports, this dashboard's <code>usage.json</code>, or manual model/token counts. Everything runs locally in your browser; your files are not uploaded anywhere.</p>
+        <div class="badges"><span class="badge">Claude Code</span><span class="badge">Anthropic API exports</span><span class="badge">Prompt cache cost</span><span class="badge">Burn-rate projection</span></div>
+      </div>
+      <div class="card">
+        <div id="drop" class="drop">
+          <div>
+            <strong>Drop JSON files here</strong>
+            <p>daily.json, sessions.json, monthly.json, usage.json, or Anthropic usage report JSON.</p>
+            <label class="btn primary" for="fileInput">Choose files</label>
+            <input id="fileInput" type="file" multiple accept=".json,application/json" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section grid cols4" id="metrics">
+      <div class="metric"><div class="v" id="mTokens">0</div><div class="l">Total tokens</div></div>
+      <div class="metric"><div class="v" id="mCost">$0.00</div><div class="l">Estimated cost</div></div>
+      <div class="metric"><div class="v" id="mDays">0</div><div class="l">Active days</div></div>
+      <div class="metric"><div class="v" id="mBurn">$0/day</div><div class="l">Burn rate</div></div>
+    </section>
+
+    <section class="section card">
+      <div class="section-title"><div><h2>Manual calculator</h2><p>Use this when you only know model + token counts.</p></div><button class="btn" id="addManual">Add row</button></div>
+      <div class="controls">
+        <div><label>Model</label><select id="manualModel"></select></div>
+        <div><label>Input tokens</label><input id="manualInput" type="number" min="0" value="1000000" /></div>
+        <div><label>Output tokens</label><input id="manualOutput" type="number" min="0" value="100000" /></div>
+        <div><label>Cache write tokens</label><input id="manualCacheCreate" type="number" min="0" value="0" /></div>
+        <div><label>Cache read tokens</label><input id="manualCacheRead" type="number" min="0" value="0" /></div>
+      </div>
+      <p class="note" style="margin-top:10px">Default cache-write pricing uses the 5-minute cache-write column. Switch to 1-hour cache-write below if your export separates that.</p>
+    </section>
+
+    <section class="section grid cols3">
+      <div class="card"><label>Unknown model fallback</label><select id="fallbackModel"></select><p class="note" style="margin-top:8px">Records without a recognizable model use this price.</p></div>
+      <div class="card"><label>Cache write pricing</label><select id="cacheMode"><option value="cacheWrite5m">5-minute cache writes</option><option value="cacheWrite1h">1-hour cache writes</option></select><p class="note" style="margin-top:8px">ccusage usually reports cache creation tokens but not always the cache TTL.</p></div>
+      <div class="card"><label>Report actions</label><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px"><button class="btn" id="exportReport">Export report JSON</button><button class="btn" id="clearAll">Clear</button></div></div>
+    </section>
+
+    <section class="section card">
+      <div class="section-title"><div><h2>Paste JSON</h2><p>Paste ccusage JSON or Anthropic Admin API response JSON. API keys should never be pasted here.</p></div><button class="btn" id="parsePaste">Parse pasted JSON</button></div>
+      <textarea id="pasteBox" placeholder='Paste JSON here, for example output from: npx ccusage@latest claude daily --json'></textarea>
+    </section>
+
+    <section class="section grid cols3">
+      <div class="card"><h2>Token types</h2><div class="chartbox"><canvas id="tokenChart"></canvas></div></div>
+      <div class="card"><h2>Model cost</h2><div class="chartbox"><canvas id="modelChart"></canvas></div></div>
+      <div class="card"><h2>Daily cost</h2><div class="chartbox"><canvas id="dailyChart"></canvas></div></div>
+    </section>
+
+    <section class="section card">
+      <div class="section-title"><div><h2>Parsed records</h2><p id="recordHint">No records yet.</p></div></div>
+      <div class="table-wrap"><table><thead><tr><th>Source</th><th>Date/session</th><th>Model</th><th>Input</th><th>Output</th><th>Cache write</th><th>Cache read</th><th>Cost</th></tr></thead><tbody id="rows"></tbody></table></div>
+    </section>
+
+    <section class="section card">
+      <div class="section-title"><div><h2>How to get your data</h2><p>Best path for normal Claude Code users is ccusage. Organization admins can also use Anthropic's Admin Usage and Cost APIs.</p></div></div>
+      <div class="grid cols3">
+        <div class="ok"><b>Claude Code local export</b><pre><code>npx ccusage@latest claude daily --json > daily.json
+npx ccusage@latest claude session --json > sessions.json
+npx ccusage@latest claude monthly --json > monthly.json</code></pre></div>
+        <div class="ok"><b>Unified agent export</b><pre><code>npx ccusage@latest daily --json > usage-daily.json
+npx ccusage@latest session --json > usage-sessions.json</code></pre></div>
+        <div class="warning"><b>Anthropic Admin API</b><p>Run the API request locally with an Admin API key, save the JSON, then import the file here. This page does not ask for API keys.</p></div>
+      </div>
+    </section>
+
+    <div class="footer">MIT open-source. Built from Bryan Leonard's Claude usage dashboard, generalized for everyone.</div>
+  </div>
+
+<script>
+const PRICES={
+  "claude-opus-4-8":{label:"Claude Opus 4.8",input:5,cacheWrite5m:6.25,cacheWrite1h:10,cacheRead:.5,output:25,aliases:["opus-4-8","claude-opus-4.8","opus 4.8"]},
+  "claude-opus-4-7":{label:"Claude Opus 4.7",input:5,cacheWrite5m:6.25,cacheWrite1h:10,cacheRead:.5,output:25,aliases:["opus-4-7","claude-opus-4.7","opus 4.7"]},
+  "claude-opus-4-6":{label:"Claude Opus 4.6",input:5,cacheWrite5m:6.25,cacheWrite1h:10,cacheRead:.5,output:25,aliases:["opus-4-6","claude-opus-4.6","opus 4.6"]},
+  "claude-opus-4-5":{label:"Claude Opus 4.5",input:5,cacheWrite5m:6.25,cacheWrite1h:10,cacheRead:.5,output:25,aliases:["opus-4-5","claude-opus-4.5","opus 4.5"]},
+  "claude-opus-4-1":{label:"Claude Opus 4.1 / 4",input:15,cacheWrite5m:18.75,cacheWrite1h:30,cacheRead:1.5,output:75,aliases:["opus-4-1","opus-4","claude-opus-4"]},
+  "claude-sonnet-4-6":{label:"Claude Sonnet 4.6",input:3,cacheWrite5m:3.75,cacheWrite1h:6,cacheRead:.3,output:15,aliases:["sonnet-4-6","claude-sonnet-4.6","sonnet 4.6"]},
+  "claude-sonnet-4-5":{label:"Claude Sonnet 4.5",input:3,cacheWrite5m:3.75,cacheWrite1h:6,cacheRead:.3,output:15,aliases:["sonnet-4-5","claude-sonnet-4.5","sonnet 4.5"]},
+  "claude-sonnet-4":{label:"Claude Sonnet 4",input:3,cacheWrite5m:3.75,cacheWrite1h:6,cacheRead:.3,output:15,aliases:["sonnet-4","claude-sonnet-4","sonnet 4"]},
+  "claude-haiku-4-5":{label:"Claude Haiku 4.5",input:1,cacheWrite5m:1.25,cacheWrite1h:2,cacheRead:.1,output:5,aliases:["haiku-4-5","claude-haiku-4.5","haiku 4.5"]},
+  "claude-haiku-3-5":{label:"Claude Haiku 3.5",input:.8,cacheWrite5m:1,cacheWrite1h:1.6,cacheRead:.08,output:4,aliases:["haiku-3-5","claude-3-5-haiku","haiku 3.5"]}
+};
+let records=[]; let charts={};
+const $=id=>document.getElementById(id);
+const fmt=n=>Number(n||0).toLocaleString();
+const money=n=>'$'+Number(n||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+function priceOptions(){return Object.entries(PRICES).map(([k,p])=>`<option value="${k}">${p.label}</option>`).join('')}
+$('manualModel').innerHTML=priceOptions(); $('fallbackModel').innerHTML=priceOptions(); $('fallbackModel').value='claude-sonnet-4-5';
+function modelKey(name){const raw=(name||'').toString().toLowerCase().replace(/\./g,'-'); for(const [k,p] of Object.entries(PRICES)){if(raw.includes(k)||p.aliases.some(a=>raw.includes(a)))return k;} if(raw.includes('opus'))return 'claude-opus-4-8'; if(raw.includes('sonnet'))return 'claude-sonnet-4-5'; if(raw.includes('haiku'))return 'claude-haiku-4-5'; return $('fallbackModel').value;}
+function calcCost(r){if(Number.isFinite(+r.cost)&&+r.cost>0)return +r.cost; const p=PRICES[modelKey(r.model)]; const cacheMode=$('cacheMode').value; return ((+r.input||0)*p.input+(+r.output||0)*p.output+(+r.cacheCreate||0)*p[cacheMode]+(+r.cacheRead||0)*p.cacheRead)/1_000_000;}
+function normalizeRecord(obj,source,type){const model=obj.modelName||obj.model||obj.model_id||(Array.isArray(obj.modelsUsed)?obj.modelsUsed[0]:undefined)||'unknown'; const input=+(obj.inputTokens||obj.input_tokens||obj.uncachedInputTokens||0); const output=+(obj.outputTokens||obj.output_tokens||0); const cacheCreate=+(obj.cacheCreationTokens||obj.cache_creation_input_tokens||obj.cacheWriteTokens||0); const cacheRead=+(obj.cacheReadTokens||obj.cache_read_input_tokens||obj.cachedInputTokens||0); const total=+(obj.totalTokens||obj.total_tokens||input+output+cacheCreate+cacheRead); const date=obj.date||obj.month||obj.startTime||obj.sessionId||obj.id||type; return {source,type,date,model,input,output,cacheCreate,cacheRead,total,cost:+(obj.totalCost||obj.cost||0)||0,raw:obj};}
+function addBreakdowns(parent,source,type){let added=0; for(const mb of parent.modelBreakdowns||parent.model_breakdowns||[]){records.push(normalizeRecord({...mb,date:parent.date||parent.month||parent.sessionId},source,type+':model')); added++;} return added;}
+function ingest(json,source='import'){if(!json)return; if(Array.isArray(json)){json.forEach(x=>ingest(x,source));return;} if(json.totals&&json.daily){(json.daily||[]).forEach(d=>{if(!addBreakdowns(d,source,'daily'))records.push(normalizeRecord(d,source,'daily'))}); (json.sessions||[]).forEach(s=>records.push(normalizeRecord(s,source,'session'))); return;} if(Array.isArray(json.daily)){json.daily.forEach(d=>{if(!addBreakdowns(d,source,'daily'))records.push(normalizeRecord(d,source,'daily'))});}
+ if(Array.isArray(json.sessions)){json.sessions.forEach(s=>records.push(normalizeRecord(s,source,'session')))}
+ if(Array.isArray(json.monthly)){json.monthly.forEach(m=>{if(!addBreakdowns(m,source,'monthly'))records.push(normalizeRecord(m,source,'monthly'))});}
+ if(Array.isArray(json.data)){json.data.forEach(x=>ingest(x,source));}
+ if(Array.isArray(json.results)){json.results.forEach(x=>ingest(x,source));}
+ if(!json.daily&&!json.sessions&&!json.monthly&&!json.data&&!json.results){records.push(normalizeRecord(json,source,'record'));}
+ render();}
+async function readFiles(files){for(const file of files){try{const text=await file.text();ingest(JSON.parse(text),file.name)}catch(e){alert(`Could not parse ${file.name}: ${e.message}`)}}}
+function totals(){let t={input:0,output:0,cacheCreate:0,cacheRead:0,total:0,cost:0,days:new Set(),models:{},daily:{}}; for(const r of records){const c=calcCost(r); r.computedCost=c; t.input+=r.input;t.output+=r.output;t.cacheCreate+=r.cacheCreate;t.cacheRead+=r.cacheRead;t.total+=r.total||r.input+r.output+r.cacheCreate+r.cacheRead;t.cost+=c; const mk=PRICES[modelKey(r.model)].label; t.models[mk]=(t.models[mk]||0)+c; if(/^\d{4}-\d{2}-\d{2}/.test(r.date)){const day=r.date.slice(0,10);t.days.add(day);t.daily[day]=(t.daily[day]||0)+c;}}return t;}
+function render(){const t=totals(); $('mTokens').textContent=fmt(t.total); $('mCost').textContent=money(t.cost); $('mDays').textContent=fmt(t.days.size); $('mBurn').textContent=money(t.cost/Math.max(t.days.size,1))+'/day'; $('recordHint').textContent=`${records.length} parsed rows · ${fmt(t.total)} tokens · ${money(t.cost)}`; $('rows').innerHTML=records.slice(-250).reverse().map(r=>`<tr><td>${esc(r.source)}</td><td>${esc(String(r.date).slice(0,80))}</td><td>${esc(PRICES[modelKey(r.model)].label)}</td><td>${fmt(r.input)}</td><td>${fmt(r.output)}</td><td>${fmt(r.cacheCreate)}</td><td>${fmt(r.cacheRead)}</td><td>${money(r.computedCost??calcCost(r))}</td></tr>`).join(''); drawCharts(t);}
+function esc(s){return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function chart(id,type,data,options={}){if(charts[id])charts[id].destroy(); charts[id]=new Chart($(id),{type,data,options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#cbd5e1'}}},scales:type==='doughnut'?{}:{x:{ticks:{color:'#94a3b8'},grid:{color:'rgba(255,255,255,.05)'}},y:{ticks:{color:'#94a3b8'},grid:{color:'rgba(255,255,255,.05)'}}},...options}})}
+function drawCharts(t){chart('tokenChart','doughnut',{labels:['Input','Output','Cache write','Cache read'],datasets:[{data:[t.input,t.output,t.cacheCreate,t.cacheRead]}]}); chart('modelChart','bar',{labels:Object.keys(t.models),datasets:[{label:'Cost',data:Object.values(t.models)}]}); const days=Object.keys(t.daily).sort(); chart('dailyChart','line',{labels:days,datasets:[{label:'Daily cost',data:days.map(d=>t.daily[d]),tension:.25}]});}
+$('fileInput').addEventListener('change',e=>readFiles(e.target.files)); ['dragenter','dragover'].forEach(ev=>$('drop').addEventListener(ev,e=>{e.preventDefault();$('drop').classList.add('drag')})); ['dragleave','drop'].forEach(ev=>$('drop').addEventListener(ev,e=>{e.preventDefault();$('drop').classList.remove('drag')})); $('drop').addEventListener('drop',e=>readFiles(e.dataTransfer.files));
+$('parsePaste').onclick=()=>{try{ingest(JSON.parse($('pasteBox').value),'pasted JSON')}catch(e){alert('Invalid JSON: '+e.message)}};
+$('addManual').onclick=()=>{records.push({source:'manual',type:'manual',date:new Date().toISOString().slice(0,10),model:$('manualModel').value,input:+$('manualInput').value||0,output:+$('manualOutput').value||0,cacheCreate:+$('manualCacheCreate').value||0,cacheRead:+$('manualCacheRead').value||0,total:(+$('manualInput').value||0)+(+$('manualOutput').value||0)+(+$('manualCacheCreate').value||0)+(+$('manualCacheRead').value||0),cost:0});render();};
+$('clearAll').onclick=()=>{records=[];render()}; $('cacheMode').onchange=render; $('fallbackModel').onchange=render;
+$('exportReport').onclick=()=>{const out={generated_at:new Date().toISOString(),pricing_source:'Anthropic public pricing table, embedded snapshot',totals:totals(),records}; const blob=new Blob([JSON.stringify(out,null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='claude-usage-lens-report.json'; a.click(); URL.revokeObjectURL(a.href);};
+render();
+</script>
+</body>
+</html>
